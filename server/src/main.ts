@@ -1,12 +1,15 @@
-import { fetchMarket } from './utils/fetchMarket'
+import Fastify from 'fastify'
+import { getAsset } from './routes/getAsset'
 
-const test = async () => {
-  const res = await fetchMarket(
-    'companies/6505/market_ratios?period_init=2023-08-22',
-  )
-  if (res.ok) {
-    console.log(res.data)
+const fastify = Fastify({
+  logger: true,
+})
+
+fastify.register(getAsset)
+
+fastify.listen({ port: 3001 }, (err) => {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
   }
-}
-
-test()
+})
