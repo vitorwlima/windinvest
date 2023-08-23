@@ -1,4 +1,4 @@
 {
-  "extends": ["@rocketseat/eslint-config/next", "next/core-web-vitals"],
+  "extends": ["@rocketseat/eslint-config/next", "plugin:tailwindcss/recommended", "next/core-web-vitals"],
   "ignorePatterns": ["next.config.js", "postcss.config.js"]
 }
