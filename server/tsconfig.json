@@ -3,12 +3,14 @@
     "target": "ES2016",
     "module": "commonjs",
     "rootDir": "./",
-    "baseUrl": "./src",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "src/*": ["./src/*"]
+    }
   }
 }

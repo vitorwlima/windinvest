@@ -1,15 +1,12 @@
-import yahooFinance from "yahoo-finance2";
+import { fetchMarket } from './utils/fetchMarket'
 
 const test = async () => {
-  const quoteResult = await yahooFinance.quote(`BLAU3.SA`);
-  const quoteSummaryResult = await yahooFinance.quoteSummary(`BLAU3.SA`, {
-    modules: ["financialData"],
-  });
+  const res = await fetchMarket(
+    'companies/6505/market_ratios?period_init=2023-08-22',
+  )
+  if (res.ok) {
+    console.log(res.data)
+  }
+}
 
-  const pvp = quoteResult.priceToBook;
-  const pl = quoteResult.trailingPE;
-
-  console.dir({ quoteResult, quoteSummaryResult, pvp, pl }, { depth: null });
-};
-
-test();
+test()

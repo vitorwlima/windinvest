@@ -4,21 +4,20 @@
   "description": "",
   "main": "main.ts",
   "scripts": {
-    "start:dev": "tsx watch src/main.ts",
-    "populate_assets": "tsx src/scripts/populate_assets.ts"
+    "start:dev": "tsx watch src/main.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@rocketseat/eslint-config": "^2.1.0",
     "@types/node": "^20.5.0",
-    "prisma": "^5.1.1",
+    "eslint": "^8.47.0",
     "tsx": "^3.12.7",
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "@prisma/client": "5.1.1",
-    "csv-parse": "^5.4.0",
-    "yahoo-finance2": "^2.4.4"
+    "dotenv": "^16.3.1",
+    "zod": "^3.22.2"
   }
 }
