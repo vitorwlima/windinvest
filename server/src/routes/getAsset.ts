@@ -3,7 +3,7 @@ import { fetchMarket } from 'src/lib/fetchMarket'
 
 export const getAsset = async (fastify: FastifyInstance) => {
   fastify.get<{ Params: { ticker: string } }>(
-    '/:ticker',
+    '/asset/:ticker',
     async (request, reply) => {
       const { ticker } = request.params
 
@@ -44,7 +44,7 @@ export const getAsset = async (fastify: FastifyInstance) => {
       }
 
       reply.code(200)
-      return data
+      return { ok: true, data }
     },
   )
 }
