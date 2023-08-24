@@ -1,32 +1,46 @@
-import { startOfYesterday } from 'date-fns'
 import { FastifyInstance } from 'fastify'
-import { fetchMarket } from 'src/utils/fetchMarket'
+import { fetchMarket } from 'src/lib/fetchMarket'
 
 export const getAsset = async (fastify: FastifyInstance) => {
-  fastify.get<{ Params: { asset: string } }>(
-    '/:asset',
+  fastify.get<{ Params: { ticker: string } }>(
+    '/:ticker',
     async (request, reply) => {
-      const yesterdayOrFridayIfWeekend = startOfYesterday()
-        .toISOString()
-        .split('T')[0]
-      const { data: allMarketRatios } = await fetchMarket(
-        `companies/${request.params.asset}/market_ratios?period_init=${yesterdayOrFridayIfWeekend}`,
-      )
+      const { ticker } = request.params
+
+      const company = await fetchMarket.companies.getCompany({ ticker })
+
+      if (!company.ok) {
+        reply.code(500)
+        return { ok: false, error: 'Houve um erro ao buscar esse ativo.' }
+      }
 
       await new Promise((resolve) => setTimeout(resolve, 1000))
 
-      const { data: allRatios } = await fetchMarket(
-        `companies/${request.params.asset}/ratios`,
+      const marketRatio = await fetchMarket.companies.getLastCompanyMarketRatio(
+        {
+          ticker,
+        },
       )
 
-      const marketRatios = allMarketRatios.find(
-        (ratio: any) => ratio.ticker === request.params.asset,
-      )
+      if (!marketRatio.ok) {
+        reply.code(500)
+        return { ok: false, error: 'Houve um erro ao buscar esse ativo.' }
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+
+      const financialRatio =
+        await fetchMarket.companies.getLastCompanyFinancialRatio({ ticker })
+
+      if (!financialRatio.ok) {
+        reply.code(500)
+        return { ok: false, error: 'Houve um erro ao buscar esse ativo.' }
+      }
 
       const data = {
-        name: 'Nome da empresa', // fazer obj pra nao precisar fazer fetch disso
-        ...marketRatios,
-        allRatios,
+        company: company.data, // fazer obj pra nao precisar fazer fetch disso
+        marketRatio: marketRatio.data,
+        financialRatio: financialRatio.data,
       }
 
       reply.code(200)
