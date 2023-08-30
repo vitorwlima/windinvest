@@ -1,13 +1,17 @@
+import APIDadosDeMercado from 'api-dadosdemercado'
 import { FastifyInstance } from 'fastify'
+import { ENV } from 'src/env'
 import { fetchMarket } from 'src/lib/fetchMarket'
 
 export const getAsset = async (fastify: FastifyInstance) => {
   fastify.get<{ Params: { ticker: string } }>(
     '/asset/:ticker',
     async (request, reply) => {
+      const API = new APIDadosDeMercado({ token: ENV.MARKET_API_TOKEN })
+
       const { ticker } = request.params
 
-      const company = await fetchMarket.companies.getCompany({ ticker })
+      const company = await API.companies.getCompany({ ticker })
 
       if (!company.ok) {
         reply.code(500)
