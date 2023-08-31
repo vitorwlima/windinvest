@@ -26,7 +26,10 @@ export const Asset: React.FC<Props> = ({ ticker }) => {
   return (
     <main>
       <AssetHeader ticker={ticker} companyName={asset.about.name} />
-      <AssetIntroductionData asset={formattedAsset} />
+
+      <div className="px-2">
+        <AssetIntroductionData asset={formattedAsset} />
+      </div>
     </main>
   )
 }

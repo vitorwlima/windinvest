@@ -30,9 +30,14 @@ export const AssetIntroductionData: React.FC<Props> = ({ asset }) => {
   ]
 
   return (
-    <section className="mx-auto mt-12 grid max-w-6xl grid-cols-1 gap-4 lg:grid-cols-5">
-      {cardsData.map(({ title, data }) => (
-        <DataCard key={title} title={title} data={data} />
+    <section className="mx-auto mt-12 grid max-w-6xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      {cardsData.map(({ title, data }, index) => (
+        <DataCard
+          key={title}
+          title={title}
+          data={data}
+          isLast={index === cardsData.length - 1}
+        />
       ))}
     </section>
   )
