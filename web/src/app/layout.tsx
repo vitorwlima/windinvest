@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Nunito } from 'next/font/google'
+import { Header } from 'src/components/Header'
 import { QueryProvider } from './QueryProvider'
 import './globals.css'
 
@@ -16,7 +17,10 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="pt" className="bg-neutral-900 text-white">
       <QueryProvider>
-        <body className={nunito.className}>{children}</body>
+        <body className={`min-h-screen ${nunito.className}`}>
+          <Header />
+          {children}
+        </body>
       </QueryProvider>
     </html>
   )
