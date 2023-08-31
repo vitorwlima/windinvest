@@ -1,11 +1,11 @@
 type Props = {
   title: string
-  data: string | number
+  data: string | number | null
 }
 
 export const DataCard: React.FC<Props> = ({ title, data }) => {
   const formattedData =
-    typeof data === 'string' ? data : data.toFixed(2).replace('.', ',')
+    typeof data === 'string' ? data : data?.toFixed(2).replace('.', ',')
 
   return (
     <div className="flex flex-col items-center overflow-hidden rounded-xl font-bold">

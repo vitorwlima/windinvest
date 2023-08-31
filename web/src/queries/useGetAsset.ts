@@ -5,71 +5,58 @@ type GetAssetArgs = {
   ticker: string
 }
 
-type Asset = {
-  company: {
+export type Asset = {
+  about: {
     name: string
-    trade_name: string
-    cvm_code: number
-    cnpj: string
-    founding_date: string
-    main_activity: string
-    website: string
-    controlling_interest: string
-    is_state_owned: boolean
-    is_foreign: boolean
-    is_b3_listed: boolean
-    b3_issuer_code: string
-    b3_listing_segment: string
-    b3_sector: string
-    b3_subsector: string
-    b3_segment: string
-    about: string
   }
-  marketRatio: {
-    cvm_code: number
-    ticker: string
-    reference_date: string
-    shares: number
-    price: number
-    earnings_per_share: number
-    equity_per_share: number
-    ebit_per_share: number
-    assets_per_share: number
-    net_sales_per_share: number
-    price_earnings: number
-    price_to_book: number
-    price_to_sales: number
-    price_to_cash_flow: number
+  valuation: {
+    price: number | null
+    dividendYield: number | null
+    changeInLast12Months: number | null
+    priceToProfitRatio: number | null
+    pegRatio: number | null
+    priceToBookRatio: number | null
+    evToEbitdaRatio: number | null
+    evToEbitRatio: number | null
+    priceToEbitdaRatio: number | null
+    priceToEbitRatio: number | null
+    bookValuePerShare: number | null
+    priceToAssets: number | null
+    profitByShare: number | null
+    priceToSalesRatio: number | null
+    priceToCapitalRatio: number | null
+    priceToLiquidAsset: number | null
   }
-  financialRatio: {
-    cvm_code: number
-    statement_type: string
-    period_init: string
-    period_end: string
-    period_type: string
-    gross_margin: number
-    net_margin: number
-    ebit_margin: number
-    operating_margin: number
-    return_on_equity: number
-    return_on_assets: number
-    asset_turnover: number
-    current_liquidity: number
-    quick_liquidity: number
-    cash_liquidity: number
-    working_capital: number
-    gross_debt: number
-    net_debt: number
-    total_debt: number
-    ebitda: number
-    ebitda_margin: number
+  debt: {
+    netDebtToEquityRatio: number | null
+    netDebtToEbitdaRatio: number | null
+    netDebtToEbitRatio: number | null
+    equityToAssetsRatio: number | null
+    liabilitiesToAssetsRatio: number | null
+    currentLiquidity: number | null
+  }
+  efficiency: {
+    grossMargin: number | null
+    ebitdaMargin: number | null
+    ebitMargin: number | null
+    netMargin: number | null
+  }
+  profitability: {
+    returnOnEquity: number | null
+    returnOnAssets: number | null
+    returnOnInvestedCapital: number | null
+    assetTurnover: number | null
+  }
+  growth: {
+    cagrRevenue5Years: number | null
+    cagrProfits5Years: number | null
   }
 }
 
 type AssetResponse =
   | {
       ok: false
-      error: string
+      error: unknown
     }
   | {
       ok: true
