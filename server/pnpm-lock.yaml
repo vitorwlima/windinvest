@@ -8,6 +8,9 @@ dependencies:
   '@fastify/cors':
     specifier: ^8.3.0
     version: 8.3.0
+  b3-scraper:
+    specifier: ^1.1.1
+    version: 1.1.1
   date-fns:
     specifier: ^2.30.0
     version: 2.30.0
@@ -833,6 +836,17 @@ packages:
     dependencies:
       dequal: 2.0.3
     dev: true
+
+  /b3-scraper@1.1.1:
+    resolution: {integrity: sha512-R2yzgAprIzmQShGz+LDO1IIUokl0y0qRhUU9H5RZauMu4ChfyqjSAhvzAgdncY30t6EUOjg7fPmKZCsUBLjOJg==}
+    dependencies:
+      puppeteer: 21.1.1
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - supports-color
+      - utf-8-validate
+    dev: false
 
   /b4a@1.6.4:
     resolution: {integrity: sha512-fpWrvyVHEKyeEvbKZTVOeZF3VSKKWtJxFIxX/jaVPf+cLbGUSitjb49pHLqPV2BUNNZ0LcoeEGfE/YCpyDYHIw==}

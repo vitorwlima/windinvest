@@ -1,40 +1,30 @@
-import { Stock } from './statusInvest'
+import { Stock } from 'b3-scraper/dist/@types/stock'
 
 const getValuationScore = (valuation: Stock['valuation']) => {
   if (
     valuation.evToEbitRatio === null ||
-    valuation.evToEbitdaRatio === null ||
     valuation.dividendYield === null ||
     valuation.priceToBookRatio === null ||
     valuation.priceToProfitRatio === null
   ) {
     return null
   }
-  const averageEvToEbit =
-    (valuation.evToEbitRatio + valuation.evToEbitdaRatio) / 2
 
   const score =
     Math.sqrt(valuation.dividendYield || 1) /
     (valuation.priceToProfitRatio *
       valuation.priceToBookRatio *
-      averageEvToEbit)
+      valuation.evToEbitRatio)
 
   return score * 1000
 }
 
 const getEfficiencyScore = (efficiency: Stock['efficiency']) => {
-  if (
-    efficiency.ebitMargin === null ||
-    efficiency.ebitdaMargin === null ||
-    efficiency.netMargin === null
-  ) {
+  if (efficiency.ebitMargin === null || efficiency.netMargin === null) {
     return null
   }
 
-  const averageEbitMargins =
-    (efficiency.ebitMargin + efficiency.ebitdaMargin) / 2
-
-  const score = (averageEbitMargins + efficiency.netMargin) / 2
+  const score = (efficiency.ebitMargin + efficiency.netMargin) / 2
 
   return score
 }
@@ -52,7 +42,6 @@ const getDebtScore = (debt: Stock['debt']) => {
 const getProfitabilityScore = (profitability: Stock['profitability']) => {
   if (
     profitability.returnOnEquity === null ||
-    profitability.returnOnAssets === null ||
     profitability.returnOnInvestedCapital === null ||
     profitability.assetTurnover === null
   ) {
@@ -61,9 +50,7 @@ const getProfitabilityScore = (profitability: Stock['profitability']) => {
 
   const score =
     Math.sqrt(
-      profitability.returnOnEquity *
-        profitability.returnOnAssets *
-        profitability.returnOnInvestedCapital,
+      profitability.returnOnEquity * profitability.returnOnInvestedCapital,
     ) * profitability.assetTurnover
 
   return score

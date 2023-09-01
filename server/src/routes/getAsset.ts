@@ -1,6 +1,6 @@
+import { B3Scraper } from 'b3-scraper'
 import { FastifyInstance } from 'fastify'
 import { getWindScore } from 'src/lib/getWindScore'
-import { StatusInvest } from 'src/lib/statusInvest'
 
 export const getAsset = async (fastify: FastifyInstance) => {
   fastify.get<{ Params: { ticker: string } }>(
@@ -8,7 +8,7 @@ export const getAsset = async (fastify: FastifyInstance) => {
     async (request, reply) => {
       try {
         const { ticker } = request.params
-        const stock = await StatusInvest.getStock({ ticker, showLogs: true })
+        const stock = await B3Scraper.getStock({ ticker, showLogs: true })
 
         if (!stock) {
           reply.code(404)
