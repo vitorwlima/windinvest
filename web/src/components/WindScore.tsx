@@ -10,6 +10,7 @@ type Props = {
 }
 
 export const WindScore: React.FC<Props> = ({ asset }) => {
+  const { holderChecklist } = asset.windScore
   const windScore = [
     { title: 'Valuation', score: asset.windScore.valuation },
     { title: 'Eficiência', score: asset.windScore.efficiency },
@@ -20,21 +21,19 @@ export const WindScore: React.FC<Props> = ({ asset }) => {
   const checkList = [
     {
       title: 'Empresa com liquidez diária acima de R$ 2M',
-      check: true, // update it with status-invest-api
+      check: holderChecklist.liquidity,
     },
     {
       title: 'Empresa com ROE acima de 10%',
-      check:
-        asset.profitability.returnOnEquity !== null &&
-        asset.profitability.returnOnEquity > 10,
+      check: holderChecklist.roe,
     },
     {
       title: 'Empresa com dívida menor que patrimônio',
-      check: true, // update it with status-invest-api
+      check: holderChecklist.debt,
     },
     {
-      title: 'Empresa com lucro nos últimos 5 anos',
-      check: false, // update it with status-invest-api
+      title: 'Empresa com lucro no último ano',
+      check: holderChecklist.profit,
     },
   ]
 

@@ -44,6 +44,12 @@ export type Asset = {
     efficiency: number | null
     debt: number | null
     profitability: number | null
+    holderChecklist: {
+      liquidity: boolean
+      debt: boolean
+      roe: boolean
+      profit: boolean
+    }
   }
 }
 
