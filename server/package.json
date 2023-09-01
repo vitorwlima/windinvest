@@ -5,7 +5,7 @@
   "main": "main.ts",
   "scripts": {
     "dev": "tsx watch src/main.ts",
-    "start": "node node_modules/puppeteer/install.js && tsx src/main.ts"
+    "start": "tsx src/main.ts"
   },
   "keywords": [],
   "author": "",
@@ -23,7 +23,6 @@
     "dotenv": "^16.3.1",
     "fastify": "^4.21.0",
     "puppeteer": "^21.1.1",
-    "status-invest-api": "^1.0.5",
     "zod": "^3.22.2"
   }
 }

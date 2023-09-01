@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify'
 import { getWindScore } from 'src/lib/getWindScore'
-import { StatusInvest } from 'status-invest-api'
+import { StatusInvest } from 'src/lib/statusInvest'
 
 export const getAsset = async (fastify: FastifyInstance) => {
   fastify.get<{ Params: { ticker: string } }>(

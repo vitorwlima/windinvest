@@ -20,9 +20,6 @@ dependencies:
   puppeteer:
     specifier: ^21.1.1
     version: 21.1.1
-  status-invest-api:
-    specifier: ^1.0.5
-    version: 1.0.5
   zod:
     specifier: ^3.22.2
     version: 3.22.2
@@ -3172,17 +3169,6 @@ packages:
   /split2@4.2.0:
     resolution: {integrity: sha512-UcjcJOWknrNkF6PLX83qcHM6KHgVKNkV62Y8a5uYDVv9ydGQVwAHMKqHdJje1VTWpljG0WYpCDhrCdAOYH4TWg==}
     engines: {node: '>= 10.x'}
-    dev: false
-
-  /status-invest-api@1.0.5:
-    resolution: {integrity: sha512-rm09fek5CCA3iyrVV+abLcno3sa4L2W3cHGbyJS6I8a6L1ULaeUmCffT3bwkFLZ3+gSt86geQk1xO0ZxnOWVkg==}
-    dependencies:
-      puppeteer: 21.1.1
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - supports-color
-      - utf-8-validate
     dev: false
 
   /streamx@2.15.1:

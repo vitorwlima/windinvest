@@ -1,4 +1,4 @@
-import { Stock } from 'status-invest-api/dist/@types/stock'
+import { Stock } from './statusInvest'
 
 const getValuationScore = (valuation: Stock['valuation']) => {
   if (
