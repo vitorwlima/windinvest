@@ -5,7 +5,7 @@
   "main": "main.ts",
   "scripts": {
     "dev": "tsx watch src/main.ts",
-    "start": "node node_modules/puppeteer/install.js && tsx src/main.ts"
+    "start": "tsx src/main.ts"
   },
   "keywords": [],
   "author": "",

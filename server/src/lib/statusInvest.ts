@@ -121,9 +121,9 @@ export const StatusInvest = {
       log(`Getting stock data for ${ticker}`)
 
       const browser = await puppeteer.launch({
-        headless: 'new',
-        defaultViewport: null,
-        args: ['--no-sandbox'],
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        ignoreDefaultArgs: ['--disable-extensions'],
       })
       log('Browser launched: ', browser)
 
