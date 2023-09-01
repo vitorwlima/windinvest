@@ -118,17 +118,17 @@ export const StatusInvest = {
           // do nothing
         }
     try {
-      log(`Getting stock data for ${ticker}`)
+      log(`[StatusInvest] - Getting stock data for ${ticker}`)
 
       const browser = await puppeteer.launch({
         headless: true,
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
         ignoreDefaultArgs: ['--disable-extensions'],
       })
-      log('Browser launched: ', browser)
+      log('[StatusInvest] - Browser launched')
 
       const page = await browser.newPage()
-      log('Page created: ', page)
+      log('[StatusInvest] - Page created')
 
       await page.setExtraHTTPHeaders({
         accept: '*/*',
@@ -146,22 +146,25 @@ export const StatusInvest = {
         'user-agent':
           'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko)',
       })
-      log('Page headers set')
+      log('[StatusInvest] - Page headers set')
 
       await page.goto(`https://statusinvest.com.br/acoes/${ticker}`, {
         waitUntil: 'networkidle2',
       })
-      log('Page loaded')
+      log('[StatusInvest] - Page loaded')
+
+      await page.waitForFunction('document.querySelector(".value")')
+      log('[StatusInvest] - Found value element')
 
       const stock = await page.evaluate(onPageEvaluate)
-      log('Stock data extracted: ', stock)
+      log('[StatusInvest] - Stock data extracted')
 
       await browser.close()
-      log('Browser closed')
+      log('[StatusInvest] - Browser closed')
 
       return stock
     } catch (e) {
-      log('Error: ', e)
+      log('[StatusInvest] - Error: ', e)
     }
   },
 }
