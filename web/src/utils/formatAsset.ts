@@ -5,7 +5,24 @@ import { formatToRatio } from './formatToRatio'
 
 export type FormattedAsset = {
   about: {
+    ticker: string
     name: string
+    averageLiquidity: string
+    sector: string
+    subSector: string
+    numberOfShares: string
+  }
+  balance: {
+    marketValue: string
+    enterpriseValue: string
+    netIncome: string
+    ebit: string
+    netProfit: string
+    assets: string
+    currentAssets: string
+    grossDebt: string
+    netDebt: string
+    netWorth: string
   }
   valuation: {
     price: string
@@ -37,12 +54,7 @@ export type FormattedAsset = {
     returnOnInvestedCapital: string
     assetTurnover: string
   }
-  windScore: {
-    valuation: number | null
-    efficiency: number | null
-    debt: number | null
-    profitability: number | null
-  }
+  windScore: Asset['windScore']
 }
 
 const getBRLFormattedValue = (value: number | null): string => {
@@ -60,7 +72,24 @@ const getRatioFormattedValue = (value: number | null): string => {
 export const formatAsset = (asset: Asset): FormattedAsset => {
   return {
     about: {
-      name: asset.about.name,
+      name: asset.about.name || 'N/A',
+      ticker: asset.about.ticker?.toUpperCase() || 'N/A',
+      sector: asset.about.sector || 'N/A',
+      subSector: asset.about.subSector || 'N/A',
+      averageLiquidity: getBRLFormattedValue(asset.about.averageLiquidity),
+      numberOfShares: getRatioFormattedValue(asset.about.numberOfShares),
+    },
+    balance: {
+      assets: getBRLFormattedValue(asset.balance.assets),
+      currentAssets: getBRLFormattedValue(asset.balance.currentAssets),
+      enterpriseValue: getBRLFormattedValue(asset.balance.enterpriseValue),
+      ebit: getBRLFormattedValue(asset.balance.ebit),
+      grossDebt: getBRLFormattedValue(asset.balance.grossDebt),
+      marketValue: getBRLFormattedValue(asset.balance.marketValue),
+      netDebt: getBRLFormattedValue(asset.balance.netDebt),
+      netIncome: getBRLFormattedValue(asset.balance.netIncome),
+      netProfit: getBRLFormattedValue(asset.balance.netProfit),
+      netWorth: getBRLFormattedValue(asset.balance.netWorth),
     },
     valuation: {
       price: getBRLFormattedValue(asset.valuation.price),

@@ -6,34 +6,33 @@ import { Asset } from 'src/queries/useGetAsset'
 import { formatToRatio } from 'src/utils/formatToRatio'
 
 type Props = {
-  asset: Asset
+  windScore: Asset['windScore']
 }
 
-export const WindScore: React.FC<Props> = ({ asset }) => {
-  const { holderChecklist } = asset.windScore
-  const windScore = [
-    { title: 'Valuation', score: asset.windScore.valuation },
-    { title: 'Eficiência', score: asset.windScore.efficiency },
-    { title: 'Lucratividade', score: asset.windScore.profitability },
-    { title: 'Saúde Financeira', score: asset.windScore.debt },
+export const WindScore: React.FC<Props> = ({ windScore }) => {
+  const scoreData = [
+    { title: 'Valuation', score: windScore.valuation },
+    { title: 'Eficiência', score: windScore.efficiency },
+    { title: 'Lucratividade', score: windScore.profitability },
+    { title: 'Saúde Financeira', score: windScore.debt },
   ]
 
   const checkList = [
     {
       title: 'Empresa com liquidez diária acima de R$ 2M',
-      check: holderChecklist.liquidity,
+      check: windScore.holderChecklist.liquidity,
     },
     {
       title: 'Empresa com ROE acima de 10%',
-      check: holderChecklist.roe,
+      check: windScore.holderChecklist.roe,
     },
     {
       title: 'Empresa com dívida menor que patrimônio',
-      check: holderChecklist.debt,
+      check: windScore.holderChecklist.debt,
     },
     {
       title: 'Empresa com lucro no último ano',
-      check: holderChecklist.profit,
+      check: windScore.holderChecklist.profit,
     },
   ]
 
@@ -63,7 +62,7 @@ export const WindScore: React.FC<Props> = ({ asset }) => {
       </section>
 
       <section className="grid grid-cols-1 place-items-center gap-4 p-4 sm:grid-cols-2 md:grid-cols-4">
-        {windScore.map(({ title, score }) => (
+        {scoreData.map(({ title, score }) => (
           <div key={title} className="flex flex-col items-center">
             <p className="text-lg font-bold text-green-500">{title}</p>
             <strong>{score === null ? 'N/A' : formatToRatio(score)}</strong>

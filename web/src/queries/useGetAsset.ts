@@ -7,7 +7,24 @@ type GetAssetArgs = {
 
 export type Asset = {
   about: {
-    name: string
+    ticker: string | null
+    name: string | null
+    averageLiquidity: number | null
+    sector: string | null
+    subSector: string | null
+    numberOfShares: number | null
+  }
+  balance: {
+    marketValue: number | null
+    enterpriseValue: number | null
+    netIncome: number | null
+    ebit: number | null
+    netProfit: number | null
+    assets: number | null
+    currentAssets: number | null
+    grossDebt: number | null
+    netDebt: number | null
+    netWorth: number | null
   }
   valuation: {
     price: number | null
