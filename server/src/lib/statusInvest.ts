@@ -149,7 +149,7 @@ export const StatusInvest = {
       log('Page headers set')
 
       await page.goto(`https://statusinvest.com.br/acoes/${ticker}`, {
-        waitUntil: 'domcontentloaded',
+        waitUntil: 'networkidle2',
       })
       log('Page loaded')
 
