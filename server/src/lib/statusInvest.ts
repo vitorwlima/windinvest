@@ -123,6 +123,7 @@ export const StatusInvest = {
       const browser = await puppeteer.launch({
         headless: 'new',
         defaultViewport: null,
+        args: ['--no-sandbox'],
       })
       log('Browser launched: ', browser)
 
