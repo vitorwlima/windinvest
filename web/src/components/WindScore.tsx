@@ -37,7 +37,7 @@ export const WindScore: React.FC<Props> = ({ windScore }) => {
   ]
 
   return (
-    <div className="mx-auto mt-12 grid max-w-6xl rounded-xl rounded-t-none border-t-4 border-green-500 bg-neutral-800 pt-4">
+    <div className="mx-auto mt-12 grid max-w-6xl rounded-2xl rounded-t-none border-t-4 border-green-500 bg-neutral-800 pt-4">
       <header className="border-b border-neutral-500">
         <h3 className="px-4 pb-4 text-2xl font-bold">Ranking Wind</h3>
       </header>
