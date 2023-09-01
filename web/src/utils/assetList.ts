@@ -221,7 +221,6 @@ export const assetList = [
   'SHOW3',
   'SANB4',
   'IGTI3',
-  'IGTI3',
   'TFCO4',
   'SGPS3',
   'SYNE3',
@@ -370,7 +369,6 @@ export const assetList = [
   'BRKM6',
   'AFLT3',
   'CRPG3',
-  'IGTI4',
   'IGTI4',
   'CALI3',
   'PLAS3',
@@ -530,4 +528,4 @@ export const assetList = [
   'MGEL3',
   'CTSA8',
   'MMAQ4',
-]
+].sort()

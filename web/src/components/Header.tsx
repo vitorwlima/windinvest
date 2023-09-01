@@ -1,6 +1,6 @@
 import { ChartBarSquareIcon, UserCircleIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
-import { Input } from './Input'
+import { SearchAsset } from './SearchAsset'
 
 export const Header: React.FC = () => {
   return (
@@ -11,7 +11,7 @@ export const Header: React.FC = () => {
           <h1 className="text-4xl font-bold tracking-wider">Stockz</h1>
         </Link>
         <section className="flex w-full max-w-md items-center gap-8">
-          <Input placeholder="Procure um ativo..." />
+          <SearchAsset />
           <UserCircleIcon className="h-12 w-12" />
         </section>
       </div>
