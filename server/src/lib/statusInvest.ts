@@ -54,55 +54,53 @@ export type Stock = {
 }
 
 export const onPageEvaluate = () => {
-  const values = Array.from(document.querySelectorAll('.value')).map(
+  const values = Array.from(document.querySelectorAll('.data')).map(
     (el) => el.innerHTML,
   )
   const about = {
-    name: document.querySelector('h1 small')!.innerHTML,
+    name: 'test',
   }
   const valuation = {
-    price: Number(values[0].replace(',', '.')),
-    dividendYield: Number(values[3].replace(',', '.')),
-    changeInLast12Months: Number(values[4].replace(',', '.').replace('%', '')),
-    priceToProfitRatio: Number(values[11].replace(',', '.')),
-    pegRatio: Number(values[12].replace(',', '.')),
-    priceToBookRatio: Number(values[13].replace(',', '.')),
-    evToEbitdaRatio: Number(values[14].replace(',', '.')),
-    evToEbitRatio: Number(values[15].replace(',', '.')),
-    priceToEbitdaRatio: Number(values[16].replace(',', '.')),
-    priceToEbitRatio: Number(values[17].replace(',', '.')),
-    bookValuePerShare: Number(values[18].replace(',', '.')),
-    priceToAssets: Number(values[19].replace(',', '.')),
-    profitByShare: Number(values[20].replace(',', '.')),
-    priceToSalesRatio: Number(values[21].replace(',', '.')),
-    priceToCapitalRatio: Number(values[22].replace(',', '.')),
-    priceToLiquidAsset: Number(values[23].replace(',', '.')),
+    price: values.toString(),
+    dividendYield: 0,
+    changeInLast12Months: 0,
+    priceToProfitRatio: 0,
+    pegRatio: 0,
+    priceToBookRatio: 0,
+    evToEbitdaRatio: 0,
+    evToEbitRatio: 0,
+    priceToEbitdaRatio: 0,
+    priceToEbitRatio: 0,
+    bookValuePerShare: 0,
+    priceToAssets: 0,
+    profitByShare: 0,
+    priceToSalesRatio: 0,
+    priceToCapitalRatio: 0,
+    priceToLiquidAsset: 0,
   }
   const debt = {
-    netDebtToEquityRatio: Number(values[24].replace(',', '.')),
-    netDebtToEbitdaRatio: Number(values[25].replace(',', '.')),
-    netDebtToEbitRatio: Number(values[26].replace(',', '.')),
-    equityToAssetsRatio: Number(values[27].replace(',', '.')),
-    liabilitiesToAssetsRatio: Number(values[28].replace(',', '.')),
-    currentLiquidity: Number(values[29].replace(',', '.')),
+    netDebtToEquityRatio: 0,
+    netDebtToEbitdaRatio: 0,
+    netDebtToEbitRatio: 0,
+    equityToAssetsRatio: 0,
+    liabilitiesToAssetsRatio: 0,
+    currentLiquidity: 0,
   }
   const efficiency = {
-    grossMargin: Number(values[30].replace(',', '.').replace('%', '')),
-    ebitdaMargin: Number(values[31].replace(',', '.').replace('%', '')),
-    ebitMargin: Number(values[32].replace(',', '.').replace('%', '')),
-    netMargin: Number(values[33].replace(',', '.').replace('%', '')),
+    grossMargin: 0,
+    ebitdaMargin: 0,
+    ebitMargin: 0,
+    netMargin: 0,
   }
   const profitability = {
-    returnOnEquity: Number(values[34].replace(',', '.').replace('%', '')),
-    returnOnAssets: Number(values[35].replace(',', '.').replace('%', '')),
-    returnOnInvestedCapital: Number(
-      values[36].replace(',', '.').replace('%', ''),
-    ),
-    assetTurnover: Number(values[37].replace(',', '.').replace('%', '')),
+    returnOnEquity: 0,
+    returnOnAssets: 0,
+    returnOnInvestedCapital: 0,
+    assetTurnover: 0,
   }
   const growth = {
-    cagrRevenue5Years: Number(values[38].replace(',', '.').replace('%', '')),
-    cagrProfits5Years: Number(values[39].replace(',', '.').replace('%', '')),
+    cagrRevenue5Years: 0,
+    cagrProfits5Years: 0,
   }
   return { about, valuation, debt, efficiency, profitability, growth }
 }
@@ -148,13 +146,13 @@ export const StatusInvest = {
       })
       log('[StatusInvest] - Page headers set')
 
-      await page.goto(`https://statusinvest.com.br/acoes/${ticker}`, {
-        waitUntil: 'networkidle2',
-      })
+      await page.goto(
+        `https://www.fundamentus.com.br/detalhes.php?papel=${ticker}`,
+        {
+          waitUntil: 'domcontentloaded',
+        },
+      )
       log('[StatusInvest] - Page loaded')
-
-      await page.waitForFunction('document.querySelector(".value")')
-      log('[StatusInvest] - Found value element')
 
       const stock = await page.evaluate(onPageEvaluate)
       log('[StatusInvest] - Stock data extracted')
