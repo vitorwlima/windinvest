@@ -21,8 +21,8 @@ dependencies:
     specifier: ^21.1.1
     version: 21.1.1
   status-invest-api:
-    specifier: ^1.0.4
-    version: 1.0.4
+    specifier: ^1.0.5
+    version: 1.0.5
   zod:
     specifier: ^3.22.2
     version: 3.22.2
@@ -3174,8 +3174,8 @@ packages:
     engines: {node: '>= 10.x'}
     dev: false
 
-  /status-invest-api@1.0.4:
-    resolution: {integrity: sha512-mo/0YEMpIzYeOub/YFb6Zhr6qTEC/yzCux+Z2Dc0PYXlrJPkkQdPZ29WGmjWirtMqlDMctdIMB9bTfd76KIEvA==}
+  /status-invest-api@1.0.5:
+    resolution: {integrity: sha512-rm09fek5CCA3iyrVV+abLcno3sa4L2W3cHGbyJS6I8a6L1ULaeUmCffT3bwkFLZ3+gSt86geQk1xO0ZxnOWVkg==}
     dependencies:
       puppeteer: 21.1.1
     transitivePeerDependencies:
