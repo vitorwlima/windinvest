@@ -8,7 +8,12 @@ export const getAsset = async (fastify: FastifyInstance) => {
     async (request, reply) => {
       try {
         const { ticker } = request.params
-        const stock = await StatusInvest.getStock({ ticker })
+        const stock = await StatusInvest.getStock({ ticker, showLogs: true })
+
+        if (!stock) {
+          reply.code(404)
+          return { ok: false, error: 'Stock not found' }
+        }
 
         const windScore = getWindScore(stock)
 
