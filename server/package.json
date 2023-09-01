@@ -22,7 +22,7 @@
     "date-fns": "^2.30.0",
     "dotenv": "^16.3.1",
     "fastify": "^4.21.0",
-    "status-invest-api": "^1.0.2",
+    "status-invest-api": "^1.0.3",
     "zod": "^3.22.2"
   }
 }

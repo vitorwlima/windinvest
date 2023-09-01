@@ -18,8 +18,8 @@ dependencies:
     specifier: ^4.21.0
     version: 4.21.0
   status-invest-api:
-    specifier: ^1.0.2
-    version: 1.0.2
+    specifier: ^1.0.3
+    version: 1.0.3
   zod:
     specifier: ^3.22.2
     version: 3.22.2
@@ -3171,8 +3171,8 @@ packages:
     engines: {node: '>= 10.x'}
     dev: false
 
-  /status-invest-api@1.0.2:
-    resolution: {integrity: sha512-WuC1naLmKSLq2mueJz79RYPDpYMcRh9sh9GcZCc9Mrtjdj0swqO6pxH3gwXhi9GjBeTuNahFaC+Mk310sJYZgQ==}
+  /status-invest-api@1.0.3:
+    resolution: {integrity: sha512-db7vwegAjq7HwChzyKT8LEgqfn5HW2DgzrenHo12DIWLdouXQUc8tgJ73swS8L5ifWOhLWHf3L5ct1jfjhphZQ==}
     dependencies:
       puppeteer: 21.1.1
     transitivePeerDependencies:
