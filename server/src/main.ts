@@ -10,7 +10,7 @@ const fastify = Fastify({
 fastify.register(cors)
 fastify.register(getAsset)
 
-fastify.listen({ port: Number(ENV.PORT) }, (err) => {
+fastify.listen({ port: Number(ENV.PORT), host: '0.0.0.0' }, (err) => {
   if (err) {
     fastify.log.error(err)
     process.exit(1)
