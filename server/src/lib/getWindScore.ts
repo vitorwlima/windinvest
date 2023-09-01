@@ -62,5 +62,19 @@ export const getWindScore = (stock: Stock) => {
   const debt = getDebtScore(stock.debt)
   const profitability = getProfitabilityScore(stock.profitability)
 
-  return { valuation, efficiency, debt, profitability }
+  const holderChecklist = {
+    liquidity:
+      stock.about.averageLiquidity !== null &&
+      stock.about.averageLiquidity > 2000000,
+    debt:
+      stock.balance.grossDebt !== null &&
+      stock.balance.netWorth !== null &&
+      stock.balance.grossDebt < stock.balance.netWorth,
+    roe:
+      stock.profitability.returnOnEquity !== null &&
+      stock.profitability.returnOnEquity > 10,
+    profit: stock.balance.netProfit !== null && stock.balance.netProfit > 0,
+  }
+
+  return { valuation, efficiency, debt, profitability, holderChecklist }
 }
