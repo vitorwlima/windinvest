@@ -49,6 +49,12 @@ export type FormattedAsset = {
     cagrRevenue5Years: string
     cagrProfits5Years: string
   }
+  windScore: {
+    valuation: number | null
+    efficiency: number | null
+    debt: number | null
+    profitability: number | null
+  }
 }
 
 const getBRLFormattedValue = (value: number | null): string => {
@@ -146,5 +152,6 @@ export const formatAsset = (asset: Asset): FormattedAsset => {
         asset.growth.cagrProfits5Years,
       ),
     },
+    windScore: asset.windScore,
   }
 }

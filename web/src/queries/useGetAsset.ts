@@ -51,6 +51,12 @@ export type Asset = {
     cagrRevenue5Years: number | null
     cagrProfits5Years: number | null
   }
+  windScore: {
+    valuation: number | null
+    efficiency: number | null
+    debt: number | null
+    profitability: number | null
+  }
 }
 
 type AssetResponse =
