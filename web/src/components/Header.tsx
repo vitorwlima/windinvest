@@ -4,7 +4,7 @@ import { SearchAsset } from './SearchAsset'
 
 export const Header: React.FC = () => {
   return (
-    <header className="w-full border-b border-neutral-500 px-2 py-8">
+    <header className="w-full border-b border-neutral-500 px-4 py-8">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-8">
         <Link className="flex items-center gap-2" href="/">
           <ChartBarSquareIcon className="h-8 w-8 text-green-500" />
