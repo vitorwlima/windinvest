@@ -2,6 +2,7 @@
 
 import { AssetHeader } from 'src/components/AssetHeader'
 import { AssetIntroductionData } from 'src/components/AssetIntroductionData'
+import { Fundamentals } from 'src/components/Fundamentals'
 import { WindScore } from 'src/components/WindScore'
 import { useGetAsset } from 'src/queries/useGetAsset'
 import { formatAsset } from 'src/utils/formatAsset'
@@ -31,6 +32,7 @@ export const Asset: React.FC<Props> = ({ ticker }) => {
       <div className="px-2">
         <AssetIntroductionData asset={formattedAsset} />
         <WindScore windScore={formattedAsset.windScore} />
+        <Fundamentals asset={formattedAsset} />
       </div>
     </main>
   )
