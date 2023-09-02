@@ -3,6 +3,7 @@
 import { AssetHeader } from 'src/components/AssetHeader'
 import { AssetIntroductionData } from 'src/components/AssetIntroductionData'
 import { Fundamentals } from 'src/components/Fundamentals'
+import { Spinner } from 'src/components/Spinner'
 import { WindScore } from 'src/components/WindScore'
 import { useGetAsset } from 'src/queries/useGetAsset'
 import { formatAsset } from 'src/utils/formatAsset'
@@ -15,7 +16,11 @@ export const Asset: React.FC<Props> = ({ ticker }) => {
   const { data, isLoading } = useGetAsset({ ticker })
 
   if (isLoading || data === undefined) {
-    return <div>Carregando...</div>
+    return (
+      <div className="mt-32">
+        <Spinner />
+      </div>
+    )
   }
 
   if (!data.ok) {
