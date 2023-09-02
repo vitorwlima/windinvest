@@ -24,7 +24,11 @@ export const Asset: React.FC<Props> = ({ ticker }) => {
   }
 
   if (!data.ok) {
-    return <div>Ativo não encontrado.</div>
+    return (
+      <p className="mt-32 text-center text-3xl font-bold text-white">
+        Ativo não encontrado.
+      </p>
+    )
   }
 
   const { data: asset } = data
