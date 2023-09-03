@@ -8,15 +8,21 @@ dependencies:
   '@fastify/cors':
     specifier: ^8.3.0
     version: 8.3.0
+  '@prisma/client':
+    specifier: ^5.2.0
+    version: 5.2.0(prisma@5.2.0)
   b3-scraper:
-    specifier: ^1.2.0
-    version: 1.2.0
+    specifier: ^1.2.1
+    version: 1.2.1
   dotenv:
     specifier: ^16.3.1
     version: 16.3.1
   fastify:
     specifier: ^4.21.0
     version: 4.21.0
+  prisma:
+    specifier: ^5.2.0
+    version: 5.2.0
   puppeteer:
     specifier: ^21.1.1
     version: 21.1.1
@@ -414,6 +420,29 @@ packages:
       picocolors: 1.0.0
       tslib: 2.6.2
     dev: true
+
+  /@prisma/client@5.2.0(prisma@5.2.0):
+    resolution: {integrity: sha512-AiTjJwR4J5Rh6Z/9ZKrBBLel3/5DzUNntMohOy7yObVnVoTNVFi2kvpLZlFuKO50d7yDspOtW6XBpiAd0BVXbQ==}
+    engines: {node: '>=16.13'}
+    requiresBuild: true
+    peerDependencies:
+      prisma: '*'
+    peerDependenciesMeta:
+      prisma:
+        optional: true
+    dependencies:
+      '@prisma/engines-version': 5.2.0-25.2804dc98259d2ea960602aca6b8e7fdc03c1758f
+      prisma: 5.2.0
+    dev: false
+
+  /@prisma/engines-version@5.2.0-25.2804dc98259d2ea960602aca6b8e7fdc03c1758f:
+    resolution: {integrity: sha512-jsnKT5JIDIE01lAeCj2ghY9IwxkedhKNvxQeoyLs6dr4ZXynetD0vTy7u6wMJt8vVPv8I5DPy/I4CFaoXAgbtg==}
+    dev: false
+
+  /@prisma/engines@5.2.0:
+    resolution: {integrity: sha512-dT7FOLUCdZmq+AunLqB1Iz+ZH/IIS1Fz2THmKZQ6aFONrQD/BQ5ecJ7g2wGS2OgyUFf4OaLam6/bxmgdOBDqig==}
+    requiresBuild: true
+    dev: false
 
   /@puppeteer/browsers@1.7.0:
     resolution: {integrity: sha512-sl7zI0IkbQGak/+IE3VEEZab5SSOlI5F6558WvzWGC1n3+C722rfewC1ZIkcF9dsoGSsxhsONoseVlNQG4wWvQ==}
@@ -835,8 +864,8 @@ packages:
       dequal: 2.0.3
     dev: true
 
-  /b3-scraper@1.2.0:
-    resolution: {integrity: sha512-XawkA4ufD7TjjdPsojC+O0NvTEAe41KwT+2a3iXdrnrFJFtyBw8y3HQL/Gz3Q7/yS5jrLZLfJqh742xhH8281w==}
+  /b3-scraper@1.2.1:
+    resolution: {integrity: sha512-iJ3Nb3G2WVRLanK99BXn5B53BpudiMa8OP9Oj2saqioIayfeLKmYr7THrHvEaCOXf4URSaL/ogBiTvNJv3evtA==}
     dependencies:
       puppeteer: 21.1.1
     transitivePeerDependencies:
@@ -2824,6 +2853,15 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
     dev: true
+
+  /prisma@5.2.0:
+    resolution: {integrity: sha512-FfFlpjVCkZwrqxDnP4smlNYSH1so+CbfjgdpioFzGGqlQAEm6VHAYSzV7jJgC3ebtY9dNOhDMS2+4/1DDSM7bQ==}
+    engines: {node: '>=16.13'}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      '@prisma/engines': 5.2.0
+    dev: false
 
   /process-warning@2.2.0:
     resolution: {integrity: sha512-/1WZ8+VQjR6avWOgHeEPd7SDQmFQ1B5mC1eRXsCm5TarlNmx/wCsa5GEaxGm05BORRtyG/Ex/3xq3TuRvq57qg==}
