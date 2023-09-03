@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Nunito } from 'next/font/google'
+import 'react-loading-skeleton/dist/skeleton.css'
 import { Footer } from 'src/components/Footer'
 import { Header } from 'src/components/Header'
 import { QueryProvider } from './QueryProvider'
