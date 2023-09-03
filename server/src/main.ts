@@ -8,7 +8,9 @@ const fastify = Fastify({
   logger: true,
 })
 
-fastify.register(cors)
+fastify.register(cors, {
+  origin: ENV.origin,
+})
 fastify.register(getAsset)
 fastify.register(getAllAssets)
 

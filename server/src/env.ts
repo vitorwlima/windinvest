@@ -6,6 +6,7 @@ const envSchema = z.object({
     .enum(['development', 'test', 'production'])
     .default('development'),
   PORT: z.string(),
+  origin: z.string(),
 })
 
 export const ENV = envSchema.parse(process.env)
