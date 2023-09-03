@@ -4,22 +4,33 @@ import { Combobox, Transition } from '@headlessui/react'
 import { CheckIcon } from '@heroicons/react/20/solid'
 import { useRouter } from 'next/navigation'
 import { Fragment, useRef, useState } from 'react'
-import { assetList } from 'src/utils/assetList'
+import { useDebounce } from 'src/hooks/useDebounce'
+import { AssetBase, useGetAllAssets } from 'src/queries/useGetAllAssets'
 
-export const SearchAsset = () => {
+export const SearchAsset: React.FC = () => {
   const router = useRouter()
   const ref = useRef<HTMLInputElement>(null)
   const [selected, setSelected] = useState<undefined | string>()
   const [inputValue, setInputValue] = useState('')
 
+  const debouncedSearch = useDebounce(inputValue, 300)
+  const { data } = useGetAllAssets({ search: debouncedSearch })
+  const assetList =
+    data !== undefined && data.ok ? data.data : ([] as AssetBase[])
+
   const filteredAssets =
     inputValue === ''
       ? assetList
-      : assetList.filter((asset) =>
-          asset
-            .toLowerCase()
-            .replace(/\s+/g, '')
-            .includes(inputValue.toLowerCase().replace(/\s+/g, '')),
+      : assetList.filter(
+          (asset) =>
+            asset.fantasyName
+              .toLowerCase()
+              .replace(/\s+/g, '')
+              .includes(inputValue.toLowerCase().replace(/\s+/g, '')) ||
+            asset.ticker
+              .toLowerCase()
+              .replace(/\s+/g, '')
+              .includes(inputValue.toLowerCase().replace(/\s+/g, '')),
         )
 
   const onSelect = (value: string) => {
@@ -52,17 +63,18 @@ export const SearchAsset = () => {
             ) : (
               filteredAssets.map((asset) => (
                 <Combobox.Option
-                  key={asset}
+                  key={asset.ticker}
                   className={({ active }) =>
                     `relative text-sm cursor-default select-none py-2 pl-10 pr-4 text-white ${
                       active ? 'bg-green-500' : ''
                     }`
                   }
-                  value={asset}
+                  value={asset.ticker}
                 >
                   {({ selected, active }) => (
-                    <>
-                      <span>{asset}</span>
+                    <div>
+                      <strong>{asset.ticker.toUpperCase()}</strong>
+                      <p className="text-sm">{asset.fantasyName}</p>
                       {selected ? (
                         <span
                           className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
@@ -72,7 +84,7 @@ export const SearchAsset = () => {
                           <CheckIcon className="h-5 w-5" aria-hidden="true" />
                         </span>
                       ) : null}
-                    </>
+                    </div>
                   )}
                 </Combobox.Option>
               ))
