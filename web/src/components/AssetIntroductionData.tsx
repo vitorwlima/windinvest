@@ -9,23 +9,23 @@ export const AssetIntroductionData: React.FC<Props> = ({ asset }) => {
   const cardsData = [
     {
       title: 'Cotação',
-      data: asset.valuation.price,
+      data: asset.quote.price,
+    },
+    {
+      title: 'Mínima (52Sem)',
+      data: asset.quote.minPriceIn52Weeks,
+    },
+    {
+      title: 'Máxima (52Sem)',
+      data: asset.quote.maxPriceIn52Weeks,
     },
     {
       title: 'Valorização (12M)',
-      data: asset.valuation.changeInLast12Months,
-    },
-    {
-      title: 'P/L',
-      data: asset.valuation.priceToProfitRatio,
-    },
-    {
-      title: 'P/VP',
       data: asset.valuation.priceToBookRatio,
     },
     {
-      title: 'DY',
-      data: asset.valuation.dividendYield,
+      title: 'Liquidez',
+      data: asset.about.averageLiquidity,
     },
   ]
 

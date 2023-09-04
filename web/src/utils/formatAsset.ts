@@ -1,5 +1,5 @@
 import { Asset } from 'src/queries/useGetAsset'
-import { formatToBRL } from './formatToBRL'
+import { Unit, formatToBRL } from './formatToBRL'
 import { formatToPercentage } from './formatToPercentage'
 import { formatToRatio } from './formatToRatio'
 
@@ -11,6 +11,13 @@ export type FormattedAsset = {
     sector: string
     subSector: string
     numberOfShares: string
+  }
+  quote: {
+    price: string
+    oscilationIn30Days: string
+    oscilationIn12Months: string
+    minPriceIn52Weeks: string
+    maxPriceIn52Weeks: string
   }
   balance: {
     marketValue: string
@@ -25,9 +32,7 @@ export type FormattedAsset = {
     netWorth: string
   }
   valuation: {
-    price: string
     dividendYield: string
-    changeInLast12Months: string
     priceToProfitRatio: string
     priceToBookRatio: string
     evToEbitRatio: string
@@ -57,8 +62,8 @@ export type FormattedAsset = {
   windScore: Asset['windScore']
 }
 
-const getBRLFormattedValue = (value: number | null): string => {
-  return value ? formatToBRL(value) : 'N/A'
+const getBRLFormattedValue = (value: number | null, unit?: Unit): string => {
+  return value ? formatToBRL(value, unit) : 'N/A'
 }
 
 const getPercentageFormattedValue = (value: number | null): string => {
@@ -76,8 +81,19 @@ export const formatAsset = (asset: Asset): FormattedAsset => {
       ticker: asset.about.ticker?.toUpperCase() || 'N/A',
       sector: asset.about.sector || 'N/A',
       subSector: asset.about.subSector || 'N/A',
-      averageLiquidity: getBRLFormattedValue(asset.about.averageLiquidity),
+      averageLiquidity: getBRLFormattedValue(asset.about.averageLiquidity, 'M'),
       numberOfShares: getRatioFormattedValue(asset.about.numberOfShares),
+    },
+    quote: {
+      price: getBRLFormattedValue(asset.quote.price),
+      minPriceIn52Weeks: getBRLFormattedValue(asset.quote.minPriceIn52Weeks),
+      maxPriceIn52Weeks: getBRLFormattedValue(asset.quote.maxPriceIn52Weeks),
+      oscilationIn12Months: getPercentageFormattedValue(
+        asset.quote.oscilationIn12Months,
+      ),
+      oscilationIn30Days: getPercentageFormattedValue(
+        asset.quote.oscilationIn30Days,
+      ),
     },
     balance: {
       assets: getBRLFormattedValue(asset.balance.assets),
@@ -92,11 +108,7 @@ export const formatAsset = (asset: Asset): FormattedAsset => {
       netWorth: getBRLFormattedValue(asset.balance.netWorth),
     },
     valuation: {
-      price: getBRLFormattedValue(asset.valuation.price),
       dividendYield: getPercentageFormattedValue(asset.valuation.dividendYield),
-      changeInLast12Months: getPercentageFormattedValue(
-        asset.valuation.changeInLast12Months,
-      ),
       priceToProfitRatio: getRatioFormattedValue(
         asset.valuation.priceToProfitRatio,
       ),

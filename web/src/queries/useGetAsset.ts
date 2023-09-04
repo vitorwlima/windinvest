@@ -14,6 +14,13 @@ export type Asset = {
     subSector: string | null
     numberOfShares: number | null
   }
+  quote: {
+    price: number | null
+    oscilationIn30Days: number | null
+    oscilationIn12Months: number | null
+    minPriceIn52Weeks: number | null
+    maxPriceIn52Weeks: number | null
+  }
   balance: {
     marketValue: number | null
     enterpriseValue: number | null
@@ -27,9 +34,7 @@ export type Asset = {
     netWorth: number | null
   }
   valuation: {
-    price: number | null
     dividendYield: number | null
-    changeInLast12Months: number | null
     priceToProfitRatio: number | null
     priceToBookRatio: number | null
     evToEbitRatio: number | null
