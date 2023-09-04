@@ -60,9 +60,13 @@ export type FormattedAsset = {
     assetTurnover: string
   }
   windScore: Asset['windScore']
+  grahamPrice: string
 }
 
-const getBRLFormattedValue = (value: number | null, unit?: Unit): string => {
+export const getBRLFormattedValue = (
+  value: number | null,
+  unit?: Unit,
+): string => {
   return value ? formatToBRL(value, unit) : 'N/A'
 }
 
@@ -156,5 +160,6 @@ export const formatAsset = (asset: Asset): FormattedAsset => {
       assetTurnover: getRatioFormattedValue(asset.profitability.assetTurnover),
     },
     windScore: asset.windScore,
+    grahamPrice: getBRLFormattedValue(asset.grahamPrice),
   }
 }

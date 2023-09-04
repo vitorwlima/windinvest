@@ -1,5 +1,6 @@
 import { B3Scraper } from 'b3-scraper'
 import { FastifyInstance } from 'fastify'
+import { getGrahamPrice } from 'src/lib/getGrahamPrice'
 import { getWindScore } from 'src/lib/getWindScore'
 
 export const getAsset = async (fastify: FastifyInstance) => {
@@ -16,9 +17,10 @@ export const getAsset = async (fastify: FastifyInstance) => {
         }
 
         const windScore = getWindScore(stock)
+        const grahamPrice = getGrahamPrice(stock)
 
         reply.code(200)
-        return { ok: true, data: { ...stock, windScore } }
+        return { ok: true, data: { ...stock, windScore, grahamPrice } }
       } catch (error) {
         reply.code(500)
         return { ok: false, error }

@@ -3,6 +3,7 @@
 import { AssetHeader } from 'src/components/AssetHeader'
 import { AssetIntroductionData } from 'src/components/AssetIntroductionData'
 import { Fundamentals } from 'src/components/Fundamentals'
+import { GrahamPrice } from 'src/components/GrahamPrice'
 import { Spinner } from 'src/components/Spinner'
 import { WindScore } from 'src/components/WindScore'
 import { useGetAsset } from 'src/queries/useGetAsset'
@@ -40,6 +41,7 @@ export const Asset: React.FC<Props> = ({ ticker }) => {
 
       <AssetIntroductionData asset={formattedAsset} />
       <WindScore windScore={formattedAsset.windScore} />
+      <GrahamPrice asset={asset} />
       <Fundamentals asset={formattedAsset} />
     </main>
   )

@@ -73,6 +73,7 @@ export type Asset = {
       profit: boolean
     }
   }
+  grahamPrice: number | null
 }
 
 type AssetResponse =
