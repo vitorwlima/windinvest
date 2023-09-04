@@ -11,8 +11,6 @@ const valuationTitles: Record<keyof FormattedAsset['valuation'], string> = {
   priceToLiquidAsset: 'P/Ativo Circ. Líq.',
   priceToProfitRatio: 'P/L',
   profitByShare: 'LPA',
-  changeInLast12Months: 'Variação nos últimos 12 meses',
-  price: 'Cotação',
 }
 
 const debtTitles: Record<keyof FormattedAsset['debt'], string> = {
