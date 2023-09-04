@@ -2,21 +2,26 @@ import { Stock } from 'b3-scraper/dist/@types/stock'
 
 const getValuationScore = (valuation: Stock['valuation']) => {
   if (
-    valuation.evToEbitRatio === null ||
-    valuation.dividendYield === null ||
+    valuation.priceToProfitRatio === null ||
     valuation.priceToBookRatio === null ||
-    valuation.priceToProfitRatio === null
+    valuation.evToEbitRatio === null
   ) {
     return null
   }
 
-  const score =
-    Math.sqrt(valuation.dividendYield || 1) /
-    (valuation.priceToProfitRatio *
-      valuation.priceToBookRatio *
-      valuation.evToEbitRatio)
+  const dividendMultiplier = valuation.dividendYield
+    ? 1 + valuation.dividendYield / 100
+    : 1
 
-  return score * 1000
+  const valuationBadMultiplier =
+    valuation.priceToProfitRatio *
+    valuation.priceToBookRatio *
+    valuation.evToEbitRatio
+
+  const score =
+    Math.sqrt(dividendMultiplier) / Math.log2(valuationBadMultiplier)
+
+  return score * 100
 }
 
 const getEfficiencyScore = (efficiency: Stock['efficiency']) => {
@@ -24,7 +29,14 @@ const getEfficiencyScore = (efficiency: Stock['efficiency']) => {
     return null
   }
 
-  const score = (efficiency.ebitMargin + efficiency.netMargin) / 2
+  const grossMarginMultiplier = efficiency.grossMargin
+    ? 1 + efficiency.grossMargin / 100
+    : 1
+
+  const netAndEbitMarginMultiplier =
+    2 / (1 / efficiency.ebitMargin + 1 / efficiency.netMargin)
+
+  const score = Math.sqrt(grossMarginMultiplier) * netAndEbitMarginMultiplier
 
   return score
 }
@@ -36,7 +48,7 @@ const getDebtScore = (debt: Stock['debt']) => {
 
   const score = Math.sqrt(debt.currentLiquidity * debt.equityToAssetsRatio)
 
-  return score
+  return score * 10
 }
 
 const getProfitabilityScore = (profitability: Stock['profitability']) => {
@@ -48,10 +60,11 @@ const getProfitabilityScore = (profitability: Stock['profitability']) => {
     return null
   }
 
-  const score =
-    Math.sqrt(
-      profitability.returnOnEquity * profitability.returnOnInvestedCapital,
-    ) * profitability.assetTurnover
+  const roeRoicMultiplier = Math.sqrt(
+    profitability.returnOnEquity * profitability.returnOnInvestedCapital,
+  )
+
+  const score = roeRoicMultiplier * profitability.assetTurnover
 
   return score
 }
