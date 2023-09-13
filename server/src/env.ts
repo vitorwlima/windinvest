@@ -7,6 +7,7 @@ const envSchema = z.object({
     .default('development'),
   PORT: z.string(),
   origin: z.string(),
+  DATABASE_URL: z.string(),
 })
 
 export const ENV = envSchema.parse(process.env)
