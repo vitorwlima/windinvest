@@ -1,4 +1,5 @@
 import { Stock } from 'b3-scraper/dist/@types/stock'
+import { getHarmonicAverage } from 'src/utils/getHarmonicAverage'
 
 const getValuationScore = (valuation: Stock['valuation']) => {
   if (
@@ -33,8 +34,10 @@ const getEfficiencyScore = (efficiency: Stock['efficiency']) => {
     ? 1 + efficiency.grossMargin / 100
     : 1
 
-  const netAndEbitMarginMultiplier =
-    2 / (1 / efficiency.ebitMargin + 1 / efficiency.netMargin)
+  const netAndEbitMarginMultiplier = getHarmonicAverage([
+    efficiency.ebitMargin,
+    efficiency.netMargin,
+  ])
 
   const score = Math.sqrt(grossMarginMultiplier) * netAndEbitMarginMultiplier
 
@@ -74,6 +77,13 @@ export const getWindScore = (stock: Stock) => {
   const efficiency = getEfficiencyScore(stock.efficiency)
   const debt = getDebtScore(stock.debt)
   const profitability = getProfitabilityScore(stock.profitability)
+  const windFinalScore = getHarmonicAverage([
+    valuation ?? 0,
+    valuation ?? 0,
+    efficiency ?? 0,
+    debt ?? 0,
+    profitability ?? 0,
+  ])
 
   const holderChecklist = {
     liquidity:
@@ -89,5 +99,12 @@ export const getWindScore = (stock: Stock) => {
     profit: stock.balance.netProfit !== null && stock.balance.netProfit > 0,
   }
 
-  return { valuation, efficiency, debt, profitability, holderChecklist }
+  return {
+    valuation,
+    efficiency,
+    debt,
+    profitability,
+    windFinalScore,
+    holderChecklist,
+  }
 }

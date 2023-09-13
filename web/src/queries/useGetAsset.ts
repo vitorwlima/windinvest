@@ -66,6 +66,7 @@ export type Asset = {
     efficiency: number | null
     debt: number | null
     profitability: number | null
+    windFinalScore: number
     holderChecklist: {
       liquidity: boolean
       debt: boolean
