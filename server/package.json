@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsx watch src/main.ts",
     "start": "node node_modules/puppeteer/install.js && prisma generate && tsx src/main.ts",
-    "fill-assets": "tsx src/scripts/fill-assets.ts"
+    "update-assets": "tsx src/scripts/update-assets.ts"
   },
   "keywords": [],
   "author": "",
