@@ -15,9 +15,11 @@ model Asset {
   sector      String
   subSector   String
 
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   fundamental Fundamental?
+  windScore   WindScore?
 
   @@map("assets")
 }
@@ -66,4 +68,22 @@ model Fundamental {
   updatedAt DateTime @updatedAt
 
   @@map("fundamentals")
+}
+
+model WindScore {
+  id String @id @default(uuid())
+
+  asset   Asset? @relation(fields: [assetId], references: [id])
+  assetId String @unique
+
+  valuation      Float?
+  efficiency     Float?
+  debt           Float?
+  profitability  Float?
+  windFinalScore Float
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("windScores")
 }
