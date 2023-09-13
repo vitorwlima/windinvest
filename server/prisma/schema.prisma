@@ -18,56 +18,9 @@ model Asset {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  fundamental Fundamental?
-  windScore   WindScore?
+  windScore WindScore?
 
   @@map("assets")
-}
-
-model Fundamental {
-  id String @id @default(uuid())
-
-  asset   Asset? @relation(fields: [assetId], references: [id])
-  assetId String @unique
-
-  numberOfShares          Float?
-  marketValue             Float?
-  enterpriseValue         Float?
-  netIncome               Float?
-  ebit                    Float?
-  netProfit               Float?
-  assets                  Float?
-  currentAssets           Float?
-  grossDebt               Float?
-  netDebt                 Float?
-  netWorth                Float?
-  price                   Float?
-  dividendYield           Float?
-  changeInLast12Months    Float?
-  priceToProfitRatio      Float?
-  priceToBookRatio        Float?
-  evToEbitRatio           Float?
-  priceToEbitRatio        Float?
-  bookValuePerShare       Float?
-  priceToAssets           Float?
-  profitByShare           Float?
-  priceToCapitalRatio     Float?
-  priceToLiquidAsset      Float?
-  netDebtToEquityRatio    Float?
-  netDebtToEbitRatio      Float?
-  equityToAssetsRatio     Float?
-  currentLiquidity        Float?
-  grossMargin             Float?
-  ebitMargin              Float?
-  netMargin               Float?
-  returnOnEquity          Float?
-  returnOnInvestedCapital Float?
-  assetTurnover           Float?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("fundamentals")
 }
 
 model WindScore {
