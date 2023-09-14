@@ -22,6 +22,7 @@ const handleNewAsset = async (
     console.log(
       `Skipping asset ${stockInitialData.ticker} as it's no longer active`,
     )
+
     return
   }
 
@@ -75,6 +76,8 @@ const handleExistingAsset = async (
       },
     })
     console.log(`Deleted asset for ${stockInitialData.ticker}`)
+
+    return
   }
 
   const asset = await prisma.asset.update({
@@ -106,20 +109,22 @@ const handleExistingAsset = async (
       },
     })
     console.log(`Updated windscore for ${stockInitialData.ticker}`)
-  } else {
-    await prisma.windScore.create({
-      data: {
-        assetId: asset.id,
-        debt: getWindScoreFormattedNumber(windScore.debt),
-        efficiency: getWindScoreFormattedNumber(windScore.efficiency),
-        profitability: getWindScoreFormattedNumber(windScore.profitability),
-        valuation: getWindScoreFormattedNumber(windScore.valuation),
-        windFinalScore:
-          getWindScoreFormattedNumber(windScore.windFinalScore) ?? 0,
-      },
-    })
-    console.log(`Created windscore for ${stockInitialData.ticker}`)
+
+    return
   }
+
+  await prisma.windScore.create({
+    data: {
+      assetId: asset.id,
+      debt: getWindScoreFormattedNumber(windScore.debt),
+      efficiency: getWindScoreFormattedNumber(windScore.efficiency),
+      profitability: getWindScoreFormattedNumber(windScore.profitability),
+      valuation: getWindScoreFormattedNumber(windScore.valuation),
+      windFinalScore:
+        getWindScoreFormattedNumber(windScore.windFinalScore) ?? 0,
+    },
+  })
+  console.log(`Created windscore for ${stockInitialData.ticker}`)
 }
 
 const getWindScoreFormattedNumber = (number: number | null) => {
@@ -176,14 +181,16 @@ const updateAssets = async () => {
         windScore,
         stockIsMoreThan2WeeksNotUpdated,
       )
-    } else {
-      handleNewAsset(
-        stockInitialData,
-        stock,
-        windScore,
-        stockIsMoreThan2WeeksNotUpdated,
-      )
+
+      continue
     }
+
+    handleNewAsset(
+      stockInitialData,
+      stock,
+      windScore,
+      stockIsMoreThan2WeeksNotUpdated,
+    )
   }
 }
 
