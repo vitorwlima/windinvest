@@ -12,8 +12,8 @@ dependencies:
     specifier: ^5.2.0
     version: 5.2.0(prisma@5.2.0)
   b3-scraper:
-    specifier: ^2.0.0
-    version: 2.0.0
+    specifier: ^2.0.1
+    version: 2.0.1
   dotenv:
     specifier: ^16.3.1
     version: 16.3.1
@@ -864,8 +864,8 @@ packages:
       dequal: 2.0.3
     dev: true
 
-  /b3-scraper@2.0.0:
-    resolution: {integrity: sha512-ffLBHDo+eFgn/ToqrM8G6BGfRTz25+HWZkZ0l0JXq7SihIedsrBs00qwERyAcRdGeYcKtEYJ6ZbVmw6neWDwjQ==}
+  /b3-scraper@2.0.1:
+    resolution: {integrity: sha512-O8+WOa3jtkfK2DXCqHZTQkEAy1lotUwSsebQN6suQkDCNP9Z/SkMce/ecEH2zkO8Kk9VWoPjCqvg4vEivNEkXA==}
     dependencies:
       puppeteer: 21.1.1
     transitivePeerDependencies:
