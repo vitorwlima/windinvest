@@ -19,7 +19,7 @@ const handleNewAsset = async (
   stockIsMoreThan2WeeksNotUpdated: boolean,
 ) => {
   if (stockIsMoreThan2WeeksNotUpdated) {
-    console.log(
+    console.info(
       `Skipping asset ${stockInitialData.ticker} as it's no longer active`,
     )
 
@@ -37,7 +37,7 @@ const handleNewAsset = async (
       netIncome: stock.balance.netIncome,
     },
   })
-  console.log(`Created asset for ${stockInitialData.ticker}`)
+  console.info(`Created asset for ${stockInitialData.ticker}`)
 
   await prisma.windScore.create({
     data: {
@@ -51,7 +51,7 @@ const handleNewAsset = async (
     },
   })
 
-  console.log(`Created windscore for ${stockInitialData.ticker}`)
+  console.info(`Created windscore for ${stockInitialData.ticker}`)
 }
 
 const handleExistingAsset = async (
@@ -69,7 +69,7 @@ const handleExistingAsset = async (
           assetId,
         },
       })
-      console.log(`Deleted windscore for ${stockInitialData.ticker}`)
+      console.info(`Deleted windscore for ${stockInitialData.ticker}`)
     }
 
     await prisma.asset.delete({
@@ -77,7 +77,7 @@ const handleExistingAsset = async (
         id: assetId,
       },
     })
-    console.log(`Deleted asset for ${stockInitialData.ticker}`)
+    console.info(`Deleted asset for ${stockInitialData.ticker}`)
 
     return
   }
@@ -96,7 +96,7 @@ const handleExistingAsset = async (
       netIncome: stock.balance.netIncome,
     },
   })
-  console.log(`Updated asset for ${stockInitialData.ticker}`)
+  console.info(`Updated asset for ${stockInitialData.ticker}`)
 
   if (windScoreExists) {
     await prisma.windScore.update({
@@ -112,7 +112,7 @@ const handleExistingAsset = async (
           getWindScoreFormattedNumber(windScore.windFinalScore) ?? 0,
       },
     })
-    console.log(`Updated windscore for ${stockInitialData.ticker}`)
+    console.info(`Updated windscore for ${stockInitialData.ticker}`)
 
     return
   }
@@ -128,7 +128,7 @@ const handleExistingAsset = async (
         getWindScoreFormattedNumber(windScore.windFinalScore) ?? 0,
     },
   })
-  console.log(`Created windscore for ${stockInitialData.ticker}`)
+  console.info(`Created windscore for ${stockInitialData.ticker}`)
 }
 
 const getWindScoreFormattedNumber = (number: number | null) => {
@@ -139,16 +139,16 @@ const updateAssets = async () => {
   const allStocks = await B3Scraper.getAllStocks()
 
   if (!allStocks) {
-    console.log('Could not retrieve stocks')
+    console.info('Could not retrieve stocks')
     return
   }
 
   for (const stockInitialData of allStocks) {
-    console.log(`Getting stock ${stockInitialData.ticker}`)
+    console.info(`Getting stock ${stockInitialData.ticker}`)
     const stock = await B3Scraper.getStock({ ticker: stockInitialData.ticker })
 
     if (!stock) {
-      console.log(`Could not retrieve stock ${stockInitialData.ticker}`)
+      console.info(`Could not retrieve stock ${stockInitialData.ticker}`)
       continue
     }
 
