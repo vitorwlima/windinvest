@@ -18,6 +18,7 @@ export type FormattedAsset = {
     oscilationIn12Months: string
     minPriceIn52Weeks: string
     maxPriceIn52Weeks: string
+    lastQuoteDate: string
   }
   balance: {
     marketValue: string
@@ -98,6 +99,7 @@ export const formatAsset = (asset: Asset): FormattedAsset => {
       oscilationIn30Days: getPercentageFormattedValue(
         asset.quote.oscilationIn30Days,
       ),
+      lastQuoteDate: asset.quote.lastQuoteDate || 'N/A',
     },
     balance: {
       assets: getBRLFormattedValue(asset.balance.assets),

@@ -1,6 +1,20 @@
 import { Stock } from 'b3-scraper/dist/@types/stock'
 import { getHarmonicAverage } from 'src/utils/getHarmonicAverage'
 
+export type WindScore = {
+  valuation: number | null
+  efficiency: number | null
+  debt: number | null
+  profitability: number | null
+  windFinalScore: number
+  holderChecklist: {
+    liquidity: boolean
+    debt: boolean
+    roe: boolean
+    profit: boolean
+  }
+}
+
 const getValuationScore = (valuation: Stock['valuation']) => {
   if (
     valuation.priceToProfitRatio === null ||
@@ -72,7 +86,7 @@ const getProfitabilityScore = (profitability: Stock['profitability']) => {
   return score
 }
 
-export const getWindScore = (stock: Stock) => {
+export const getWindScore = (stock: Stock): WindScore => {
   const valuation = getValuationScore(stock.valuation)
   const efficiency = getEfficiencyScore(stock.efficiency)
   const debt = getDebtScore(stock.debt)
