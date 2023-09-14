@@ -27,11 +27,6 @@ export const BestAssets: React.FC = () => {
     setFilter((fil) => ({ ...fil, page }))
   }
 
-  if (isLoading || !data || !data.ok) return <Spinner />
-  const {
-    data: { assets: bestAssets, count },
-  } = data
-
   return (
     <section className="px-4 py-8">
       <div className="mx-auto max-w-4xl">
@@ -43,21 +38,27 @@ export const BestAssets: React.FC = () => {
             value={filter.sector}
             sectors={sectors}
             onChange={handleChangeSector}
+            disabled={isLoading || !data || !data.ok}
           />
           <SectorSelect
             name="subsetor"
             value={filter.subSector}
             sectors={subSectors}
             onChange={handleChangeSubSector}
+            disabled={isLoading || !data || !data.ok}
           />
         </div>
 
-        <BestAssetsList
-          bestAssets={bestAssets}
-          count={count}
-          page={filter.page}
-          onPageChange={handleChangePage}
-        />
+        {isLoading || !data || !data.ok ? (
+          <Spinner />
+        ) : (
+          <BestAssetsList
+            bestAssets={data.data.assets}
+            count={data.data.count}
+            page={filter.page}
+            onPageChange={handleChangePage}
+          />
+        )}
       </div>
     </section>
   )

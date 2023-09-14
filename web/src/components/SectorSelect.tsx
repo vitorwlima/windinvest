@@ -9,6 +9,7 @@ type Props = {
   value: string
   onChange: (sector: string) => void
   name: 'setor' | 'subsetor'
+  disabled: boolean
 }
 
 export const SectorSelect: React.FC<Props> = ({
@@ -16,6 +17,7 @@ export const SectorSelect: React.FC<Props> = ({
   value,
   name,
   onChange,
+  disabled,
 }) => {
   const [inputValue, setInputValue] = useState('')
   const ref = useRef<HTMLInputElement>(null)
@@ -36,7 +38,7 @@ export const SectorSelect: React.FC<Props> = ({
   }
 
   return (
-    <Combobox value={value} onChange={onSelect}>
+    <Combobox value={value} onChange={onSelect} disabled={disabled}>
       <div className="relative mt-1 w-full">
         <Combobox.Input
           className="flex h-9 w-full rounded-md border border-neutral-500 bg-neutral-900 px-3 py-1 text-sm transition-colors focus-visible:border-neutral-50 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
