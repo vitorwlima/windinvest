@@ -15,6 +15,9 @@ model Asset {
   sector      String
   subSector   String
 
+  marketValue Float?
+  netIncome   Float?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
