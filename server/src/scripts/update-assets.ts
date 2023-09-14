@@ -33,6 +33,8 @@ const handleNewAsset = async (
       fantasyName: stockInitialData.fantasyName,
       sector: stock.about.sector || 'N/A',
       subSector: stock.about.subSector || 'N/A',
+      marketValue: stock.balance.marketValue,
+      netIncome: stock.balance.netIncome,
     },
   })
   console.log(`Created asset for ${stockInitialData.ticker}`)
@@ -90,6 +92,8 @@ const handleExistingAsset = async (
       fantasyName: stockInitialData.fantasyName,
       sector: stock.about.sector || 'N/A',
       subSector: stock.about.subSector || 'N/A',
+      marketValue: stock.balance.marketValue,
+      netIncome: stock.balance.netIncome,
     },
   })
   console.log(`Updated asset for ${stockInitialData.ticker}`)
