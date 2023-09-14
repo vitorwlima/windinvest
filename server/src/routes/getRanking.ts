@@ -8,25 +8,17 @@ export const getRanking = async (fastify: FastifyInstance) => {
         select: {
           ticker: true,
           fantasyName: true,
-          fundamental: {
-            select: {
-              marketValue: true,
-            },
-          },
+          marketValue: true,
         },
         orderBy: {
-          fundamental: {
-            marketValue: 'desc',
-          },
+          marketValue: 'desc',
         },
         where: {
-          fundamental: {
-            marketValue: {
-              not: null,
-            },
+          marketValue: {
+            not: null,
           },
           ticker: {
-            notIn: ['petr3', 'ambv4', 'itub3', 'abev3'],
+            notIn: ['PETR3', 'ITUB3'],
           },
         },
         take: 5,
@@ -36,25 +28,17 @@ export const getRanking = async (fastify: FastifyInstance) => {
         select: {
           ticker: true,
           fantasyName: true,
-          fundamental: {
-            select: {
-              netIncome: true,
-            },
-          },
+          netIncome: true,
         },
         orderBy: {
-          fundamental: {
-            netIncome: 'desc',
-          },
+          netIncome: 'desc',
         },
         where: {
-          fundamental: {
-            netIncome: {
-              not: null,
-            },
+          netIncome: {
+            not: null,
           },
           ticker: {
-            notIn: ['petr3', 'vale5'],
+            notIn: ['PETR3'],
           },
         },
         take: 5,

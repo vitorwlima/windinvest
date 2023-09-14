@@ -5,16 +5,12 @@ export type Ranking = {
   greatestMarketValue: {
     ticker: string
     fantasyName: string
-    fundamental: {
-      marketValue: number
-    }
+    marketValue: number
   }[]
   greatestIncome: {
     ticker: string
     fantasyName: string
-    fundamental: {
-      netIncome: number
-    }
+    netIncome: number
   }[]
 }
 

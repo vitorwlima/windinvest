@@ -65,12 +65,8 @@ export const Rankings: React.FC = () => {
     },
   ]
 
-  const getValue = (fundamental: {
-    marketValue?: number
-    netIncome?: number
-  }) => {
-    const valueInBi =
-      ((fundamental?.marketValue || fundamental?.netIncome) as number) / 1e9
+  const getValue = (asset: { marketValue?: number; netIncome?: number }) => {
+    const valueInBi = ((asset?.marketValue || asset?.netIncome) as number) / 1e9
 
     return formatToBRL(valueInBi)
   }
@@ -101,7 +97,7 @@ export const Rankings: React.FC = () => {
                       </p>
                       <p className="text-sm">{asset.fantasyName}</p>
                     </div>
-                    <strong>{getValue(asset.fundamental)} B</strong>
+                    <strong>{getValue(asset)} B</strong>
                   </Link>
                 ))}
               </div>
