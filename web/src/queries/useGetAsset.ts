@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { ENV } from 'src/utils/env'
+import { env } from 'src/utils/env'
 
 type GetAssetArgs = {
   ticker: string
@@ -93,7 +93,7 @@ export const useGetAsset = ({ ticker }: GetAssetArgs) => {
     queryKey: ['asset', ticker],
     queryFn: async () => {
       const res = await fetch(
-        `${ENV.NEXT_PUBLIC_SERVER_URL}/asset/${ticker.toUpperCase()}`,
+        `${env.NEXT_PUBLIC_SERVER_URL}/asset/${ticker.toUpperCase()}`,
       )
       return res.json()
     },
