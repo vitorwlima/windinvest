@@ -8,38 +8,32 @@ datasource db {
 }
 
 model Asset {
-  id          String @id @default(uuid())
-  ticker      String @unique
+  id          String     @id @default(uuid())
+  ticker      String     @unique
   fantasyName String
   companyName String
   sector      String
   subSector   String
-
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
   marketValue Float?
   netIncome   Float?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  windScore WindScore?
+  windScore   WindScore?
 
   @@map("assets")
 }
 
 model WindScore {
-  id String @id @default(uuid())
-
-  asset   Asset? @relation(fields: [assetId], references: [id])
-  assetId String @unique
-
+  id             String   @id @default(uuid())
+  assetId        String   @unique
   valuation      Float?
   efficiency     Float?
   debt           Float?
   profitability  Float?
   windFinalScore Float
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  asset          Asset    @relation(fields: [assetId], references: [id])
 
   @@map("windScores")
 }
