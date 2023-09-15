@@ -1,6 +1,5 @@
 import { Stock } from 'b3-scraper/dist/@types/stock'
 import { getAverage } from 'src/utils/getAverage'
-import { getHarmonicAverage } from 'src/utils/getHarmonicAverage'
 
 export type WindScore = {
   valuation: number | null
@@ -57,7 +56,7 @@ const getEfficiencyScore = (efficiency: Stock['efficiency']) => {
     ? 1 + efficiency.grossMargin / 100
     : 1
 
-  const netAndEbitMarginMultiplier = getHarmonicAverage([
+  const netAndEbitMarginMultiplier = getAverage([
     efficiency.ebitMargin,
     efficiency.netMargin,
   ])
