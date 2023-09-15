@@ -1,4 +1,5 @@
 import { Stock } from 'b3-scraper/dist/@types/stock'
+import { getAverage } from 'src/utils/getAverage'
 import { getHarmonicAverage } from 'src/utils/getHarmonicAverage'
 
 export type WindScore = {
@@ -91,7 +92,7 @@ export const getWindScore = (stock: Stock): WindScore => {
   const efficiency = getEfficiencyScore(stock.efficiency)
   const debt = getDebtScore(stock.debt)
   const profitability = getProfitabilityScore(stock.profitability)
-  const windFinalScore = getHarmonicAverage([
+  const windFinalScore = getAverage([
     valuation ?? 0,
     valuation ?? 0,
     efficiency ?? 0,

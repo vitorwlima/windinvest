@@ -58,6 +58,13 @@ export const WindScore: React.FC<Props> = ({ windScore }) => {
         </ul>
       </section>
 
+      <section className="flex flex-col gap-1 border-b border-neutral-500 p-4 text-center">
+        <p>Pontuação Geral</p>
+        <p className="text-xl font-bold text-green-500">
+          {formatToRatio(windScore.windFinalScore)}
+        </p>
+      </section>
+
       <section className="grid grid-cols-1 place-items-center gap-4 p-4 sm:grid-cols-2 md:grid-cols-4">
         {scoreData.map(({ title, score }) => (
           <div key={title} className="flex flex-col items-center">
