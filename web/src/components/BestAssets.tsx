@@ -1,5 +1,6 @@
 'use client'
 
+import { TrophyIcon } from '@heroicons/react/24/outline'
 import { useState } from 'react'
 import { useGetBestAssets } from 'src/queries/useGetBestAssets'
 import { sectorsAndSubSectors } from 'src/utils/sectorsAndSubSectors'
@@ -30,7 +31,10 @@ export const BestAssets: React.FC = () => {
   return (
     <section className="px-4 py-8">
       <div className="mx-auto max-w-4xl">
-        <h2 className="mb-4 text-2xl font-bold">As melhores ações</h2>
+        <h2 className="mb-4 flex items-center gap-2 text-2xl font-bold">
+          <TrophyIcon className="h-8 w-8 text-green-500" />
+          <p>As Melhores Ações</p>
+        </h2>
 
         <div className="mb-8 flex flex-col gap-4 lg:flex-row">
           <SectorSelect

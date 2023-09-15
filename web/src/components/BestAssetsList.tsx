@@ -33,10 +33,10 @@ export const BestAssetsList: React.FC<Props> = ({
           <li key={asset.ticker}>
             <Link
               href={`/ativos/${asset.ticker}`}
-              className="flex items-center justify-between rounded-md bg-neutral-800 p-4"
+              className="group flex items-center justify-between rounded-md bg-neutral-800 p-4 transition-colors hover:bg-green-500"
             >
               <section className="flex items-center gap-8">
-                <span className="w-6 text-lg font-bold text-green-500">
+                <span className="w-6 text-lg font-bold text-green-500 group-hover:text-neutral-50">
                   {firstPosition + i}
                 </span>
                 <div className="flex flex-col">
@@ -47,7 +47,7 @@ export const BestAssetsList: React.FC<Props> = ({
               <section>
                 <data
                   value={asset.windScore.windFinalScore}
-                  className="font-bold text-green-500"
+                  className="font-bold text-green-500 group-hover:text-neutral-50"
                 >
                   {formatToRatio(asset.windScore.windFinalScore)}
                 </data>
