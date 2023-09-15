@@ -37,38 +37,42 @@ export const WindScore: React.FC<Props> = ({ windScore }) => {
   ]
 
   return (
-    <div className="mx-auto mt-12 grid max-w-6xl rounded-2xl rounded-t-none border-t-4 border-green-500 bg-neutral-800 pt-4">
-      <header className="border-b border-neutral-500">
-        <h3 className="px-4 pb-4 text-2xl font-bold">Ranking Wind</h3>
-      </header>
+    <div className="mx-auto mt-12 grid max-w-6xl pt-4">
+      <div className="overflow-hidden rounded-2xl border border-neutral-500">
+        <header className="bg-green-500 p-4 text-center">
+          <h3 className="text-2xl font-bold">RANKING WIND</h3>
+        </header>
 
-      <section className="border-b border-neutral-500 p-4">
-        <h4 className="mb-4 text-lg font-bold">Checklist HOLDER</h4>
+        <section className="border-b border-neutral-500 p-4">
+          <h4 className="mb-4 text-xl font-bold">Checklist HOLDER</h4>
 
-        <ul className="grid grid-cols-1 gap-2 md:grid-cols-2">
-          {checkList.map(({ title, check }) => (
-            <div key={title} className="flex items-center gap-2">
-              <span>
-                {check ? (
-                  <CheckCircleIcon className="h-5 w-5 text-green-500" />
-                ) : (
-                  <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
-                )}
-              </span>
-              <p>{title}</p>
+          <ul className="grid grid-cols-1 gap-2 md:grid-cols-2">
+            {checkList.map(({ title, check }) => (
+              <div key={title} className="flex items-center gap-2">
+                <span>
+                  {check ? (
+                    <CheckCircleIcon className="h-6 w-6 text-green-500" />
+                  ) : (
+                    <ExclamationCircleIcon className="h-6 w-6 text-red-500" />
+                  )}
+                </span>
+                <p>{title}</p>
+              </div>
+            ))}
+          </ul>
+        </section>
+
+        <section className="grid grid-cols-1 place-items-center gap-4 p-4 sm:grid-cols-2 md:grid-cols-4">
+          {scoreData.map(({ title, score }) => (
+            <div key={title} className="flex flex-col items-center">
+              <p className="text-lg font-bold text-green-500">{title}</p>
+              <data value={score === null ? 'N/A' : formatToRatio(score)}>
+                {score === null ? 'N/A' : formatToRatio(score)}
+              </data>
             </div>
           ))}
-        </ul>
-      </section>
-
-      <section className="grid grid-cols-1 place-items-center gap-4 p-4 sm:grid-cols-2 md:grid-cols-4">
-        {scoreData.map(({ title, score }) => (
-          <div key={title} className="flex flex-col items-center">
-            <p className="text-lg font-bold text-green-500">{title}</p>
-            <strong>{score === null ? 'N/A' : formatToRatio(score)}</strong>
-          </div>
-        ))}
-      </section>
+        </section>
+      </div>
     </div>
   )
 }

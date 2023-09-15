@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html lang="pt" className="bg-neutral-900 text-white">
+    <html lang="pt" className="bg-neutral-900 text-neutral-50">
       <QueryProvider>
         <body
           className={`flex min-h-screen flex-col justify-between ${nunito.className}`}
