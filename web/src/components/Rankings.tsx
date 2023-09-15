@@ -1,55 +1,16 @@
 'use client'
 
+import { CurrencyDollarIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
-import Skeleton from 'react-loading-skeleton'
 import { useGetRanking } from 'src/queries/useGetRanking'
 import { formatToBRL } from 'src/utils/formatToBRL'
+import { Spinner } from './Spinner'
 
 export const Rankings: React.FC = () => {
   const { data, isLoading } = useGetRanking()
 
   if (data === undefined || isLoading || !data.ok) {
-    return (
-      <section className="bg-neutral-800 px-4 py-8">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="mb-4 text-2xl font-bold">Rankings de Ações</h2>
-
-          <div className="grid animate-pulse grid-cols-1 gap-4 sm:grid-cols-2">
-            {[1, 2].map((data) => (
-              <div
-                key={data}
-                className="rounded-xl border border-neutral-500 p-8"
-              >
-                <h4 className="mb-4 text-xl font-bold">
-                  <Skeleton />
-                </h4>
-
-                <div className="flex flex-col gap-2">
-                  {[1, 2, 3, 4, 5].map((asset) => (
-                    <div
-                      key={asset}
-                      className="flex items-center justify-between rounded-xl bg-neutral-100 p-4 text-neutral-800"
-                    >
-                      <div className="flex flex-col">
-                        <p className="text-lg font-bold">
-                          <Skeleton />
-                        </p>
-                        <p className="text-sm">
-                          <Skeleton />
-                        </p>
-                      </div>
-                      <strong>
-                        <Skeleton />
-                      </strong>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    )
+    return <Spinner />
   }
 
   const { data: ranking } = data
@@ -74,22 +35,27 @@ export const Rankings: React.FC = () => {
   return (
     <section className="bg-neutral-800 px-4 py-8">
       <div className="mx-auto max-w-4xl">
-        <h2 className="mb-4 text-2xl font-bold">Rankings de Ações</h2>
+        <h2 className="mb-4 flex items-center gap-2 text-2xl font-bold">
+          <CurrencyDollarIcon className="h-8 w-8 text-green-500" />
+          <p>Rankings de Ações</p>
+        </h2>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {rankings.map((data) => (
             <div
               key={data.title}
-              className="rounded-xl border border-neutral-500 p-8"
+              className="overflow-hidden rounded-xl border border-neutral-500"
             >
-              <h4 className="mb-4 text-xl font-bold">{data.title}</h4>
+              <header className="bg-green-500 p-4 text-center">
+                <h4 className="text-xl font-bold">{data.title}</h4>
+              </header>
 
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col">
                 {data.data.map((asset) => (
                   <Link
                     key={asset.ticker}
                     href={`/ativos/${asset.ticker}`}
-                    className="flex items-center justify-between rounded-xl bg-neutral-100 p-4 text-neutral-800"
+                    className="flex items-center justify-between px-8 py-2 transition-colors hover:bg-green-500"
                   >
                     <div className="flex flex-col">
                       <p className="text-lg font-bold">
