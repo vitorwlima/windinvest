@@ -29,10 +29,18 @@ const getValuationScore = (valuation: Stock['valuation']) => {
     ? 1 + valuation.dividendYield / 100
     : 1
 
-  const valuationBadMultiplier =
+  let valuationBadMultiplier =
     valuation.priceToProfitRatio *
     valuation.priceToBookRatio *
     valuation.evToEbitRatio
+
+  if (
+    valuation.priceToProfitRatio < 0 ||
+    valuation.priceToBookRatio < 0 ||
+    valuation.evToEbitRatio < 0
+  ) {
+    valuationBadMultiplier = Math.abs(valuationBadMultiplier) * -1
+  }
 
   const score =
     Math.sqrt(dividendMultiplier) / Math.log2(valuationBadMultiplier)
@@ -72,6 +80,7 @@ const getDebtScore = (debt: Stock['debt']) => {
 const getProfitabilityScore = (profitability: Stock['profitability']) => {
   if (
     profitability.returnOnEquity === null ||
+    profitability.returnOnEquity < 0 ||
     profitability.returnOnInvestedCapital === null ||
     profitability.assetTurnover === null
   ) {
@@ -93,11 +102,11 @@ export const getWindScore = (stock: Stock): WindScore => {
   const debt = getDebtScore(stock.debt)
   const profitability = getProfitabilityScore(stock.profitability)
   const windFinalScore = getAverage([
-    valuation ?? 0,
-    valuation ?? 0,
-    efficiency ?? 0,
-    debt ?? 0,
-    profitability ?? 0,
+    valuation || 0,
+    valuation || 0,
+    efficiency || 0,
+    debt || 0,
+    profitability || 0,
   ])
 
   const holderChecklist = {
