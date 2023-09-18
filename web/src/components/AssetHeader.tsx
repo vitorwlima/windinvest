@@ -14,7 +14,7 @@ export const AssetHeader: React.FC<Props> = ({ about }) => {
           <h2>{name}</h2>
         </section>
 
-        <section className="flex flex-col gap-4 sm:flex-row sm:items-center md:gap-12">
+        <section className="flex w-full flex-col gap-4 sm:w-fit sm:flex-row sm:items-center md:gap-12">
           <div className="flex flex-col gap-1">
             <p className="text-xl font-bold">Setor</p>
             <h3>{about.sector}</h3>
