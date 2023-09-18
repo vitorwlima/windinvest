@@ -15,7 +15,7 @@ export const generateMetadata = async ({
   params,
 }: PageParams): Promise<Metadata> => {
   return {
-    title: `Stockz - ${params.ticker.toUpperCase()}`,
+    title: `Wind Invest - ${params.ticker.toUpperCase()}`,
   }
 }
 

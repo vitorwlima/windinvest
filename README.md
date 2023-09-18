@@ -1,1 +1,1 @@
-# Stockz
+# Wind Invest

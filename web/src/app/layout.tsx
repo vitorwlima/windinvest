@@ -8,9 +8,9 @@ import './globals.css'
 const nunito = Nunito({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Stockz',
-  applicationName: 'Stockz',
-  description: 'A melhor fonte de análise do mercado acionário brasileiro.',
+  title: 'Wind Invest',
+  applicationName: 'Wind Invest',
+  description: 'Análise automatizada do mercado acionário brasileiro.',
   viewport: 'width=device-width, initial-scale=1',
 }
 
