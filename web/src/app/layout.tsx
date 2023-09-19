@@ -1,7 +1,7 @@
+import { ptBR } from '@clerk/localizations'
+import { ClerkProvider } from '@clerk/nextjs'
 import type { Metadata } from 'next'
 import { Nunito } from 'next/font/google'
-import { Footer } from 'src/components/Footer'
-import { Header } from 'src/components/Header'
 import { QueryProvider } from './QueryProvider'
 import './globals.css'
 
@@ -16,19 +16,17 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html lang="pt" className="bg-neutral-900 text-neutral-50">
+    <ClerkProvider localization={ptBR}>
       <QueryProvider>
-        <body
-          className={`flex min-h-screen flex-col justify-between ${nunito.className}`}
-        >
-          <div>
-            <Header />
+        <html lang="pt" className="bg-neutral-900 text-neutral-50">
+          <body
+            className={`flex min-h-screen flex-col justify-between ${nunito.className}`}
+          >
             {children}
-          </div>
-          <Footer />
-        </body>
+          </body>
+        </html>
       </QueryProvider>
-    </html>
+    </ClerkProvider>
   )
 }
 
