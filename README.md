@@ -1,14 +1,19 @@
 # Wind Invest
 
-### TODO
+## CURRENT ROADMAP
 
+### Essential
 - [x] add user auth
 - [x] refactor layouts
 - add user subscription
-- add tooltip explaining financial concepts
 - improve loadings
 - design review
+
+### Nice to have
+- add tooltip explaining financial concepts
 - navigation with tabs
+
+### Last (marketing and improvements)
 - create landing page
 - create detailed wind score page within LP
 - improve wind score
