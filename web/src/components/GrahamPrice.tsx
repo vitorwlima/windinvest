@@ -81,7 +81,7 @@ export const GrahamPrice: React.FC<Props> = ({ asset }: Props) => {
           </div>
         </div>
 
-        <p className="tracking-wide">{content.result}</p>
+        <p className="text-center tracking-wide">{content.result}</p>
       </section>
     </AssetDataContainer>
   )
