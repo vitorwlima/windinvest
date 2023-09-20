@@ -39,10 +39,9 @@ export const Rankings: React.FC = () => {
                 </header>
 
                 <div className="flex flex-col">
-                  {data.data.map((asset, i) => (
-                    <Link
+                  {data.data.map((_asset, i) => (
+                    <div
                       key={i}
-                      href="/"
                       className="flex animate-pulse items-center justify-between bg-neutral-900 px-8 py-2 transition-colors"
                     >
                       <div className="flex flex-col">
@@ -50,7 +49,7 @@ export const Rankings: React.FC = () => {
                         <p className="text-sm">&#12644;</p>
                       </div>
                       <strong>&#12644;</strong>
-                    </Link>
+                    </div>
                   ))}
                 </div>
               </div>

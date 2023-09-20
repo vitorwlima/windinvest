@@ -34,10 +34,9 @@ export const BestAssetsList: React.FC<Props> = ({
     if (loading) {
       return (
         <ol className="flex flex-col gap-2">
-          {bestAssets.map((asset) => (
-            <li key={asset.ticker}>
-              <Link
-                href={`/ativos/${asset.ticker}`}
+          {bestAssets.map((asset, i) => (
+            <li key={i}>
+              <div
                 className={`flex animate-pulse items-center justify-between rounded-md bg-neutral-800 p-4 transition-colors ${
                   hideContent ? '' : 'group'
                 }`}
@@ -65,7 +64,7 @@ export const BestAssetsList: React.FC<Props> = ({
                     &#12644;
                   </data>
                 </section>
-              </Link>
+              </div>
             </li>
           ))}
         </ol>
