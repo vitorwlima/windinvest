@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { env } from 'src/utils/env'
+import { useFetch } from './useFetch'
 
 type GetAllAssetsArgs = {
   search: string
@@ -21,6 +22,8 @@ type AssetResponse =
     }
 
 export const useGetAllAssets = ({ search }: GetAllAssetsArgs) => {
+  const fetch = useFetch()
+
   return useQuery<AssetResponse>({
     queryKey: ['all-assets', search],
     enabled: !!search,

@@ -1,9 +1,17 @@
+import { getAuth } from '@clerk/fastify'
 import { FastifyInstance } from 'fastify'
 import { prisma } from 'src/lib/prisma'
 import { z } from 'zod'
 
 export const getAllAssets = async (fastify: FastifyInstance) => {
   fastify.get('/assets', async (request, reply) => {
+    const { userId } = getAuth(request)
+
+    if (!userId) {
+      reply.code(401)
+      return { ok: false, error: 'Unauthorized' }
+    }
+
     const querySchema = z.object({
       search: z.string().optional(),
     })

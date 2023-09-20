@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { env } from 'src/utils/env'
+import { useFetch } from './useFetch'
 
 type GetBestAssetsArgs = {
   page: number
@@ -37,6 +38,8 @@ export const useGetBestAssets = ({
   sector,
   subSector,
 }: GetBestAssetsArgs) => {
+  const fetch = useFetch()
+
   const params = new URLSearchParams({
     page: String(page),
     sector,

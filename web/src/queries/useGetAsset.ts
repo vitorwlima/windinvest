@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { env } from 'src/utils/env'
+import { useFetch } from './useFetch'
 
 type GetAssetArgs = {
   ticker: string
@@ -89,6 +90,8 @@ type AssetResponse =
     }
 
 export const useGetAsset = ({ ticker }: GetAssetArgs) => {
+  const fetch = useFetch()
+
   return useQuery<AssetResponse>({
     queryKey: ['asset', ticker],
     queryFn: async () => {
@@ -97,6 +100,5 @@ export const useGetAsset = ({ ticker }: GetAssetArgs) => {
       )
       return res.json()
     },
-    refetchOnWindowFocus: false,
   })
 }

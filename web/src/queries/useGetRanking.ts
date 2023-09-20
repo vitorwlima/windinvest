@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { env } from 'src/utils/env'
+import { useFetch } from './useFetch'
 
 export type Ranking = {
   greatestMarketValue: {
@@ -25,6 +26,8 @@ type AssetResponse =
     }
 
 export const useGetRanking = () => {
+  const fetch = useFetch()
+
   return useQuery<AssetResponse>({
     queryKey: ['ranking'],
     queryFn: async () => {

@@ -1,3 +1,4 @@
+import { getAuth } from '@clerk/fastify'
 import { B3Scraper } from 'b3-scraper'
 import { FastifyInstance } from 'fastify'
 import { getGrahamPrice } from 'src/lib/getGrahamPrice'
@@ -6,6 +7,13 @@ import { z } from 'zod'
 
 export const getAsset = async (fastify: FastifyInstance) => {
   fastify.get('/asset/:ticker', async (request, reply) => {
+    const { userId } = getAuth(request)
+
+    if (!userId) {
+      reply.code(401)
+      return { ok: false, error: 'Unauthorized' }
+    }
+
     const paramsSchema = z.object({
       ticker: z.string(),
     })

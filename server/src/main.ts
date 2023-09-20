@@ -1,3 +1,6 @@
+import 'dotenv/config'
+
+import { clerkPlugin } from '@clerk/fastify'
 import cors from '@fastify/cors'
 import Fastify from 'fastify'
 import { env } from './env'
@@ -13,6 +16,7 @@ const fastify = Fastify({
 fastify.register(cors, {
   origin: env.ORIGIN,
 })
+fastify.register(clerkPlugin)
 
 fastify.register(getAsset)
 fastify.register(getAllAssets)

@@ -1,8 +1,16 @@
+import { getAuth } from '@clerk/fastify'
 import { FastifyInstance } from 'fastify'
 import { prisma } from 'src/lib/prisma'
 
 export const getRanking = async (fastify: FastifyInstance) => {
   fastify.get('/ranking', async (request, reply) => {
+    const { userId } = getAuth(request)
+
+    if (!userId) {
+      reply.code(401)
+      return { ok: false, error: 'Unauthorized' }
+    }
+
     try {
       const greatestMarketValue = await prisma.asset.findMany({
         select: {
