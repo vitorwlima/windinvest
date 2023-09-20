@@ -1,5 +1,6 @@
 import { getAuth } from '@clerk/fastify'
 import { FastifyInstance } from 'fastify'
+import { getIsUserPremium } from 'src/lib/getIsUserPremium'
 import { prisma } from 'src/lib/prisma'
 import { z } from 'zod'
 
@@ -10,6 +11,13 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
     if (!userId) {
       reply.code(401)
       return { ok: false, error: 'Unauthorized' }
+    }
+
+    const isUserPremium = await getIsUserPremium(userId)
+
+    if (!isUserPremium) {
+      reply.code(403)
+      return { ok: false, error: 'Forbidden' }
     }
 
     const querySchema = z.object({

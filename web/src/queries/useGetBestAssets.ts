@@ -26,7 +26,7 @@ type BestAssetsResponse = {
 type AssetResponse =
   | {
       ok: false
-      error: unknown
+      error: unknown | 'Forbidden'
     }
   | {
       ok: true

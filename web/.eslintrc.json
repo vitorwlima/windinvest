@@ -1,4 +1,7 @@
 {
   "extends": ["@rocketseat/eslint-config/next", "plugin:tailwindcss/recommended", "next/core-web-vitals"],
-  "ignorePatterns": ["next.config.js", "postcss.config.js"]
+  "ignorePatterns": ["next.config.js", "postcss.config.js"],
+  "rules": {
+    "@typescript-eslint/no-empty-function": "off"
+  }
 }

@@ -7,6 +7,7 @@ type Props = {
   count: number
   page: number
   onPageChange: (page: number) => void
+  hideContent?: boolean
 }
 
 export const BestAssetsList: React.FC<Props> = ({
@@ -14,6 +15,7 @@ export const BestAssetsList: React.FC<Props> = ({
   count,
   page,
   onPageChange,
+  hideContent = false,
 }) => {
   const totalPages = Math.ceil(count / 10)
   const firstPosition = (page - 1) * 10 + 1
@@ -33,10 +35,16 @@ export const BestAssetsList: React.FC<Props> = ({
           <li key={asset.ticker}>
             <Link
               href={`/ativos/${asset.ticker}`}
-              className="group flex items-center justify-between rounded-md bg-neutral-800 p-4 transition-colors hover:bg-green-500"
+              className={`flex items-center justify-between rounded-md bg-neutral-800 p-4 transition-colors hover:bg-green-500 ${
+                hideContent ? '' : 'group'
+              }`}
             >
               <section className="flex items-center gap-8">
-                <span className="w-6 text-lg font-bold text-green-500 group-hover:text-neutral-50">
+                <span
+                  className={`w-6 text-lg font-bold text-green-500 ${
+                    hideContent ? '' : 'group-hover:text-neutral-50'
+                  }`}
+                >
                   {firstPosition + i}
                 </span>
                 <div className="flex flex-col">
@@ -47,7 +55,9 @@ export const BestAssetsList: React.FC<Props> = ({
               <section>
                 <data
                   value={asset.windScore.windFinalScore}
-                  className="font-bold text-green-500 group-hover:text-neutral-50"
+                  className={`font-bold text-green-500 ${
+                    hideContent ? '' : 'group-hover:text-neutral-50'
+                  }`}
                 >
                   {formatToRatio(asset.windScore.windFinalScore)}
                 </data>

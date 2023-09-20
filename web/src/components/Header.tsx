@@ -9,7 +9,10 @@ export const Header: React.FC = () => {
         <Logo size="lg" />
         <section className="flex w-full max-w-md items-center gap-4">
           <SearchAsset />
-          <UserButton />
+          <UserButton
+            userProfileMode="navigation"
+            userProfileUrl="/configuracoes/conta"
+          />
         </section>
       </div>
     </header>

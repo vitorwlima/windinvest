@@ -63,19 +63,21 @@ export type Asset = {
     returnOnInvestedCapital: number | null
     assetTurnover: number | null
   }
-  windScore: {
-    valuation: number | null
-    efficiency: number | null
-    debt: number | null
-    profitability: number | null
-    windFinalScore: number
-    holderChecklist: {
-      liquidity: boolean
-      debt: boolean
-      roe: boolean
-      profit: boolean
-    }
-  }
+  windScore:
+    | {
+        valuation: number | null
+        efficiency: number | null
+        debt: number | null
+        profitability: number | null
+        windFinalScore: number
+        holderChecklist: {
+          liquidity: boolean
+          debt: boolean
+          roe: boolean
+          profit: boolean
+        }
+      }
+    | 'Forbidden'
   grahamPrice: number | null
 }
 
