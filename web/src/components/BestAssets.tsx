@@ -14,7 +14,6 @@ import {
 import { sectorsAndSubSectors } from 'src/utils/sectorsAndSubSectors'
 import { BestAssetsList } from './BestAssetsList'
 import { SectorSelect } from './SectorSelect'
-import { Spinner } from './Spinner'
 
 const premiumExampleAsset: BestAssetsType[number] = {
   fantasyName: 'Nome da empresa',
@@ -49,7 +48,34 @@ export const BestAssets: React.FC = () => {
 
   const AssetList = () => {
     if (isLoading || !data) {
-      return <Spinner />
+      return (
+        <>
+          <div className="mb-8 flex flex-col gap-4 lg:flex-row">
+            <SectorSelect
+              name="setor"
+              value={filter.sector}
+              sectors={sectors}
+              onChange={handleChangeSector}
+              disabled={true}
+            />
+            <SectorSelect
+              name="subsetor"
+              value={filter.subSector}
+              sectors={subSectors}
+              onChange={handleChangeSubSector}
+              disabled={true}
+            />
+          </div>
+
+          <BestAssetsList
+            bestAssets={Array.from({ length: 10 }, () => premiumExampleAsset)}
+            count={10}
+            page={1}
+            onPageChange={handleChangePage}
+            loading
+          />
+        </>
+      )
     }
 
     if (!data.ok && data.error === 'Forbidden') {
@@ -113,7 +139,7 @@ export const BestAssets: React.FC = () => {
             value={filter.subSector}
             sectors={subSectors}
             onChange={handleChangeSubSector}
-            disabled={isLoading || !data || !data.ok}
+            disabled={isLoading || !data || !data.ok || !filter.sector}
           />
         </div>
 

@@ -4,13 +4,61 @@ import { CurrencyDollarIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import { useGetRanking } from 'src/queries/useGetRanking'
 import { formatToBRL } from 'src/utils/formatToBRL'
-import { Spinner } from './Spinner'
 
 export const Rankings: React.FC = () => {
   const { data, isLoading } = useGetRanking()
 
-  if (data === undefined || isLoading || !data.ok) {
-    return <Spinner />
+  if (!data || !data.ok || isLoading) {
+    const rankings = [
+      {
+        title: 'Maiores Valor de Mercado',
+        data: [1, 2, 3, 4, 5],
+      },
+      {
+        title: 'Maiores Receitas Líquidas',
+        data: [1, 2, 3, 4, 5],
+      },
+    ]
+
+    return (
+      <section className="bg-neutral-800 px-4 py-8">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="mb-4 flex items-center gap-2 text-2xl font-bold">
+            <CurrencyDollarIcon className="h-8 w-8 text-green-500" />
+            <p>Rankings de Ações</p>
+          </h2>
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {rankings.map((data) => (
+              <div
+                key={data.title}
+                className="overflow-hidden rounded-xl border border-neutral-500"
+              >
+                <header className="bg-green-500 p-4 text-center">
+                  <h4 className="text-xl font-bold">{data.title}</h4>
+                </header>
+
+                <div className="flex flex-col">
+                  {data.data.map((asset, i) => (
+                    <Link
+                      key={i}
+                      href="/"
+                      className="flex animate-pulse items-center justify-between bg-neutral-900 px-8 py-2 transition-colors"
+                    >
+                      <div className="flex flex-col">
+                        <p className="text-lg font-bold">&#12644;</p>
+                        <p className="text-sm">&#12644;</p>
+                      </div>
+                      <strong>&#12644;</strong>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
   }
 
   const { data: ranking } = data

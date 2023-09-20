@@ -8,6 +8,7 @@ type Props = {
   page: number
   onPageChange: (page: number) => void
   hideContent?: boolean
+  loading?: boolean
 }
 
 export const BestAssetsList: React.FC<Props> = ({
@@ -16,6 +17,7 @@ export const BestAssetsList: React.FC<Props> = ({
   page,
   onPageChange,
   hideContent = false,
+  loading = false,
 }) => {
   const totalPages = Math.ceil(count / 10)
   const firstPosition = (page - 1) * 10 + 1
@@ -28,8 +30,49 @@ export const BestAssetsList: React.FC<Props> = ({
       (currPage >= page - 2 && currPage <= page + 2),
   )
 
-  return (
-    <div>
+  const AssetsList = () => {
+    if (loading) {
+      return (
+        <ol className="flex flex-col gap-2">
+          {bestAssets.map((asset) => (
+            <li key={asset.ticker}>
+              <Link
+                href={`/ativos/${asset.ticker}`}
+                className={`flex animate-pulse items-center justify-between rounded-md bg-neutral-800 p-4 transition-colors ${
+                  hideContent ? '' : 'group'
+                }`}
+              >
+                <section className="flex items-center gap-8">
+                  <span
+                    className={`w-6 text-lg font-bold text-green-500 ${
+                      hideContent ? '' : 'group-hover:text-neutral-50'
+                    }`}
+                  >
+                    &#12644;
+                  </span>
+                  <div className="flex flex-col">
+                    <strong>&#12644;</strong>
+                    <p className="text-xs">&#12644;</p>
+                  </div>
+                </section>
+                <section>
+                  <data
+                    value={'Loading'}
+                    className={`font-bold text-green-500 ${
+                      hideContent ? '' : 'group-hover:text-neutral-50'
+                    }`}
+                  >
+                    &#12644;
+                  </data>
+                </section>
+              </Link>
+            </li>
+          ))}
+        </ol>
+      )
+    }
+
+    return (
       <ol className="flex flex-col gap-2">
         {bestAssets.map((asset, i) => (
           <li key={asset.ticker}>
@@ -66,6 +109,12 @@ export const BestAssetsList: React.FC<Props> = ({
           </li>
         ))}
       </ol>
+    )
+  }
+
+  return (
+    <div>
+      <AssetsList />
 
       <div className="mt-8 flex items-center justify-center gap-2">
         {displayedPagesArray.map((currPage) => (
