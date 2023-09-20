@@ -41,9 +41,9 @@ export const SearchAsset: React.FC = () => {
 
   return (
     <Combobox value={selected} onChange={onSelect}>
-      <div className="relative mt-1 w-full">
+      <div className="relative mt-1 flex w-full justify-end">
         <Combobox.Input
-          className="flex h-9 w-full rounded-md border border-neutral-500 bg-neutral-900 px-3 py-1 text-sm transition-colors focus-visible:border-neutral-50 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+          className="flex h-9 w-[150px] rounded-md border border-neutral-500 bg-neutral-900 px-3 py-1 text-sm transition-all focus:w-full focus-visible:border-neutral-50 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
           onChange={(event) => setInputValue(event.target.value)}
           ref={ref}
           placeholder="Pesquisar ativo..."
@@ -55,7 +55,7 @@ export const SearchAsset: React.FC = () => {
           leaveTo="opacity-0"
           afterLeave={() => setInputValue('')}
         >
-          <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-neutral-900 py-1 focus:outline-none">
+          <Combobox.Options className="absolute mt-10 max-h-60 w-full overflow-auto rounded-md bg-neutral-900 py-1 focus:outline-none">
             {filteredAssets.length === 0 && inputValue !== '' ? (
               <div className="relative cursor-default select-none px-4 py-2 text-gray-700">
                 Nenhum ativo encontrado.
