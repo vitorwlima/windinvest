@@ -9,7 +9,7 @@ export const AssetHeader: React.FC<Props> = ({ about }) => {
   return (
     <header className="bg-neutral-800 px-4 py-8">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-8 md:flex-row md:gap-0">
-        <section className="flex flex-col gap-1 font-bold">
+        <section className="flex w-full flex-col gap-1 font-bold">
           <h1 className="text-3xl text-green-500">{ticker}</h1>
           <h2>{name}</h2>
         </section>
