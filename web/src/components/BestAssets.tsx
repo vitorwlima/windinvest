@@ -79,7 +79,7 @@ export const BestAssets: React.FC = () => {
             </div>
 
             <BestAssetsList
-              bestAssets={Array.from({ length: 10 }, () => premiumExampleAsset)}
+              bestAssets={Array.from({ length: 5 }, () => premiumExampleAsset)}
               count={30}
               page={1}
               onPageChange={(_: number) => _}
