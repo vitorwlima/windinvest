@@ -3,7 +3,7 @@
 ### TODO
 
 - [x] add user auth
-- refactor layouts
+- [x] refactor layouts
 - add user subscription
 - add tooltip explaining financial concepts
 - improve loadings

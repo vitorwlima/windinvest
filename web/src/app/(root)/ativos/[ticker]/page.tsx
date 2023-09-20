@@ -1,6 +1,4 @@
 import { Metadata } from 'next'
-import { Footer } from 'src/components/Footer'
-import { Header } from 'src/components/Header'
 import { Asset } from './Asset'
 
 type PageParams = {
@@ -10,15 +8,7 @@ type PageParams = {
 }
 
 const AssetPage: React.FC<PageParams> = ({ params: { ticker } }) => {
-  return (
-    <>
-      <div>
-        <Header />
-        <Asset ticker={ticker} />
-      </div>
-      <Footer />
-    </>
-  )
+  return <Asset ticker={ticker} />
 }
 
 export const generateMetadata = async ({
