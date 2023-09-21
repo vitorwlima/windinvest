@@ -46,8 +46,6 @@ export const WindScore: React.FC<Props> = ({ windScore }) => {
     return (
       <AssetDataContainer title="RANKING WIND">
         <div className="group relative cursor-pointer" onClick={openModal}>
-          {/* <LockClosedIcon className="absolute left-1/2 top-1/2 h-14 w-14 -translate-x-1/2 -translate-y-1/2 group-hover:opacity-0" />
-          <LockOpenIcon className="absolute left-1/2 top-1/2 h-14 w-14 -translate-x-1/2 -translate-y-1/2 text-sky-500 opacity-0 group-hover:opacity-100" /> */}
           <button className="absolute left-1/2 top-1/2 flex w-fit -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-lg bg-sky-500 px-6 py-3 text-lg font-bold transition-colors group-hover:bg-neutral-50 group-hover:text-sky-500">
             Desbloquear
             <LockClosedIcon className="h-4 w-4 group-hover:hidden [&>path]:stroke-[3]" />
