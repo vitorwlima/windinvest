@@ -16,7 +16,7 @@ export const Logo: React.FC<Props> = ({ size, showPro }) => {
 
   return (
     <Link
-      className={`flex items-end gap-1 outline-offset-4 outline-green-500 focus:outline ${
+      className={`flex items-end gap-1 outline-none transition-all focus:ring-2 focus:ring-green-500 focus:ring-offset-4 focus:ring-offset-neutral-900 ${
         size === 'md' ? 'scale-75' : ''
       }`}
       href="/"
