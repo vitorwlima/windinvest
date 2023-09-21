@@ -21,7 +21,7 @@ export const Rankings: React.FC = () => {
     ]
 
     return (
-      <section className="bg-neutral-800 px-4 py-8">
+      <section className="px-4 py-8">
         <div className="mx-auto max-w-4xl">
           <h2 className="mb-4 flex items-center gap-2 text-2xl font-bold">
             <CurrencyDollarIcon className="h-8 w-8 text-green-500" />
@@ -42,7 +42,7 @@ export const Rankings: React.FC = () => {
                   {data.data.map((_asset, i) => (
                     <div
                       key={i}
-                      className="flex animate-pulse items-center justify-between bg-neutral-900 px-8 py-2 transition-colors"
+                      className="flex animate-pulse items-center justify-between bg-neutral-800 px-8 py-2 transition-colors"
                     >
                       <div className="flex flex-col">
                         <p className="text-lg font-bold">&#12644;</p>
@@ -80,7 +80,7 @@ export const Rankings: React.FC = () => {
   }
 
   return (
-    <section className="bg-neutral-800 px-4 py-8">
+    <section className="px-4 py-8">
       <div className="mx-auto max-w-4xl">
         <h2 className="mb-4 flex items-center gap-2 text-2xl font-bold">
           <CurrencyDollarIcon className="h-8 w-8 text-green-500" />
