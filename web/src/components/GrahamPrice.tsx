@@ -48,6 +48,10 @@ const grahamContent: Record<GrahamResults, GrahamContent> = {
   },
 }
 
+const grahamPriceDescription = {
+  text: 'Preço justo calculado com base no método de Benjamin Graham, considerando o lucro por ação dos últimos 12 meses e o crescimento médio dos lucros nos últimos 10 anos.',
+}
+
 export const GrahamPrice: React.FC<Props> = ({ asset }: Props) => {
   const {
     grahamPrice,
@@ -65,7 +69,10 @@ export const GrahamPrice: React.FC<Props> = ({ asset }: Props) => {
   const content = grahamContent[result]
 
   return (
-    <AssetDataContainer title="PREÇO JUSTO DE GRAHAM">
+    <AssetDataContainer
+      title="PREÇO JUSTO DE GRAHAM"
+      description={grahamPriceDescription}
+    >
       <section className="mx-auto flex flex-col items-center gap-4 p-4">
         <div className="flex items-center justify-between gap-6">
           <div className="flex flex-col gap-1">

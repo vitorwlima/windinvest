@@ -13,6 +13,11 @@ type Props = {
   windScore: Asset['windScore']
 }
 
+const windScoreDescription = {
+  text: 'Pontuação baseada no algoritmo da Wind Invest. Combina dados de todos os indicadores fundamentalistas para retornar um número comparável para o ativo. Sua melhor utilização é comparando ações do mesmo setor (seção Melhores Ações na página inicial).',
+  moreInfoURL: 'https://windinvest.com.br/ranking-wind',
+}
+
 export const WindScore: React.FC<Props> = ({ windScore }) => {
   const { openModal } = useUpgradeToProModal()
 
@@ -44,7 +49,10 @@ export const WindScore: React.FC<Props> = ({ windScore }) => {
     ]
 
     return (
-      <AssetDataContainer title="RANKING WIND">
+      <AssetDataContainer
+        title="RANKING WIND"
+        description={windScoreDescription}
+      >
         <div className="group relative cursor-pointer" onClick={openModal}>
           <button className="absolute left-1/2 top-1/2 flex w-fit -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-lg bg-sky-500 px-6 py-3 text-lg font-bold transition-colors group-hover:bg-neutral-50 group-hover:text-sky-500">
             Desbloquear
@@ -121,7 +129,7 @@ export const WindScore: React.FC<Props> = ({ windScore }) => {
   ]
 
   return (
-    <AssetDataContainer title="RANKING WIND">
+    <AssetDataContainer title="RANKING WIND" description={windScoreDescription}>
       <section className="border-b border-neutral-500 p-4">
         <h4 className="mb-4 text-xl font-bold">Checklist HOLDER</h4>
 
