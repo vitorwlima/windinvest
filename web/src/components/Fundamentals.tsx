@@ -28,7 +28,7 @@ export const Fundamentals: React.FC<Props> = ({ asset }) => {
               >
                 <header className="flex items-center justify-between">
                   <p className="text-xs sm:text-sm">{title.toUpperCase()}</p>
-                  <Popover className="relative">
+                  <Popover className="relative grid place-items-center">
                     <Popover.Button className="focus:outline-none">
                       <QuestionMarkCircleIcon className="h-5 w-5 text-neutral-400 [&>path]:stroke-[2]" />
                     </Popover.Button>
