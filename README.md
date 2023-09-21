@@ -9,7 +9,7 @@
 - [x] improve loadings
 
 ### Nice to have
-- add tooltip explaining financial concepts
+- [x] add tooltip explaining financial concepts
 - navigation with tabs (accessibility)
 - design review
 
