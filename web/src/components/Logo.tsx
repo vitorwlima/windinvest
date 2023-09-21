@@ -28,7 +28,7 @@ export const Logo: React.FC<Props> = ({ size, showPro }) => {
           <p className="-mt-2 text-lg tracking-widest sm:text-xl">invest</p>
         </h1>
       </div>
-      {showPro && !userIsPRO && (
+      {showPro && userIsPRO && (
         <p className="mb-[2px] text-sm font-bold text-sky-500">PRO</p>
       )}
     </Link>
