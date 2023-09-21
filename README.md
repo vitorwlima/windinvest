@@ -10,7 +10,7 @@
 
 ### Nice to have
 - [x] add tooltip explaining financial concepts
-- navigation with tabs (accessibility)
+- [x] navigation with tabs (accessibility)
 - design review
 
 ### Last (marketing and improvements)
