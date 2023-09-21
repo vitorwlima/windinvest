@@ -77,14 +77,16 @@ export const BestAssetsList: React.FC<Props> = ({
           <li key={asset.ticker}>
             <Link
               href={`/ativos/${asset.ticker}`}
-              className={`flex items-center justify-between rounded-md bg-neutral-800 p-4 transition-colors hover:bg-green-500 ${
+              className={`flex items-center justify-between rounded-md bg-neutral-800 p-4 transition-colors hover:bg-green-500 focus:bg-green-500 focus:outline-none ${
                 hideContent ? '' : 'group'
               }`}
             >
               <section className="flex items-center gap-8">
                 <span
                   className={`w-6 text-lg font-bold text-green-500 ${
-                    hideContent ? '' : 'group-hover:text-neutral-50'
+                    hideContent
+                      ? ''
+                      : 'group-hover:text-neutral-50 group-focus:text-neutral-50'
                   }`}
                 >
                   {firstPosition + i}
@@ -98,7 +100,9 @@ export const BestAssetsList: React.FC<Props> = ({
                 <data
                   value={asset.windScore.windFinalScore}
                   className={`font-bold text-green-500 ${
-                    hideContent ? '' : 'group-hover:text-neutral-50'
+                    hideContent
+                      ? ''
+                      : 'group-hover:text-neutral-50 group-focus:text-neutral-50'
                   }`}
                 >
                   {formatToRatio(asset.windScore.windFinalScore)}
@@ -123,7 +127,7 @@ export const BestAssetsList: React.FC<Props> = ({
               currPage === page
                 ? 'bg-green-500 text-white'
                 : 'bg-neutral-800 text-green-500'
-            } rounded-md px-4 py-2 font-bold`}
+            } rounded-md px-4 py-2 font-bold focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-neutral-900`}
             onClick={() => onPageChange(currPage)}
           >
             {currPage}

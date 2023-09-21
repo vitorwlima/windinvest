@@ -102,7 +102,7 @@ export const Rankings: React.FC = () => {
                   <Link
                     key={asset.ticker}
                     href={`/ativos/${asset.ticker}`}
-                    className="flex items-center justify-between px-8 py-2 transition-colors hover:bg-green-500"
+                    className="flex items-center justify-between px-8 py-2 transition-colors hover:bg-green-500 focus:bg-green-500 focus:outline-none"
                   >
                     <div className="flex flex-col">
                       <p className="text-lg font-bold">
