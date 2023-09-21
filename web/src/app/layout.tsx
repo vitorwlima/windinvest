@@ -20,7 +20,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <QueryProvider>
         <html lang="pt" className="bg-neutral-900 text-neutral-50">
           <body
-            className={`flex min-h-screen flex-col justify-between ${nunito.className}`}
+            className={`flex min-h-screen flex-col justify-between overflow-x-hidden ${nunito.className}`}
           >
             {children}
           </body>
