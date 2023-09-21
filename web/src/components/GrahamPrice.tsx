@@ -49,7 +49,7 @@ const grahamContent: Record<GrahamResults, GrahamContent> = {
 }
 
 const grahamPriceDescription = {
-  text: 'Preço justo calculado com base no método de Benjamin Graham, considerando o lucro por ação dos últimos 12 meses e o crescimento médio dos lucros nos últimos 10 anos.',
+  text: 'Preço justo calculado com base no método do economista Benjamin Graham, que considera o VPA e LPA do ativo.',
 }
 
 export const GrahamPrice: React.FC<Props> = ({ asset }: Props) => {
