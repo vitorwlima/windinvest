@@ -21,7 +21,7 @@ export const AssetIntroductionData: React.FC<Props> = ({ asset }) => {
     },
     {
       title: 'Valorização (12M)',
-      data: asset.valuation.priceToBookRatio,
+      data: asset.quote.oscilationIn12Months,
     },
     {
       title: 'Liquidez',
