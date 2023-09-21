@@ -26,8 +26,8 @@ export const AssetDataContainer: React.FC<Props> = ({
 
           {!!description && (
             <Popover className="grid place-items-center">
-              <Popover.Button className="focus:outline-none">
-                <QuestionMarkCircleIcon className="h-4 w-4 text-neutral-950 [&>path]:stroke-[2]" />
+              <Popover.Button className="group focus:outline-none">
+                <QuestionMarkCircleIcon className="h-4 w-4 text-neutral-950 transition-colors group-focus:text-neutral-100 [&>path]:stroke-[2]" />
               </Popover.Button>
               <Transition
                 as={Fragment}
@@ -45,7 +45,7 @@ export const AssetDataContainer: React.FC<Props> = ({
                     <p className="mt-4 text-sm text-neutral-400">
                       Saiba mais{' '}
                       <a
-                        className="font-bold text-green-500"
+                        className="font-bold text-green-500 transition-colors hover:text-green-400 focus:text-green-400 focus:outline-none"
                         href={description.moreInfoURL}
                         target="_blank"
                       >
