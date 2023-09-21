@@ -12,6 +12,12 @@ export const Header: React.FC = () => {
           <UserButton
             userProfileMode="navigation"
             userProfileUrl="/configuracoes/conta"
+            appearance={{
+              elements: {
+                userButtonTrigger:
+                  'focus:shadow-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-neutral-900',
+              },
+            }}
           />
         </section>
       </div>
