@@ -24,16 +24,20 @@ model Asset {
 }
 
 model WindScore {
-  id             String   @id @default(uuid())
-  assetId        String   @unique
-  valuation      Float?
-  efficiency     Float?
-  debt           Float?
-  profitability  Float?
-  windFinalScore Float
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  asset          Asset    @relation(fields: [assetId], references: [id])
+  id                 String   @id @default(uuid())
+  assetId            String   @unique
+  valuation          Float?
+  efficiency         Float?
+  debt               Float?
+  profitability      Float?
+  windFinalScore     Float
+  checklistLiquidity Boolean?
+  checklistDebt      Boolean?
+  checklistRoe       Boolean?
+  checklistProfit    Boolean?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  asset              Asset    @relation(fields: [assetId], references: [id])
 
   @@map("windScores")
 }
