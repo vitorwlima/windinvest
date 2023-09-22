@@ -12,6 +12,13 @@ type Props = {
   disabled: boolean
 }
 
+const getCleanString = (string: string) =>
+  string
+    .toLowerCase()
+    .trim()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+
 export const SectorSelect: React.FC<Props> = ({
   sectors,
   value,
@@ -26,10 +33,7 @@ export const SectorSelect: React.FC<Props> = ({
     inputValue === ''
       ? sectors
       : sectors.filter((sector) =>
-          sector
-            .toLowerCase()
-            .replace(/\s+/g, '')
-            .includes(inputValue.toLowerCase().replace(/\s+/g, '')),
+          getCleanString(sector).includes(getCleanString(inputValue)),
         )
 
   const onSelect = (value: string) => {
