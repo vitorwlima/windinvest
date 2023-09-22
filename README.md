@@ -11,9 +11,9 @@
 ### Nice to have
 - [x] add tooltip explaining financial concepts
 - [x] navigation with tabs (accessibility)
-- design review
+- [x] design review
 
 ### Last (marketing and improvements)
-- improve wind score
+- [WIP] improve wind score
 - create landing page
 - create detailed wind score page within LP
