@@ -48,6 +48,10 @@ const handleNewAsset = async (
       valuation: getWindScoreFormattedNumber(windScore.valuation),
       windFinalScore:
         getWindScoreFormattedNumber(windScore.windFinalScore) ?? 0,
+      checklistDebt: windScore.holderChecklist.debt,
+      checklistLiquidity: windScore.holderChecklist.liquidity,
+      checklistProfit: windScore.holderChecklist.profit,
+      checklistRoe: windScore.holderChecklist.roe,
     },
   })
 
@@ -110,6 +114,10 @@ const handleExistingAsset = async (
         valuation: getWindScoreFormattedNumber(windScore.valuation),
         windFinalScore:
           getWindScoreFormattedNumber(windScore.windFinalScore) ?? 0,
+        checklistDebt: windScore.holderChecklist.debt,
+        checklistLiquidity: windScore.holderChecklist.liquidity,
+        checklistProfit: windScore.holderChecklist.profit,
+        checklistRoe: windScore.holderChecklist.roe,
       },
     })
     console.info(`Updated windscore for ${stockInitialData.ticker}`)
@@ -126,6 +134,10 @@ const handleExistingAsset = async (
       valuation: getWindScoreFormattedNumber(windScore.valuation),
       windFinalScore:
         getWindScoreFormattedNumber(windScore.windFinalScore) ?? 0,
+      checklistDebt: windScore.holderChecklist.debt,
+      checklistLiquidity: windScore.holderChecklist.liquidity,
+      checklistProfit: windScore.holderChecklist.profit,
+      checklistRoe: windScore.holderChecklist.roe,
     },
   })
   console.info(`Created windscore for ${stockInitialData.ticker}`)

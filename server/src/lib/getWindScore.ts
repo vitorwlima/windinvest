@@ -111,7 +111,7 @@ export const getWindScore = (stock: Stock): WindScore => {
   const holderChecklist = {
     liquidity:
       stock.about.averageLiquidity !== null &&
-      stock.about.averageLiquidity > 2000000,
+      stock.about.averageLiquidity > 1000000,
     debt:
       stock.balance.grossDebt !== null &&
       stock.balance.netWorth !== null &&
