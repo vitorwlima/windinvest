@@ -1,6 +1,8 @@
 'use client'
 
+import { Disclosure, Switch, Transition } from '@headlessui/react'
 import {
+  ChevronDownIcon,
   LockClosedIcon,
   LockOpenIcon,
   TrophyIcon,
@@ -25,9 +27,39 @@ const premiumExampleAsset: BestAssetsType[number] = {
   },
 }
 
+const checklistFilters: {
+  title: string
+  key: 'liquidity' | 'roe' | 'debt' | 'profit'
+}[] = [
+  {
+    title: 'Empresa com liquidez diária acima de R$ 1M',
+    key: 'liquidity',
+  },
+  {
+    title: 'Empresa com ROE acima de 10%',
+    key: 'roe',
+  },
+  {
+    title: 'Empresa com dívida menor que patrimônio',
+    key: 'debt',
+  },
+  {
+    title: 'Empresa com lucro no último ano',
+    key: 'profit',
+  },
+]
+
 export const BestAssets: React.FC = () => {
   const { openModal } = useUpgradeToProModal()
-  const [filter, setFilter] = useState({ page: 1, sector: '', subSector: '' })
+  const [filter, setFilter] = useState({
+    page: 1,
+    sector: '',
+    subSector: '',
+    liquidity: true,
+    roe: true,
+    debt: true,
+    profit: true,
+  })
   const { data, isLoading } = useGetBestAssets(filter)
   const sectors = sectorsAndSubSectors.map((s) => s.sector)
   const subSectors =
@@ -35,11 +67,11 @@ export const BestAssets: React.FC = () => {
     []
 
   const handleChangeSector = (sector: string) => {
-    setFilter((fil) => ({ ...fil, sector, subSector: '' }))
+    setFilter((fil) => ({ ...fil, sector, subSector: '', page: 1 }))
   }
 
   const handleChangeSubSector = (subSector: string) => {
-    setFilter((fil) => ({ ...fil, subSector }))
+    setFilter((fil) => ({ ...fil, subSector, page: 1 }))
   }
 
   const handleChangePage = (page: number) => {
@@ -50,7 +82,7 @@ export const BestAssets: React.FC = () => {
     if (isLoading || !data) {
       return (
         <>
-          <div className="mb-8 flex flex-col gap-4 lg:flex-row">
+          <div className="mb-4 flex flex-col gap-4 lg:flex-row">
             <SectorSelect
               name="setor"
               value={filter.sector}
@@ -66,6 +98,11 @@ export const BestAssets: React.FC = () => {
               disabled={true}
             />
           </div>
+
+          <button className="mb-8 flex items-center gap-2 rounded-md bg-green-500 px-4 py-2">
+            <span>Filtros avançados</span>
+            <ChevronDownIcon className="h-4 w-4" />
+          </button>
 
           <BestAssetsList
             bestAssets={Array.from({ length: 10 }, () => premiumExampleAsset)}
@@ -87,7 +124,7 @@ export const BestAssets: React.FC = () => {
             <LockOpenIcon className="hidden h-4 w-4 text-sky-500 group-hover:block [&>path]:stroke-[3]" />
           </button>
           <div className="pointer-events-none select-none blur-md">
-            <div className="mb-8 flex flex-col gap-4 lg:flex-row">
+            <div className="mb-4 flex flex-col gap-4 lg:flex-row">
               <SectorSelect
                 name="setor"
                 value={filter.sector}
@@ -103,6 +140,11 @@ export const BestAssets: React.FC = () => {
                 disabled={isLoading || !data || !data.ok}
               />
             </div>
+
+            <button className="mb-8 flex items-center gap-2 rounded-md bg-green-500 px-4 py-2">
+              <span>Filtros avançados</span>
+              <ChevronDownIcon className="h-4 w-4" />
+            </button>
 
             <BestAssetsList
               bestAssets={Array.from({ length: 5 }, () => premiumExampleAsset)}
@@ -126,7 +168,7 @@ export const BestAssets: React.FC = () => {
 
     return (
       <>
-        <div className="mb-8 flex flex-col gap-4 lg:flex-row">
+        <div className="mb-4 flex flex-col gap-4 lg:flex-row">
           <SectorSelect
             name="setor"
             value={filter.sector}
@@ -142,6 +184,53 @@ export const BestAssets: React.FC = () => {
             disabled={isLoading || !data || !data.ok || !filter.sector}
           />
         </div>
+
+        <Disclosure className="mb-8" as="div">
+          <Disclosure.Button className="flex items-center gap-2 rounded-md bg-green-500 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-neutral-900">
+            {({ open }) => (
+              <>
+                <span>Filtros avançados</span>
+                <ChevronDownIcon
+                  className={`h-4 w-4 transition-transform ${
+                    open ? 'rotate-180' : ''
+                  }`}
+                />
+              </>
+            )}
+          </Disclosure.Button>
+
+          <Transition
+            enter="transition duration-100 ease-out"
+            enterFrom="transform scale-95 opacity-0"
+            enterTo="transform scale-100 opacity-100"
+            leave="transition duration-75 ease-out"
+            leaveFrom="transform scale-100 opacity-100"
+            leaveTo="transform scale-95 opacity-0"
+          >
+            <Disclosure.Panel className="mt-4 gap-2 md:grid md:grid-cols-2">
+              {checklistFilters.map(({ title, key }) => (
+                <div key={key} className="flex items-center gap-2">
+                  <Switch
+                    checked={filter[key]}
+                    onChange={() =>
+                      setFilter((fil) => ({
+                        ...fil,
+                        [key]: !fil[key],
+                        page: 1,
+                      }))
+                    }
+                    className={`${
+                      filter[key]
+                        ? 'border-green-500 bg-green-500'
+                        : 'border-neutral-400 bg-transparent focus:border-transparent'
+                    } h-4 w-4 cursor-pointer rounded-full border focus:outline-none focus:ring-1 focus:ring-green-500 focus:ring-offset-neutral-900`}
+                  />
+                  <span>{title}</span>
+                </div>
+              ))}
+            </Disclosure.Panel>
+          </Transition>
+        </Disclosure>
 
         <BestAssetsList
           bestAssets={data.data.assets}

@@ -24,9 +24,14 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
       sector: z.string(),
       subSector: z.string(),
       page: z.string(),
+      debt: z.enum(['true', 'false']),
+      liquidity: z.enum(['true', 'false']),
+      profit: z.enum(['true', 'false']),
+      roe: z.enum(['true', 'false']),
     })
 
-    const { sector, subSector, page } = querySchema.parse(request.query)
+    const { sector, subSector, page, debt, liquidity, profit, roe } =
+      querySchema.parse(request.query)
 
     try {
       const [assets, count] = await prisma.$transaction([
@@ -45,6 +50,12 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
           where: {
             sector: sector || undefined,
             subSector: subSector || undefined,
+            windScore: {
+              checklistDebt: debt === 'true' ? true : undefined,
+              checklistLiquidity: liquidity === 'true' ? true : undefined,
+              checklistProfit: profit === 'true' ? true : undefined,
+              checklistRoe: roe === 'true' ? true : undefined,
+            },
           },
           orderBy: {
             windScore: {
@@ -58,6 +69,12 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
           where: {
             sector: sector || undefined,
             subSector: subSector || undefined,
+            windScore: {
+              checklistDebt: debt === 'true' ? true : undefined,
+              checklistLiquidity: liquidity === 'true' ? true : undefined,
+              checklistProfit: profit === 'true' ? true : undefined,
+              checklistRoe: roe === 'true' ? true : undefined,
+            },
           },
         }),
       ])

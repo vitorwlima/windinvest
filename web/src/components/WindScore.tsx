@@ -31,7 +31,7 @@ export const WindScore: React.FC<Props> = ({ windScore }) => {
 
     const checkList = [
       {
-        title: 'Empresa com liquidez diária acima de R$ 2M',
+        title: 'Empresa com liquidez diária acima de R$ 1M',
         check: true,
       },
       {
