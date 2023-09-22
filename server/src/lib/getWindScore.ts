@@ -33,6 +33,8 @@ const getValuationScore = (valuation: Stock['valuation']) => {
     valuation.priceToBookRatio *
     valuation.evToEbitRatio
 
+  const valuationGoodMultiplier = dividendMultiplier
+
   if (
     valuation.priceToProfitRatio < 0 ||
     valuation.priceToBookRatio < 0 ||
@@ -41,8 +43,7 @@ const getValuationScore = (valuation: Stock['valuation']) => {
     valuationBadMultiplier = Math.abs(valuationBadMultiplier) * -1
   }
 
-  const score =
-    Math.sqrt(dividendMultiplier) / Math.log2(valuationBadMultiplier)
+  const score = Math.sqrt(valuationGoodMultiplier / valuationBadMultiplier)
 
   return score * 100
 }
@@ -61,9 +62,9 @@ const getEfficiencyScore = (efficiency: Stock['efficiency']) => {
     efficiency.netMargin,
   ])
 
-  const score = Math.sqrt(grossMarginMultiplier) * netAndEbitMarginMultiplier
+  const score = grossMarginMultiplier * (1 + netAndEbitMarginMultiplier / 100)
 
-  return score
+  return score * 10
 }
 
 const getDebtScore = (debt: Stock['debt']) => {
@@ -86,11 +87,10 @@ const getProfitabilityScore = (profitability: Stock['profitability']) => {
     return null
   }
 
-  const roeRoicMultiplier = Math.sqrt(
-    profitability.returnOnEquity * profitability.returnOnInvestedCapital,
-  )
+  const roeRoicMultiplier =
+    profitability.returnOnEquity + profitability.returnOnInvestedCapital
 
-  const score = roeRoicMultiplier * profitability.assetTurnover
+  const score = roeRoicMultiplier * Math.sqrt(profitability.assetTurnover)
 
   return score
 }
