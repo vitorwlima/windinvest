@@ -64,7 +64,7 @@ const getEfficiencyScore = (efficiency: Stock['efficiency']) => {
 
   const score = grossMarginMultiplier * (1 + netAndEbitMarginMultiplier / 100)
 
-  return score * 10
+  return score * 5
 }
 
 const getDebtScore = (debt: Stock['debt']) => {
@@ -90,7 +90,8 @@ const getProfitabilityScore = (profitability: Stock['profitability']) => {
   const roeRoicMultiplier =
     profitability.returnOnEquity + profitability.returnOnInvestedCapital
 
-  const score = roeRoicMultiplier * Math.sqrt(profitability.assetTurnover)
+  const score =
+    Math.pow(roeRoicMultiplier, 0.85) * Math.sqrt(profitability.assetTurnover)
 
   return score
 }
