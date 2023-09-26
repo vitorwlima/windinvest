@@ -80,9 +80,11 @@ const getDebtScore = (debt: Stock['debt']) => {
 const getProfitabilityScore = (profitability: Stock['profitability']) => {
   if (
     profitability.returnOnEquity === null ||
-    profitability.returnOnEquity < 0 ||
+    profitability.returnOnEquity <= 0 ||
     profitability.returnOnInvestedCapital === null ||
-    profitability.assetTurnover === null
+    profitability.returnOnInvestedCapital <= 0 ||
+    profitability.assetTurnover === null ||
+    profitability.assetTurnover <= 0
   ) {
     return null
   }
