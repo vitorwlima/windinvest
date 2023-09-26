@@ -14,7 +14,7 @@ type Props = {
 }
 
 const windScoreDescription = {
-  text: 'Pontuação baseada no algoritmo da Wind Invest. Combina dados de todos os indicadores fundamentalistas para retornar um número comparável para o ativo. Sua melhor utilização é comparando ações do mesmo setor (seção Melhores Ações na página inicial).',
+  text: 'Pontuação baseada no algoritmo da Wind Invest. Combina dados de todos os indicadores fundamentalistas para retornar um número comparável para o ativo. Sua melhor utilização é comparando ações na seção Melhores Ações da página inicial.',
   moreInfoURL: 'https://windinvest.com.br/ranking-wind',
 }
 

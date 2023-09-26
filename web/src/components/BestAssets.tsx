@@ -57,7 +57,7 @@ export const BestAssets: React.FC = () => {
     sector: '',
     subSector: '',
     liquidity: true,
-    roe: true,
+    roe: false,
     debt: true,
     profit: true,
   })
