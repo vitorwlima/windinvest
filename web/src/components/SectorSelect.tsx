@@ -2,6 +2,7 @@
 
 import { Combobox, Transition } from '@headlessui/react'
 import { CheckIcon } from '@heroicons/react/24/outline'
+import clsx from 'clsx'
 import { Fragment, useRef, useState } from 'react'
 
 type Props = {
@@ -67,9 +68,12 @@ export const SectorSelect: React.FC<Props> = ({
                 <Combobox.Option
                   key={sector}
                   className={({ active }) =>
-                    `relative text-sm cursor-default select-none py-2 pl-10 pr-4 text-white ${
-                      active ? 'bg-green-500' : ''
-                    }`
+                    clsx(
+                      'relative cursor-default select-none py-2 pl-10 pr-4 text-sm text-white',
+                      {
+                        'bg-green-500': active,
+                      },
+                    )
                   }
                   value={sector}
                 >
@@ -78,9 +82,13 @@ export const SectorSelect: React.FC<Props> = ({
                       <strong>{sector}</strong>
                       {selected ? (
                         <span
-                          className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                            active ? 'text-white' : 'text-green-500'
-                          }`}
+                          className={clsx(
+                            'absolute inset-y-0 left-0 flex items-center pl-3',
+                            {
+                              'text-white': active,
+                              'text-green-500': !active,
+                            },
+                          )}
                         >
                           <CheckIcon className="h-5 w-5" aria-hidden="true" />
                         </span>

@@ -1,5 +1,6 @@
 import { ptBR } from '@clerk/localizations'
 import { ClerkProvider } from '@clerk/nextjs'
+import clsx from 'clsx'
 import type { Metadata } from 'next'
 import { Nunito } from 'next/font/google'
 import { QueryProvider } from './QueryProvider'
@@ -20,7 +21,10 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <QueryProvider>
         <html lang="pt" className="bg-neutral-900 text-neutral-50">
           <body
-            className={`flex min-h-screen flex-col justify-between overflow-x-hidden ${nunito.className}`}
+            className={clsx(
+              'flex min-h-screen flex-col justify-between overflow-x-hidden',
+              nunito.className,
+            )}
           >
             {children}
           </body>

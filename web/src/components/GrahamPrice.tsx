@@ -1,4 +1,5 @@
 import { ArrowRightIcon } from '@heroicons/react/24/outline'
+import clsx from 'clsx'
 import { Asset } from 'src/queries/useGetAsset'
 import { getBRLFormattedValue } from 'src/utils/formatAsset'
 import { AssetDataContainer } from './AssetDataContainer'
@@ -81,7 +82,7 @@ export const GrahamPrice: React.FC<Props> = ({ asset }: Props) => {
               {getBRLFormattedValue(grahamPrice)}
             </strong>
           </div>
-          <ArrowRightIcon className={`h-8 w-8 ${content.className}`} />
+          <ArrowRightIcon className={clsx('h-8 w-8', content.className)} />
           <div className="flex flex-col gap-1">
             <span>Preço atual</span>
             <strong className="text-xl">{getBRLFormattedValue(price)}</strong>

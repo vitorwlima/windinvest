@@ -38,7 +38,6 @@ export const Asset: React.FC<Props> = ({ ticker }) => {
   return (
     <main>
       <AssetHeader about={formattedAsset.about} />
-
       <AssetIntroductionData asset={formattedAsset} />
       <WindScore windScore={formattedAsset.windScore} />
       <GrahamPrice asset={asset} />

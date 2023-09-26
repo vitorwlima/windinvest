@@ -1,6 +1,7 @@
 'use client'
 
 import { ChartBarSquareIcon } from '@heroicons/react/24/outline'
+import cslx from 'clsx'
 import Link from 'next/link'
 import { useGetSubscriptionData } from 'src/queries/useGetSubscriptionData'
 
@@ -12,13 +13,16 @@ type Props = {
 export const Logo: React.FC<Props> = ({ size, showPro }) => {
   const { data } = useGetSubscriptionData()
 
-  const userIsPRO = !!data?.ok && data.data?.isUserPremium
+  const userIsPRO = !!data?.ok && data.data.isUserPremium
 
   return (
     <Link
-      className={`flex items-end gap-1 outline-none hover:brightness-150 focus:brightness-150 ${
-        size === 'md' ? 'scale-75' : ''
-      }`}
+      className={cslx(
+        'flex items-end gap-1 outline-none hover:brightness-150 focus:brightness-150',
+        {
+          'scale-75': size === 'md',
+        },
+      )}
       href="/"
     >
       <div className="flex items-center gap-2">
@@ -28,7 +32,7 @@ export const Logo: React.FC<Props> = ({ size, showPro }) => {
           <p className="-mt-2 text-lg tracking-widest sm:text-xl">invest</p>
         </h1>
       </div>
-      {showPro && userIsPRO && (
+      {!!showPro && userIsPRO && (
         <p className="mb-[2px] text-sm font-bold text-sky-500">PRO</p>
       )}
     </Link>

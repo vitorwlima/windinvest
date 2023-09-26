@@ -1,3 +1,5 @@
+import clsx from 'clsx'
+
 type Props = {
   title: string
   data: string
@@ -7,9 +9,12 @@ type Props = {
 export const DataCard: React.FC<Props> = ({ title, data, isLast }) => {
   return (
     <div
-      className={`flex flex-col items-center overflow-hidden rounded-xl font-bold ${
-        isLast ? 'sm:col-span-2 lg:col-span-1' : ''
-      }`}
+      className={clsx(
+        'flex flex-col items-center overflow-hidden rounded-xl font-bold',
+        {
+          'sm:col-span-2 lg:col-span-1': isLast,
+        },
+      )}
     >
       <h3 className="w-full bg-green-500 p-2 text-center text-sm tracking-wide text-neutral-800">
         {title.toUpperCase()}

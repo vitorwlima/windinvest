@@ -7,6 +7,7 @@ import {
   LockOpenIcon,
   TrophyIcon,
 } from '@heroicons/react/24/outline'
+import clsx from 'clsx'
 import { useState } from 'react'
 import { useUpgradeToProModal } from 'src/hooks/useUpgradeToProModal'
 import {
@@ -191,9 +192,9 @@ export const BestAssets: React.FC = () => {
               <>
                 <span>Filtros avançados</span>
                 <ChevronDownIcon
-                  className={`h-4 w-4 transition-transform ${
-                    open ? 'rotate-180' : ''
-                  }`}
+                  className={clsx('h-4 w-4 transition-transform', {
+                    'rotate-180': open,
+                  })}
                 />
               </>
             )}
@@ -219,11 +220,14 @@ export const BestAssets: React.FC = () => {
                         page: 1,
                       }))
                     }
-                    className={`${
-                      filter[key]
-                        ? 'border-green-500 bg-green-500'
-                        : 'border-neutral-400 bg-transparent focus:border-transparent'
-                    } h-4 w-4 cursor-pointer rounded-full border focus:outline-none focus:ring-1 focus:ring-green-500 focus:ring-offset-neutral-900`}
+                    className={clsx(
+                      'h-4 w-4 cursor-pointer rounded-full border focus:outline-none focus:ring-1 focus:ring-green-500 focus:ring-offset-neutral-900',
+                      {
+                        'bg-green-500 border-green-500': filter[key],
+                        'bg-transparent border-neutral-400 focus:border-transparent':
+                          !filter[key],
+                      },
+                    )}
                   />
                   <span>{title}</span>
                 </div>

@@ -2,6 +2,7 @@
 
 import { UserProfile } from '@clerk/nextjs'
 import { Tab } from '@headlessui/react'
+import clsx from 'clsx'
 import { useManageSettingsTab } from 'src/hooks/useManageSettingsTab'
 import { useUpgradeToProModal } from 'src/hooks/useUpgradeToProModal'
 import { useGetSubscriptionData } from 'src/queries/useGetSubscriptionData'
@@ -43,12 +44,13 @@ const Settings = () => {
             <Tab
               key={tab.path}
               className={({ selected }) =>
-                `w-full rounded-lg py-2 text-sm font-medium focus:outline-none transition-colors ${
-                  selected
-                    ? 'bg-neutral-50 text-green-500'
-                    : 'hover:bg-white/20'
-                }
-              `
+                clsx(
+                  'w-full rounded-lg py-2 text-sm font-medium transition-colors focus:outline-none',
+                  {
+                    'bg-neutral-50 text-green-500': selected,
+                    'hover:bg-white/20': !selected,
+                  },
+                )
               }
             >
               {tab.name}

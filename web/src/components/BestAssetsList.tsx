@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import Link from 'next/link'
 import { BestAssets } from 'src/queries/useGetBestAssets'
 import { formatToRatio } from 'src/utils/formatToRatio'
@@ -37,15 +38,18 @@ export const BestAssetsList: React.FC<Props> = ({
           {bestAssets.map((asset, i) => (
             <li key={i}>
               <div
-                className={`flex animate-pulse items-center justify-between rounded-md bg-neutral-800 p-4 transition-colors ${
-                  hideContent ? '' : 'group'
-                }`}
+                className={clsx(
+                  'flex animate-pulse items-center justify-between rounded-md bg-neutral-800 p-4 transition-colors',
+                  {
+                    group: !hideContent,
+                  },
+                )}
               >
                 <section className="flex items-center gap-8">
                   <span
-                    className={`w-6 text-lg font-bold text-green-500 ${
-                      hideContent ? '' : 'group-hover:text-neutral-50'
-                    }`}
+                    className={clsx('w-6 text-lg font-bold text-green-500', {
+                      'group-hover:text-neutral-50': !hideContent,
+                    })}
                   >
                     &#12644;
                   </span>
@@ -56,10 +60,10 @@ export const BestAssetsList: React.FC<Props> = ({
                 </section>
                 <section>
                   <data
-                    value={'Loading'}
-                    className={`font-bold text-green-500 ${
-                      hideContent ? '' : 'group-hover:text-neutral-50'
-                    }`}
+                    value="Loading"
+                    className={clsx('font-bold text-green-500', {
+                      'group-hover:text-neutral-50': !hideContent,
+                    })}
                   >
                     &#12644;
                   </data>
@@ -77,17 +81,19 @@ export const BestAssetsList: React.FC<Props> = ({
           <li key={asset.ticker}>
             <Link
               href={`/ativos/${asset.ticker}`}
-              className={`flex items-center justify-between rounded-md bg-neutral-800 p-4 transition-colors hover:bg-green-500 focus:bg-green-500 focus:outline-none ${
-                hideContent ? '' : 'group'
-              }`}
+              className={clsx(
+                'flex items-center justify-between rounded-md bg-neutral-800 p-4 transition-colors hover:bg-green-500 focus:bg-green-500 focus:outline-none',
+                {
+                  group: !hideContent,
+                },
+              )}
             >
               <section className="flex items-center gap-8">
                 <span
-                  className={`w-6 text-lg font-bold text-green-500 ${
-                    hideContent
-                      ? ''
-                      : 'group-hover:text-neutral-50 group-focus:text-neutral-50'
-                  }`}
+                  className={clsx('w-6 text-lg font-bold text-green-500', {
+                    'group-hover:text-neutral-50 group-focus:text-neutral-50':
+                      !hideContent,
+                  })}
                 >
                   {firstPosition + i}
                 </span>
@@ -99,11 +105,10 @@ export const BestAssetsList: React.FC<Props> = ({
               <section>
                 <data
                   value={asset.windScore.windFinalScore}
-                  className={`font-bold text-green-500 ${
-                    hideContent
-                      ? ''
-                      : 'group-hover:text-neutral-50 group-focus:text-neutral-50'
-                  }`}
+                  className={clsx('font-bold text-green-500', {
+                    'group-hover:text-neutral-50 group-focus:text-neutral-50':
+                      !hideContent,
+                  })}
                 >
                   {formatToRatio(asset.windScore.windFinalScore)}
                 </data>
@@ -123,11 +128,13 @@ export const BestAssetsList: React.FC<Props> = ({
         {displayedPagesArray.map((currPage) => (
           <button
             key={currPage}
-            className={`${
-              currPage === page
-                ? 'bg-green-500 text-white'
-                : 'bg-neutral-800 text-green-500'
-            } rounded-md px-4 py-2 font-bold focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-neutral-900`}
+            className={clsx(
+              'rounded-md px-4 py-2 font-bold focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-neutral-900',
+              {
+                'bg-green-500 text-white': currPage === page,
+                'bg-neutral-800 text-green-500': currPage !== page,
+              },
+            )}
             onClick={() => onPageChange(currPage)}
           >
             {currPage}
