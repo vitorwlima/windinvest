@@ -90,8 +90,9 @@ const getProfitabilityScore = (profitability: Stock['profitability']) => {
   const roeRoicMultiplier =
     profitability.returnOnEquity + profitability.returnOnInvestedCapital
 
-  const score =
-    Math.pow(roeRoicMultiplier, 0.85) * Math.sqrt(profitability.assetTurnover)
+  const score = Math.log2(
+    Math.pow(roeRoicMultiplier, 2) * profitability.assetTurnover,
+  )
 
   return score
 }
