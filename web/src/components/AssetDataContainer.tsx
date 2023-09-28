@@ -20,14 +20,14 @@ export const AssetDataContainer: React.FC<Props> = ({
     <div className="mx-auto mt-12 grid max-w-6xl px-4 pt-4">
       <div className="rounded-2xl border border-neutral-500">
         <header className="relative flex items-center justify-center gap-1 rounded-t-2xl bg-green-500 p-4">
-          <h3 className="text-center text-xl font-bold text-neutral-800 sm:text-2xl">
+          <h3 className="text-center text-xl font-bold text-neutral-50 sm:text-2xl">
             {title}
           </h3>
 
           {!!description && (
             <Popover className="grid place-items-center">
               <Popover.Button className="group focus:outline-none">
-                <QuestionMarkCircleIcon className="h-4 w-4 text-neutral-950 transition-colors group-focus:text-neutral-100 [&>path]:stroke-[2]" />
+                <QuestionMarkCircleIcon className="h-4 w-4 rounded-full text-neutral-200 transition-colors group-focus:text-neutral-50 [&>path]:stroke-[2]" />
               </Popover.Button>
               <Transition
                 as={Fragment}
