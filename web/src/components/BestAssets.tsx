@@ -208,7 +208,7 @@ export const BestAssets: React.FC = () => {
             leaveFrom="transform scale-100 opacity-100"
             leaveTo="transform scale-95 opacity-0"
           >
-            <Disclosure.Panel className="mt-4 gap-2 md:grid md:grid-cols-2">
+            <Disclosure.Panel className="mt-4 gap-x-6 gap-y-2 md:grid md:grid-cols-2">
               {checklistFilters.map(({ title, key }) => (
                 <div key={key} className="flex items-center gap-2">
                   <Switch
