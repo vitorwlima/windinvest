@@ -21,40 +21,38 @@ export const Rankings: React.FC = () => {
     ]
 
     return (
-      <section className="px-4 py-8">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="mb-4 flex items-center gap-2 text-2xl font-bold">
-            <CurrencyDollarIcon className="h-8 w-8 text-green-500" />
-            <p>Rankings de Ações</p>
-          </h2>
+      <section className="mx-auto max-w-6xl px-4 py-8">
+        <h2 className="mb-4 flex items-center gap-2 text-2xl font-bold">
+          <CurrencyDollarIcon className="h-8 w-8 text-green-500" />
+          <p>Rankings de Ações</p>
+        </h2>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {rankings.map((data) => (
-              <div
-                key={data.title}
-                className="overflow-hidden rounded-xl border border-neutral-500"
-              >
-                <header className="bg-green-500 p-4 text-center">
-                  <h4 className="text-xl font-bold">{data.title}</h4>
-                </header>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {rankings.map((data) => (
+            <div
+              key={data.title}
+              className="overflow-hidden rounded-xl border border-neutral-500"
+            >
+              <header className="bg-green-500 p-4 text-center">
+                <h4 className="text-xl font-bold">{data.title}</h4>
+              </header>
 
-                <div className="flex flex-col">
-                  {data.data.map((_asset, i) => (
-                    <div
-                      key={i}
-                      className="flex animate-pulse items-center justify-between bg-neutral-800 px-8 py-2 transition-colors"
-                    >
-                      <div className="flex flex-col">
-                        <p className="text-lg font-bold">&#12644;</p>
-                        <p className="text-sm">&#12644;</p>
-                      </div>
-                      <strong>&#12644;</strong>
+              <div className="flex flex-col">
+                {data.data.map((_asset, i) => (
+                  <div
+                    key={i}
+                    className="flex animate-pulse items-center justify-between bg-neutral-800 px-8 py-2 transition-colors"
+                  >
+                    <div className="flex flex-col">
+                      <p className="text-lg font-bold">&#12644;</p>
+                      <p className="text-sm">&#12644;</p>
                     </div>
-                  ))}
-                </div>
+                    <strong>&#12644;</strong>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </section>
     )
@@ -80,43 +78,41 @@ export const Rankings: React.FC = () => {
   }
 
   return (
-    <section className="px-4 py-8">
-      <div className="mx-auto max-w-4xl">
-        <h2 className="mb-4 flex items-center gap-2 text-2xl font-bold">
-          <CurrencyDollarIcon className="h-8 w-8 text-green-500" />
-          <p>Rankings de Ações</p>
-        </h2>
+    <section className="mx-auto max-w-6xl px-4 py-8">
+      <h2 className="mb-4 flex items-center gap-2 text-2xl font-bold">
+        <CurrencyDollarIcon className="h-8 w-8 text-green-500" />
+        <p>Rankings de Ações</p>
+      </h2>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          {rankings.map((data) => (
-            <div
-              key={data.title}
-              className="overflow-hidden rounded-xl border border-neutral-500"
-            >
-              <header className="bg-green-500 p-4 text-center">
-                <h4 className="text-xl font-bold">{data.title}</h4>
-              </header>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {rankings.map((data) => (
+          <div
+            key={data.title}
+            className="overflow-hidden rounded-xl border border-neutral-500"
+          >
+            <header className="bg-green-500 p-4 text-center">
+              <h4 className="text-xl font-bold">{data.title}</h4>
+            </header>
 
-              <div className="flex flex-col">
-                {data.data.map((asset) => (
-                  <Link
-                    key={asset.ticker}
-                    href={`/ativos/${asset.ticker}`}
-                    className="flex items-center justify-between px-8 py-2 transition-colors hover:bg-green-500 focus:bg-green-500 focus:outline-none"
-                  >
-                    <div className="flex flex-col">
-                      <p className="text-lg font-bold">
-                        {asset.ticker.toUpperCase()}
-                      </p>
-                      <p className="text-sm">{asset.fantasyName}</p>
-                    </div>
-                    <strong>{getValue(asset)} B</strong>
-                  </Link>
-                ))}
-              </div>
+            <div className="flex flex-col">
+              {data.data.map((asset) => (
+                <Link
+                  key={asset.ticker}
+                  href={`/ativos/${asset.ticker}`}
+                  className="flex items-center justify-between px-8 py-2 transition-colors hover:bg-green-500 focus:bg-green-500 focus:outline-none"
+                >
+                  <div className="flex flex-col">
+                    <p className="text-lg font-bold">
+                      {asset.ticker.toUpperCase()}
+                    </p>
+                    <p className="text-sm">{asset.fantasyName}</p>
+                  </div>
+                  <strong>{getValue(asset)} B</strong>
+                </Link>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </section>
   )

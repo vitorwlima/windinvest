@@ -247,15 +247,13 @@ export const BestAssets: React.FC = () => {
   }
 
   return (
-    <section className="px-4 py-8">
-      <div className="mx-auto max-w-4xl">
-        <h2 className="mb-4 flex items-center gap-2 text-2xl font-bold">
-          <TrophyIcon className="h-8 w-8 text-green-500" />
-          <p>As Melhores Ações</p>
-        </h2>
+    <section className="mx-auto max-w-6xl px-4 py-8">
+      <h2 className="mb-4 flex items-center gap-2 text-2xl font-bold">
+        <TrophyIcon className="h-8 w-8 text-green-500" />
+        <p>As Melhores Ações</p>
+      </h2>
 
-        <AssetList />
-      </div>
+      <AssetList />
     </section>
   )
 }

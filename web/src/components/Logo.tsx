@@ -18,7 +18,7 @@ export const Logo: React.FC<Props> = ({ size, showPro }) => {
   return (
     <Link
       className={cslx(
-        'flex items-end gap-1 outline-none hover:brightness-150 focus:brightness-150',
+        'flex items-end gap-1 outline-none hover:brightness-150 focus:brightness-150 -ml-1',
         {
           'scale-75': size === 'md',
         },
