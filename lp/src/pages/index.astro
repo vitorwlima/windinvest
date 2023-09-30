@@ -1,21 +1,29 @@
 ---
-import '@fontsource/nunito';
+import "@fontsource/nunito";
 
-import { Header } from '../components/Header';
+import { Header } from "../components/Header";
+import { HeroSection } from "../components/HeroSection";
 ---
 
-<html lang="pt-br">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<meta name="description" content="Análise automatizada do mercado acionário brasileiro." />
-		<title>Wind Invest</title>
-	</head>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta
+      name="description"
+      content="Análise automatizada do mercado acionário brasileiro."
+    />
+    <title>Wind Invest</title>
+  </head>
 
-	<body class="font-nunito">
-		<Header />
-		<h1>Astro</h1>
-	</body>
+  <body class="font-nunito bg-gray-950 text-gray-50 min-h-screen">
+    <main>
+      <section class="h-[90vh] flex flex-col">
+        <Header />
+        <HeroSection />
+      </section>
+    </main>
+  </body>
 </html>
