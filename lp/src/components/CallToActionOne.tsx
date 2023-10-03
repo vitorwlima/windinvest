@@ -7,7 +7,7 @@ export const CallToActionOne: React.FC = () => {
           <h4 className="text-4xl font-extrabold sm:text-5xl">
             Crie sua conta grátis
           </h4>
-          <p className="text-xl">
+          <p className="sm:text-xl">
             Experimente o plano <strong>PRO</strong> quando quiser, com 7 dias
             grátis e cancelamento mensal sem taxa.
           </p>
