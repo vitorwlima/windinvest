@@ -48,7 +48,7 @@ export const WindScore: React.FC = () => {
             >
               <img src={`/windscore/${key}.svg`} alt={`Logo de ${title}`} />
               <h3 className="text-xl font-bold text-green-500">{title}</h3>
-              <p className="text-lg text-neutral-400">{description}</p>
+              <p className="text-lg text-gray-400">{description}</p>
             </li>
           ))}
         </ul>

@@ -12,7 +12,7 @@ export const HeroSection: React.FC = () => {
         <h1 className="max-w-[40rem] text-4xl font-bold md:text-6xl lg:max-w-3xl lg:text-7xl">
           Análise automatizada do mercado acionário brasileiro
         </h1>
-        <h2 className="max-w-md text-xl text-neutral-200">
+        <h2 className="max-w-md text-xl text-gray-200">
           Descubra as melhores ações da bolsa por meio de uma análise
           fundamentalista imparcial.
         </h2>
