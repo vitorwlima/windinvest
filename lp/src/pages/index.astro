@@ -1,6 +1,13 @@
 ---
 import "@fontsource/nunito";
+import "@fontsource/nunito/400.css";
+import "@fontsource/nunito/500.css";
+import "@fontsource/nunito/600.css";
+import "@fontsource/nunito/700.css";
+import "@fontsource/nunito/800.css";
+import "@fontsource/nunito/900.css";
 
+import { CallToActionOne } from "../components/CallToActionOne";
 import { Header } from "../components/Header";
 import { HeroSection } from "../components/HeroSection";
 import { WindScore } from "../components/WindScore";
@@ -19,7 +26,7 @@ import { WindScore } from "../components/WindScore";
     <title>Wind Invest</title>
   </head>
 
-  <body class="font-nunito bg-gray-950 text-gray-50 min-h-screen">
+  <body class="font-nunito bg-[#000B11] text-gray-50 min-h-screen">
     <main>
       <section class="h-[90vh] flex flex-col">
         <Header />
@@ -27,6 +34,7 @@ import { WindScore } from "../components/WindScore";
       </section>
 
       <WindScore />
+      <CallToActionOne />
     </main>
   </body>
 </html>

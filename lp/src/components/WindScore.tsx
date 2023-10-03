@@ -25,7 +25,7 @@ const windPoints = [
 
 export const WindScore: React.FC = () => {
   return (
-    <section>
+    <section className="bg-[#000B11]">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 px-2 py-28 text-center">
         <div className="flex max-w-2xl flex-col gap-1">
           <div className="flex items-center justify-center gap-2">
