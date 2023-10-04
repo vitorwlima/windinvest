@@ -29,7 +29,7 @@ export const Ranking: React.FC = () => {
           </div>
           <p className="sm:text-lg">
             Obtenha um ranking de <b>TODAS</b> as ações com base na pontuação
-            wind para descobrir as melhores oportunidades da bolsa
+            Wind para descobrir as melhores oportunidades da bolsa.
           </p>
         </div>
 

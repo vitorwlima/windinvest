@@ -8,8 +8,8 @@ export const GrahamPrice: React.FC = () => {
           </h2>
 
           <p className="sm:text-lg">
-            Cálculo automático do preço justo segundo a fórmula do grande
-            economista Benjamin Graham{' '}
+            Cálculo automático do preço justo segundo a fórmula do economista
+            Benjamin Graham{' '}
             <span className="text-sm sm:text-base">
               (mentor de <strong>Warren Buffet</strong>)
             </span>
