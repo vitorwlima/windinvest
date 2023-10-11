@@ -19,13 +19,17 @@ export const getAllAssets = async (fastify: FastifyInstance) => {
     const { search } = querySchema.parse(request.query)
 
     try {
-      const stocks = await prisma.asset.findMany({
+      const assets = await prisma.asset.findMany({
         orderBy: {
           ticker: 'asc',
         },
         select: {
           ticker: true,
-          fantasyName: true,
+          company: {
+            select: {
+              fantasyName: true,
+            },
+          },
         },
         where: {
           OR: [
@@ -36,9 +40,11 @@ export const getAllAssets = async (fastify: FastifyInstance) => {
               },
             },
             {
-              fantasyName: {
-                contains: search,
-                mode: 'insensitive',
+              company: {
+                fantasyName: {
+                  contains: search,
+                  mode: 'insensitive',
+                },
               },
             },
           ],
@@ -46,7 +52,7 @@ export const getAllAssets = async (fastify: FastifyInstance) => {
       })
 
       reply.code(200)
-      return { ok: true, data: stocks }
+      return { ok: true, data: assets, auth: request.headers.authorization }
     } catch (error) {
       reply.code(500)
       return { ok: false, error }

@@ -1,4 +1,4 @@
-import { Stock } from 'b3-scraper/dist/@types/stock'
+import { Asset, Company, Fundamentals } from '@prisma/client'
 import { getAverage } from 'src/utils/getAverage'
 
 export type WindScore = {
@@ -15,30 +15,42 @@ export type WindScore = {
   }
 }
 
-const getValuationScore = (valuation: Stock['valuation']) => {
+type GetWindScore = {
+  asset: Asset
+  company: Company
+  fundamentals: Fundamentals
+}
+
+const getWindScoreFormattedNumber = (value: number | null) => {
+  const isInvalid =
+    value === null || Number.isNaN(value) || !Number.isFinite(value)
+  return isInvalid ? null : value
+}
+
+const getValuationScore = (fundamentals: Fundamentals) => {
   if (
-    valuation.priceToProfitRatio === null ||
-    valuation.priceToBookRatio === null ||
-    valuation.evToEbitRatio === null
+    fundamentals.priceToProfitRatio === null ||
+    fundamentals.priceToBookRatio === null ||
+    fundamentals.evToEbitRatio === null
   ) {
     return null
   }
 
-  const dividendMultiplier = valuation.dividendYield
-    ? 1 + valuation.dividendYield / 100
+  const dividendMultiplier = fundamentals.dividendYield
+    ? 1 + fundamentals.dividendYield / 100
     : 1
 
   let valuationBadMultiplier =
-    valuation.priceToProfitRatio *
-    valuation.priceToBookRatio *
-    valuation.evToEbitRatio
+    fundamentals.priceToProfitRatio *
+    fundamentals.priceToBookRatio *
+    fundamentals.evToEbitRatio
 
   const valuationGoodMultiplier = dividendMultiplier
 
   if (
-    valuation.priceToProfitRatio < 0 ||
-    valuation.priceToBookRatio < 0 ||
-    valuation.evToEbitRatio < 0
+    fundamentals.priceToProfitRatio < 0 ||
+    fundamentals.priceToBookRatio < 0 ||
+    fundamentals.evToEbitRatio < 0
   ) {
     valuationBadMultiplier = Math.abs(valuationBadMultiplier) * -1
   }
@@ -48,18 +60,18 @@ const getValuationScore = (valuation: Stock['valuation']) => {
   return score * 100
 }
 
-const getEfficiencyScore = (efficiency: Stock['efficiency']) => {
-  if (efficiency.ebitMargin === null || efficiency.netMargin === null) {
+const getEfficiencyScore = (fundamentals: Fundamentals) => {
+  if (fundamentals.ebitMargin === null || fundamentals.netMargin === null) {
     return null
   }
 
-  const grossMarginMultiplier = efficiency.grossMargin
-    ? 1 + efficiency.grossMargin / 100
+  const grossMarginMultiplier = fundamentals.grossMargin
+    ? 1 + fundamentals.grossMargin / 100
     : 1
 
   const netAndEbitMarginMultiplier = getAverage([
-    efficiency.ebitMargin,
-    efficiency.netMargin,
+    fundamentals.ebitMargin,
+    fundamentals.netMargin,
   ])
 
   const score = grossMarginMultiplier * (1 + netAndEbitMarginMultiplier / 100)
@@ -67,43 +79,52 @@ const getEfficiencyScore = (efficiency: Stock['efficiency']) => {
   return score * 5
 }
 
-const getDebtScore = (debt: Stock['debt']) => {
-  if (debt.currentLiquidity === null || debt.equityToAssetsRatio === null) {
+const getDebtScore = (fundamentals: Fundamentals) => {
+  if (
+    fundamentals.currentLiquidity === null ||
+    fundamentals.equityToAssetsRatio === null
+  ) {
     return null
   }
 
-  const score = Math.sqrt(debt.currentLiquidity * debt.equityToAssetsRatio)
+  const score = Math.sqrt(
+    fundamentals.currentLiquidity * fundamentals.equityToAssetsRatio,
+  )
 
   return score * 10
 }
 
-const getProfitabilityScore = (profitability: Stock['profitability']) => {
+const getProfitabilityScore = (fundamentals: Fundamentals) => {
   if (
-    profitability.returnOnEquity === null ||
-    profitability.returnOnEquity <= 0 ||
-    profitability.returnOnInvestedCapital === null ||
-    profitability.returnOnInvestedCapital <= 0 ||
-    profitability.assetTurnover === null ||
-    profitability.assetTurnover <= 0
+    fundamentals.returnOnEquity === null ||
+    fundamentals.returnOnEquity <= 0 ||
+    fundamentals.returnOnInvestedCapital === null ||
+    fundamentals.returnOnInvestedCapital <= 0 ||
+    fundamentals.assetTurnover === null ||
+    fundamentals.assetTurnover <= 0
   ) {
     return null
   }
 
   const roeRoicMultiplier =
-    profitability.returnOnEquity + profitability.returnOnInvestedCapital
+    fundamentals.returnOnEquity + fundamentals.returnOnInvestedCapital
 
   const score = Math.log2(
-    Math.pow(roeRoicMultiplier, 2) * profitability.assetTurnover,
+    Math.pow(roeRoicMultiplier, 2) * fundamentals.assetTurnover,
   )
 
   return score
 }
 
-export const getWindScore = (stock: Stock): WindScore => {
-  const valuation = getValuationScore(stock.valuation)
-  const efficiency = getEfficiencyScore(stock.efficiency)
-  const debt = getDebtScore(stock.debt)
-  const profitability = getProfitabilityScore(stock.profitability)
+export const getWindScore = ({
+  asset,
+  company,
+  fundamentals,
+}: GetWindScore): WindScore => {
+  const valuation = getValuationScore(fundamentals)
+  const efficiency = getEfficiencyScore(fundamentals)
+  const debt = getDebtScore(fundamentals)
+  const profitability = getProfitabilityScore(fundamentals)
   const windFinalScore = getAverage([
     valuation || 0,
     valuation || 0,
@@ -113,25 +134,22 @@ export const getWindScore = (stock: Stock): WindScore => {
   ])
 
   const holderChecklist = {
-    liquidity:
-      stock.about.averageLiquidity !== null &&
-      stock.about.averageLiquidity > 1000000,
+    liquidity: asset.liquidity !== null && asset.liquidity > 1000000,
     debt:
-      stock.balance.grossDebt !== null &&
-      stock.balance.netWorth !== null &&
-      stock.balance.grossDebt < stock.balance.netWorth,
+      company.grossDebt !== null &&
+      company.netWorth !== null &&
+      company.grossDebt < company.netWorth,
     roe:
-      stock.profitability.returnOnEquity !== null &&
-      stock.profitability.returnOnEquity > 10,
-    profit: stock.balance.netProfit !== null && stock.balance.netProfit > 0,
+      fundamentals.returnOnEquity !== null && fundamentals.returnOnEquity > 10,
+    profit: !!company.profitable,
   }
 
   return {
-    valuation,
-    efficiency,
-    debt,
-    profitability,
-    windFinalScore,
+    valuation: getWindScoreFormattedNumber(valuation),
+    efficiency: getWindScoreFormattedNumber(efficiency),
+    debt: getWindScoreFormattedNumber(debt),
+    profitability: getWindScoreFormattedNumber(profitability),
+    windFinalScore: getWindScoreFormattedNumber(windFinalScore) ?? 0,
     holderChecklist,
   }
 }

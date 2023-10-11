@@ -38,9 +38,13 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
         prisma.asset.findMany({
           select: {
             ticker: true,
-            fantasyName: true,
-            sector: true,
-            subSector: true,
+            company: {
+              select: {
+                fantasyName: true,
+                sector: true,
+                subsector: true,
+              },
+            },
             windScore: {
               select: {
                 windFinalScore: true,
@@ -48,8 +52,14 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
             },
           },
           where: {
-            sector: sector || undefined,
-            subSector: subSector || undefined,
+            company: {
+              sector: {
+                name: sector || undefined,
+              },
+              subsector: {
+                name: subSector || undefined,
+              },
+            },
             windScore: {
               checklistDebt: debt === 'true' ? true : undefined,
               checklistLiquidity: liquidity === 'true' ? true : undefined,
@@ -67,8 +77,14 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
         }),
         prisma.asset.count({
           where: {
-            sector: sector || undefined,
-            subSector: subSector || undefined,
+            company: {
+              sector: {
+                name: sector || undefined,
+              },
+              subsector: {
+                name: subSector || undefined,
+              },
+            },
             windScore: {
               checklistDebt: debt === 'true' ? true : undefined,
               checklistLiquidity: liquidity === 'true' ? true : undefined,

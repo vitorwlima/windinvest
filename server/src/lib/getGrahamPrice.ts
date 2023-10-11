@@ -1,15 +1,21 @@
-import { Stock } from 'b3-scraper/dist/@types/stock'
+import { Fundamentals } from '@prisma/client'
 
-export const getGrahamPrice = (stock: Stock): number | null => {
+export const getGrahamPrice = (
+  fundamentals: Fundamentals | null,
+): number | null => {
+  if (!fundamentals) {
+    return null
+  }
+
   if (
-    stock.valuation.profitByShare === null ||
-    stock.valuation.bookValuePerShare === null
+    fundamentals.profitByShare === null ||
+    fundamentals.bookValuePerShare === null
   ) {
     return null
   }
 
   const grahamPrice = Math.sqrt(
-    22.5 * stock.valuation.profitByShare * stock.valuation.bookValuePerShare,
+    22.5 * fundamentals.profitByShare * fundamentals.bookValuePerShare,
   )
 
   return grahamPrice

@@ -15,38 +15,48 @@ export const getRanking = async (fastify: FastifyInstance) => {
       const greatestMarketValue = await prisma.asset.findMany({
         select: {
           ticker: true,
-          fantasyName: true,
-          marketValue: true,
+          company: {
+            select: {
+              fantasyName: true,
+              marketValue: true,
+            },
+          },
         },
         orderBy: {
-          marketValue: 'desc',
+          company: {
+            marketValue: 'desc',
+          },
         },
         where: {
-          marketValue: {
-            not: null,
-          },
-          ticker: {
-            notIn: ['PETR3', 'ITUB3'],
+          company: {
+            marketValue: {
+              not: null,
+            },
           },
         },
         take: 5,
       })
 
-      const greatestIncome = await prisma.asset.findMany({
+      const greatestEnterpriseValue = await prisma.asset.findMany({
         select: {
           ticker: true,
-          fantasyName: true,
-          netIncome: true,
+          company: {
+            select: {
+              fantasyName: true,
+              enterpriseValue: true,
+            },
+          },
         },
         orderBy: {
-          netIncome: 'desc',
+          company: {
+            enterpriseValue: 'desc',
+          },
         },
         where: {
-          netIncome: {
-            not: null,
-          },
-          ticker: {
-            notIn: ['PETR3'],
+          company: {
+            enterpriseValue: {
+              not: null,
+            },
           },
         },
         take: 5,
@@ -54,7 +64,7 @@ export const getRanking = async (fastify: FastifyInstance) => {
 
       const rankings = {
         greatestMarketValue,
-        greatestIncome,
+        greatestEnterpriseValue,
       }
 
       reply.code(200)

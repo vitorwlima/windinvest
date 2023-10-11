@@ -1,9 +1,8 @@
 import { getAuth } from '@clerk/fastify'
-import { B3Scraper } from 'b3-scraper'
 import { FastifyInstance } from 'fastify'
 import { getGrahamPrice } from 'src/lib/getGrahamPrice'
 import { getIsUserPremium } from 'src/lib/getIsUserPremium'
-import { getWindScore } from 'src/lib/getWindScore'
+import { prisma } from 'src/lib/prisma'
 import { z } from 'zod'
 
 export const getAsset = async (fastify: FastifyInstance) => {
@@ -24,18 +23,33 @@ export const getAsset = async (fastify: FastifyInstance) => {
     const { ticker } = paramsSchema.parse(request.params)
 
     try {
-      const stock = await B3Scraper.getStock({ ticker, showLogs: true })
+      const asset = await prisma.asset.findFirst({
+        where: {
+          ticker,
+        },
+        include: {
+          company: true,
+          fundamentals: true,
+          windScore: isUserPremium,
+        },
+      })
 
-      if (!stock) {
+      if (!asset) {
         reply.code(404)
-        return { ok: false, error: 'Stock not found' }
+        return { ok: false, error: 'Asset not found' }
       }
 
-      const grahamPrice = getGrahamPrice(stock)
-      const windScore = isUserPremium ? getWindScore(stock) : 'Forbidden'
+      const finalAsset = {
+        ...asset,
+        grahamPrice: getGrahamPrice(asset.fundamentals),
+        windScore: isUserPremium ? asset.windScore : 'Forbidden',
+      }
 
       reply.code(200)
-      return { ok: true, data: { ...stock, windScore, grahamPrice } }
+      return {
+        ok: true,
+        data: finalAsset,
+      }
     } catch (error) {
       reply.code(500)
       return { ok: false, error }

@@ -8,13 +8,13 @@ import { stripe } from 'src/lib/stripe'
 export const getSubscriptionData = async (fastify: FastifyInstance) => {
   fastify.get('/get-subscription-data', async (request, reply) => {
     const { userId } = getAuth(request)
-    const user = userId ? await clerkClient.users.getUser(userId) : null
 
-    if (!userId || !user) {
+    if (!userId) {
       reply.code(401)
       return { ok: false, error: 'Unauthorized' }
     }
 
+    const user = await clerkClient.users.getUser(userId)
     const isUserPremium = await getIsUserPremium(userId)
 
     const redirectURL = `${env.ORIGIN}/configuracoes/assinatura`
