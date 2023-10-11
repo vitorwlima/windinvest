@@ -7,37 +7,135 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum AssetType {
+  ON
+  PN
+  PNA
+  PNB
+  UNIT
+  OTHER
+}
+
+model Sector {
+  id   String @id @default(uuid())
+  name String
+
+  subsectors Subsector[]
+  companies  Company[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("sectors")
+}
+
+model Subsector {
+  id   String @id @default(uuid())
+  name String
+
+  companies Company[]
+  sector    Sector    @relation(fields: [sectorId], references: [id])
+  sectorId  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("subsectors")
+}
+
+model Company {
+  id              String   @id @default(uuid())
+  fantasyName     String
+  companyName     String
+  cnpj            String   @unique
+  marketValue     Float?
+  enterpriseValue Float?
+  netWorth        Float?
+  grossDebt       Float?
+  profitable      Boolean?
+
+  assets      Asset[]
+  sector      Sector?    @relation(fields: [sectorId], references: [id])
+  sectorId    String?
+  subsector   Subsector? @relation(fields: [subsectorId], references: [id])
+  subsectorId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("companies")
+}
+
 model Asset {
-  id          String     @id @default(uuid())
-  ticker      String     @unique
-  fantasyName String
-  companyName String
-  sector      String
-  subSector   String
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  marketValue Float?
-  netIncome   Float?
-  windScore   WindScore?
+  id        String    @id @default(uuid())
+  ticker    String    @unique
+  liquidity Float?
+  type      AssetType
+
+  windScore    WindScore?
+  fundamentals Fundamentals?
+  company      Company       @relation(fields: [companyId], references: [id])
+  companyId    String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("assets")
 }
 
+model Fundamentals {
+  id String @id @default(uuid())
+
+  dividendYield       Float?
+  priceToProfitRatio  Float?
+  priceToBookRatio    Float?
+  evToEbitRatio       Float?
+  priceToEbitRatio    Float?
+  bookValuePerShare   Float?
+  priceToAssets       Float?
+  profitByShare       Float?
+  priceToCapitalRatio Float?
+  priceToLiquidAsset  Float?
+
+  netDebtToEquityRatio Float?
+  netDebtToEbitRatio   Float?
+  equityToAssetsRatio  Float?
+  currentLiquidity     Float?
+
+  grossMargin Float?
+  ebitMargin  Float?
+  netMargin   Float?
+
+  returnOnEquity          Float?
+  returnOnInvestedCapital Float?
+  assetTurnover           Float?
+
+  asset   Asset  @relation(fields: [assetId], references: [id])
+  assetId String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("fundamentals")
+}
+
 model WindScore {
-  id                 String   @id @default(uuid())
-  assetId            String   @unique
+  id                 String  @id @default(uuid())
   valuation          Float?
   efficiency         Float?
   debt               Float?
   profitability      Float?
   windFinalScore     Float
-  checklistLiquidity Boolean?
-  checklistDebt      Boolean?
-  checklistRoe       Boolean?
-  checklistProfit    Boolean?
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
-  asset              Asset    @relation(fields: [assetId], references: [id])
+  checklistLiquidity Boolean
+  checklistDebt      Boolean
+  checklistRoe       Boolean
+  checklistProfit    Boolean
+
+  asset   Asset  @relation(fields: [assetId], references: [id])
+  assetId String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("windScores")
 }
@@ -49,6 +147,9 @@ model UserSubscription {
   stripeSubscriptionId   String?   @unique
   stripePriceId          String?
   stripeCurrentPeriodEnd DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("userSubscriptions")
 }
