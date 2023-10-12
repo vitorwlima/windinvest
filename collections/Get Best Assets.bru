@@ -1,0 +1,25 @@
+meta {
+  name: Get Best Assets
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{SERVER_URL}}/assets/best?page=1&debt=true&liquidity=true&profit=false&roe=false
+  body: none
+  auth: bearer
+}
+
+query {
+  sectorId: 
+  subsectorId: 
+  page: 1
+  debt: true
+  liquidity: true
+  profit: false
+  roe: false
+}
+
+auth:bearer {
+  token: {{BEARER_TOKEN}}
+}

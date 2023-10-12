@@ -1,6 +1,6 @@
-import { getAuth } from '@clerk/fastify'
 import { FastifyInstance } from 'fastify'
-import { getIsUserPremium } from 'src/lib/getIsUserPremium'
+import { getAuth } from 'src/auth/getAuth'
+import { getIsUserPro } from 'src/auth/getIsUserPro'
 import { prisma } from 'src/lib/prisma'
 import { z } from 'zod'
 
@@ -13,16 +13,16 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
       return { ok: false, error: 'Unauthorized' }
     }
 
-    const isUserPremium = await getIsUserPremium(userId)
+    const isUserPro = await getIsUserPro(userId)
 
-    if (!isUserPremium) {
+    if (!isUserPro) {
       reply.code(403)
       return { ok: false, error: 'Forbidden' }
     }
 
     const querySchema = z.object({
-      sector: z.string(),
-      subSector: z.string(),
+      sectorId: z.string().optional(),
+      subsectorId: z.string().optional(),
       page: z.string(),
       debt: z.enum(['true', 'false']),
       liquidity: z.enum(['true', 'false']),
@@ -30,7 +30,7 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
       roe: z.enum(['true', 'false']),
     })
 
-    const { sector, subSector, page, debt, liquidity, profit, roe } =
+    const { sectorId, subsectorId, page, debt, liquidity, profit, roe } =
       querySchema.parse(request.query)
 
     try {
@@ -54,10 +54,10 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
           where: {
             company: {
               sector: {
-                name: sector || undefined,
+                name: sectorId || undefined,
               },
               subsector: {
-                name: subSector || undefined,
+                name: subsectorId || undefined,
               },
             },
             windScore: {
@@ -79,10 +79,10 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
           where: {
             company: {
               sector: {
-                name: sector || undefined,
+                name: sectorId || undefined,
               },
               subsector: {
-                name: subSector || undefined,
+                name: subsectorId || undefined,
               },
             },
             windScore: {

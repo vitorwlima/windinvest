@@ -1,5 +1,5 @@
-import { getAuth } from '@clerk/fastify'
 import { FastifyInstance } from 'fastify'
+import { getAuth } from 'src/auth/getAuth'
 import { prisma } from 'src/lib/prisma'
 import { z } from 'zod'
 
@@ -52,7 +52,7 @@ export const getAllAssets = async (fastify: FastifyInstance) => {
       })
 
       reply.code(200)
-      return { ok: true, data: assets, auth: request.headers.authorization }
+      return { ok: true, data: assets }
     } catch (error) {
       reply.code(500)
       return { ok: false, error }

@@ -1,7 +1,7 @@
-import { getAuth } from '@clerk/fastify'
 import { FastifyInstance } from 'fastify'
+import { getAuth } from 'src/auth/getAuth'
+import { getIsUserPro } from 'src/auth/getIsUserPro'
 import { getGrahamPrice } from 'src/lib/getGrahamPrice'
-import { getIsUserPremium } from 'src/lib/getIsUserPremium'
 import { prisma } from 'src/lib/prisma'
 import { z } from 'zod'
 
@@ -14,7 +14,7 @@ export const getAsset = async (fastify: FastifyInstance) => {
       return { ok: false, error: 'Unauthorized' }
     }
 
-    const isUserPremium = await getIsUserPremium(userId)
+    const isUserPro = await getIsUserPro(userId)
 
     const paramsSchema = z.object({
       ticker: z.string(),
@@ -30,7 +30,7 @@ export const getAsset = async (fastify: FastifyInstance) => {
         include: {
           company: true,
           fundamentals: true,
-          windScore: isUserPremium,
+          windScore: isUserPro,
         },
       })
 
@@ -42,7 +42,7 @@ export const getAsset = async (fastify: FastifyInstance) => {
       const finalAsset = {
         ...asset,
         grahamPrice: getGrahamPrice(asset.fundamentals),
-        windScore: isUserPremium ? asset.windScore : 'Forbidden',
+        windScore: isUserPro ? asset.windScore : 'Forbidden',
       }
 
       reply.code(200)

@@ -1,5 +1,5 @@
-import { getAuth } from '@clerk/fastify'
 import { FastifyInstance } from 'fastify'
+import { getAuth } from 'src/auth/getAuth'
 import { prisma } from 'src/lib/prisma'
 
 export const getRanking = async (fastify: FastifyInstance) => {
