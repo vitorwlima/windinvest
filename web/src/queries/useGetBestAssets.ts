@@ -4,8 +4,8 @@ import { useFetch } from './useFetch'
 
 type GetBestAssetsArgs = {
   page: number
-  sector: string
-  subSector: string
+  sectorId: string
+  subsectorId: string
   liquidity: boolean
   roe: boolean
   debt: boolean
@@ -14,33 +14,30 @@ type GetBestAssetsArgs = {
 
 export type BestAssets = {
   ticker: string
-  fantasyName: string
-  sector: string
-  subSector: string
   windScore: {
     windFinalScore: number
+  }
+  company: {
+    fantasyName: string
+    sector: {
+      name: string
+    } | null
+    subsector: {
+      name: string
+    } | null
   }
 }[]
 
 type BestAssetsResponse = {
   assets: BestAssets
   count: number
+  error?: 'Forbidden'
 }
-
-type AssetResponse =
-  | {
-      ok: false
-      error: unknown | 'Forbidden'
-    }
-  | {
-      ok: true
-      data: BestAssetsResponse
-    }
 
 export const useGetBestAssets = ({
   page,
-  sector,
-  subSector,
+  sectorId,
+  subsectorId,
   debt,
   liquidity,
   profit,
@@ -50,20 +47,20 @@ export const useGetBestAssets = ({
 
   const params = new URLSearchParams({
     page: String(page),
-    sector,
-    subSector,
+    sectorId,
+    subsectorId,
     debt: String(debt),
     liquidity: String(liquidity),
     profit: String(profit),
     roe: String(roe),
   })
 
-  return useQuery<AssetResponse>({
+  return useQuery<BestAssetsResponse>({
     queryKey: [
       'best-assets',
       page,
-      sector,
-      subSector,
+      sectorId,
+      subsectorId,
       debt,
       liquidity,
       profit,

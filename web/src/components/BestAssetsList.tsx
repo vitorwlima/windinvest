@@ -78,7 +78,7 @@ export const BestAssetsList: React.FC<Props> = ({
     return (
       <ol className="flex flex-col gap-2">
         {bestAssets.map((asset, i) => (
-          <li key={asset.ticker}>
+          <li key={hideContent ? i : asset.ticker}>
             <Link
               href={`/ativos/${asset.ticker}`}
               className={clsx(
@@ -99,7 +99,7 @@ export const BestAssetsList: React.FC<Props> = ({
                 </span>
                 <div className="flex flex-col">
                   <strong>{asset.ticker}</strong>
-                  <p className="text-xs">{asset.fantasyName}</p>
+                  <p className="text-xs">{asset.company.fantasyName}</p>
                 </div>
               </section>
               <section>

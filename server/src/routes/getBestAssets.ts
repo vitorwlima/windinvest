@@ -15,8 +15,7 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
     const isUserPro = await getIsUserPro(userId)
 
     if (!isUserPro) {
-      reply.code(403)
-      return { ok: false, error: 'Forbidden' }
+      return reply.code(403).send({ error: 'Forbidden' })
     }
 
     const querySchema = z.object({
@@ -40,8 +39,16 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
             company: {
               select: {
                 fantasyName: true,
-                sector: true,
-                subsector: true,
+                sector: {
+                  select: {
+                    name: true,
+                  },
+                },
+                subsector: {
+                  select: {
+                    name: true,
+                  },
+                },
               },
             },
             windScore: {

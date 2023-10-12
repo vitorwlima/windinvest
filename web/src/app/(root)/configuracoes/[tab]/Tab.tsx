@@ -13,22 +13,21 @@ export const SettingsTab = () => {
   const { openModal } = useUpgradeToProModal()
 
   const getSubscriptionButtonText = () => {
-    if (!data || !data.ok || isLoading) return 'Carregando...'
-    if (data.data.isUserPremium) return 'Gerenciar assinatura'
+    if (!data || isLoading) return 'Carregando...'
+    if (data.isUserPro) return 'Gerenciar assinatura'
     return 'Assinar'
   }
 
   const getSubscriptionStatusText = () => {
-    if (!data || !data.ok || isLoading) return ''
-    if (data.data.isUserPremium)
-      return 'Sua assinatura está ativa no plano PRO.'
+    if (!data || isLoading) return ''
+    if (data.isUserPro) return 'Sua assinatura está ativa no plano PRO.'
     return 'Você ainda não assinou o plano PRO.'
   }
 
   const handleClick = () => {
-    if (!data || !data.ok || isLoading) return
-    if (data.data.isUserPremium) {
-      window.location.href = data.data.url
+    if (!data || isLoading) return
+    if (data.isUserPro) {
+      window.location.href = data.url
       return
     }
 

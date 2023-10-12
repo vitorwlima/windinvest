@@ -10,9 +10,9 @@ export const UpgradeToProModal: React.FC = () => {
   const { isOpen, closeModal } = useUpgradeToProModal()
 
   const goToPaymentScreen = () => {
-    if (!data?.ok) return
+    if (!data) return
 
-    window.location.href = data.data.url
+    window.location.href = data.url
   }
 
   return (
@@ -71,7 +71,7 @@ export const UpgradeToProModal: React.FC = () => {
                     type="button"
                     className="rounded-md border border-transparent bg-sky-500 px-4 py-2 text-sm font-bold text-neutral-50 transition-colors hover:bg-sky-400 focus:outline-none"
                     onClick={goToPaymentScreen}
-                    disabled={!data?.ok}
+                    disabled={!data}
                   >
                     Virar PRO
                   </button>

@@ -1,6 +1,6 @@
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
-import { AssetBase, useGetAllAssets } from 'src/queries/useGetAllAssets'
+import { useGetAllAssets } from 'src/queries/useGetAllAssets'
 import { useDebounce } from './useDebounce'
 
 export const useSearchAsset = () => {
@@ -12,8 +12,7 @@ export const useSearchAsset = () => {
 
   const debouncedSearch = useDebounce(inputValue, 300)
   const { data } = useGetAllAssets({ search: debouncedSearch })
-  const assetList =
-    data !== undefined && data.ok ? data.data : ([] as AssetBase[])
+  const assetList = data !== undefined ? data : []
 
   const onSelect = (value: string) => {
     setSelected(value)

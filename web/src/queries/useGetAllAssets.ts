@@ -6,20 +6,12 @@ type GetAllAssetsArgs = {
   search: string
 }
 
-export type AssetBase = {
+type AssetResponse = {
   ticker: string
-  fantasyName: string
-}
-
-type AssetResponse =
-  | {
-      ok: false
-      error: unknown
-    }
-  | {
-      ok: true
-      data: AssetBase[]
-    }
+  company: {
+    fantasyName: string
+  }
+}[]
 
 export const useGetAllAssets = ({ search }: GetAllAssetsArgs) => {
   const fetch = useFetch()
