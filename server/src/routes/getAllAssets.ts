@@ -8,8 +8,7 @@ export const getAllAssets = async (fastify: FastifyInstance) => {
     const { userId } = getAuth(request)
 
     if (!userId) {
-      reply.code(401)
-      return { ok: false, error: 'Unauthorized' }
+      return reply.code(401).send({ error: 'Unauthorized' })
     }
 
     const querySchema = z.object({
@@ -51,11 +50,9 @@ export const getAllAssets = async (fastify: FastifyInstance) => {
         },
       })
 
-      reply.code(200)
-      return { ok: true, data: assets }
+      return reply.code(200).send(assets)
     } catch (error) {
-      reply.code(500)
-      return { ok: false, error }
+      return reply.code(500).send({ error })
     }
   })
 }

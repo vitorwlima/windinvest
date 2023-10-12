@@ -10,8 +10,7 @@ export const getAsset = async (fastify: FastifyInstance) => {
     const { userId } = getAuth(request)
 
     if (!userId) {
-      reply.code(401)
-      return { ok: false, error: 'Unauthorized' }
+      return reply.code(401).send({ error: 'Unauthorized' })
     }
 
     const isUserPro = await getIsUserPro(userId)
@@ -45,14 +44,9 @@ export const getAsset = async (fastify: FastifyInstance) => {
         windScore: isUserPro ? asset.windScore : 'Forbidden',
       }
 
-      reply.code(200)
-      return {
-        ok: true,
-        data: finalAsset,
-      }
+      return reply.code(200).send(finalAsset)
     } catch (error) {
-      reply.code(500)
-      return { ok: false, error }
+      return reply.code(500).send({ error })
     }
   })
 }

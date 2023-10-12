@@ -11,8 +11,7 @@ export const getSubscriptionData = async (fastify: FastifyInstance) => {
     const { userId } = getAuth(request)
 
     if (!userId) {
-      reply.code(401)
-      return { ok: false, error: 'Unauthorized' }
+      return reply.code(401).send({ error: 'Unauthorized' })
     }
 
     const user = await clerkClient.users.getUser(userId)
@@ -60,7 +59,7 @@ export const getSubscriptionData = async (fastify: FastifyInstance) => {
           },
         })
 
-        return { ok: true, data: { url: stripeSession.url, isUserPro } }
+        return reply.code(200).send({ url: stripeSession.url, isUserPro })
       }
 
       const stripeSession = await stripe.billingPortal.sessions.create({
@@ -69,10 +68,9 @@ export const getSubscriptionData = async (fastify: FastifyInstance) => {
         return_url: redirectURL,
       })
 
-      return { ok: true, data: { url: stripeSession.url, isUserPro } }
+      return reply.code(200).send({ url: stripeSession.url, isUserPro })
     } catch (error) {
-      reply.code(500)
-      return { ok: false, error }
+      return reply.code(500).send({ error })
     }
   })
 }

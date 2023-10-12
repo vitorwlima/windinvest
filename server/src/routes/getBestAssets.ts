@@ -9,8 +9,7 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
     const { userId } = getAuth(request)
 
     if (!userId) {
-      reply.code(401)
-      return { ok: false, error: 'Unauthorized' }
+      return reply.code(401).send({ error: 'Unauthorized' })
     }
 
     const isUserPro = await getIsUserPro(userId)
@@ -95,11 +94,9 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
         }),
       ])
 
-      reply.code(200)
-      return { ok: true, data: { assets, count } }
+      return reply.code(200).send({ assets, count })
     } catch (error) {
-      reply.code(500)
-      return { ok: false, error }
+      return reply.code(500).send({ error })
     }
   })
 }
