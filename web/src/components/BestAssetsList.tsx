@@ -39,7 +39,7 @@ export const BestAssetsList: React.FC<Props> = ({
             <li key={i}>
               <div
                 className={clsx(
-                  'flex animate-pulse items-center justify-between rounded-md bg-neutral-800 p-4 transition-colors',
+                  'flex animate-pulse items-center justify-between rounded-md bg-gray-800 p-4 transition-colors',
                   {
                     group: !hideContent,
                   },
@@ -48,7 +48,7 @@ export const BestAssetsList: React.FC<Props> = ({
                 <section className="flex items-center gap-8">
                   <span
                     className={clsx('w-6 text-lg font-bold text-green-500', {
-                      'group-hover:text-neutral-50': !hideContent,
+                      'group-hover:text-gray-50': !hideContent,
                     })}
                   >
                     &#12644;
@@ -62,7 +62,7 @@ export const BestAssetsList: React.FC<Props> = ({
                   <data
                     value="Loading"
                     className={clsx('font-bold text-green-500', {
-                      'group-hover:text-neutral-50': !hideContent,
+                      'group-hover:text-gray-50': !hideContent,
                     })}
                   >
                     &#12644;
@@ -82,7 +82,7 @@ export const BestAssetsList: React.FC<Props> = ({
             <Link
               href={`/ativos/${asset.ticker}`}
               className={clsx(
-                'flex items-center justify-between rounded-md bg-neutral-800 p-4 transition-colors hover:bg-green-500 focus:bg-green-500 focus:outline-none',
+                'flex items-center justify-between rounded-md bg-gray-950/40 p-4 transition-colors hover:bg-green-500 focus:bg-green-500 focus:outline-none',
                 {
                   group: !hideContent,
                 },
@@ -91,7 +91,7 @@ export const BestAssetsList: React.FC<Props> = ({
               <section className="flex items-center gap-8">
                 <span
                   className={clsx('w-6 text-lg font-bold text-green-500', {
-                    'group-hover:text-neutral-50 group-focus:text-neutral-50':
+                    'group-hover:text-gray-50 group-focus:text-gray-50':
                       !hideContent,
                   })}
                 >
@@ -106,7 +106,7 @@ export const BestAssetsList: React.FC<Props> = ({
                 <data
                   value={asset.windFinalScore}
                   className={clsx('font-bold text-green-500', {
-                    'group-hover:text-neutral-50 group-focus:text-neutral-50':
+                    'group-hover:text-gray-50 group-focus:text-gray-50':
                       !hideContent,
                   })}
                 >
@@ -129,10 +129,10 @@ export const BestAssetsList: React.FC<Props> = ({
           <button
             key={currPage}
             className={clsx(
-              'rounded-md px-4 py-2 font-bold focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-neutral-900',
+              'rounded-md px-4 py-2 font-bold focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-[#00101A]',
               {
                 'bg-green-500 text-white': currPage === page,
-                'bg-neutral-800 text-green-500': currPage !== page,
+                'bg-gray-950/40 text-green-500': currPage !== page,
               },
             )}
             onClick={() => onPageChange(currPage)}

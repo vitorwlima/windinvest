@@ -1,13 +1,8 @@
 'use client'
 
 import { Disclosure, Switch, Transition } from '@headlessui/react'
-import {
-  ChevronDownIcon,
-  LockClosedIcon,
-  LockOpenIcon,
-  TrophyIcon,
-} from '@heroicons/react/24/outline'
 import clsx from 'clsx'
+import { ChevronDown, Lock, Trophy, Unlock } from 'lucide-react'
 import { useState } from 'react'
 import { useUpgradeToProModal } from 'src/hooks/useUpgradeToProModal'
 import {
@@ -90,7 +85,7 @@ export const BestAssets: React.FC = () => {
 
           <button className="mb-8 flex items-center gap-2 rounded-md bg-green-500 px-4 py-2">
             <span>Filtros avançados</span>
-            <ChevronDownIcon className="h-4 w-4" />
+            <ChevronDown className="h-4 w-4" />
           </button>
 
           <BestAssetsList
@@ -107,10 +102,13 @@ export const BestAssets: React.FC = () => {
     if (data.error === 'Forbidden') {
       return (
         <div className="group relative cursor-pointer" onClick={openModal}>
-          <button className="absolute left-1/2 top-1/2 z-10 flex w-fit -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-lg bg-sky-500 px-6 py-3 text-lg font-bold transition-colors group-hover:bg-neutral-50 group-hover:text-sky-500">
+          <button className="absolute left-1/2 top-1/2 z-10 flex w-fit -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-lg bg-sky-500 px-6 py-3 text-lg font-bold transition-colors group-hover:bg-gray-50 group-hover:text-sky-500">
             Desbloquear
-            <LockClosedIcon className="h-4 w-4 group-hover:hidden [&>path]:stroke-[3]" />
-            <LockOpenIcon className="hidden h-4 w-4 text-sky-500 group-hover:block [&>path]:stroke-[3]" />
+            <Lock className="h-4 w-4 group-hover:hidden" strokeWidth={3} />
+            <Unlock
+              className="hidden h-4 w-4 text-sky-500 group-hover:block"
+              strokeWidth={3}
+            />
           </button>
           <div className="pointer-events-none select-none blur-md">
             <div className="mb-4 flex flex-col gap-4 lg:flex-row">
@@ -132,7 +130,7 @@ export const BestAssets: React.FC = () => {
 
             <button className="mb-8 flex items-center gap-2 rounded-md bg-green-500 px-4 py-2">
               <span>Filtros avançados</span>
-              <ChevronDownIcon className="h-4 w-4" />
+              <ChevronDown className="h-4 w-4" />
             </button>
 
             <BestAssetsList
@@ -175,11 +173,11 @@ export const BestAssets: React.FC = () => {
         </div>
 
         <Disclosure className="mb-8" as="div">
-          <Disclosure.Button className="flex items-center gap-2 rounded-md bg-green-500 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-neutral-900">
+          <Disclosure.Button className="flex items-center gap-2 rounded-md bg-green-500 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-900">
             {({ open }) => (
               <>
                 <span>Filtros avançados</span>
-                <ChevronDownIcon
+                <ChevronDown
                   className={clsx('h-4 w-4 transition-transform', {
                     'rotate-180': open,
                   })}
@@ -209,10 +207,10 @@ export const BestAssets: React.FC = () => {
                       }))
                     }
                     className={clsx(
-                      'h-4 w-4 cursor-pointer rounded-full border focus:outline-none focus:ring-1 focus:ring-green-500 focus:ring-offset-neutral-900',
+                      'h-4 w-4 cursor-pointer rounded-full border focus:outline-none focus:ring-1 focus:ring-green-500 focus:ring-offset-gray-900',
                       {
                         'bg-green-500 border-green-500': filter[key],
-                        'bg-transparent border-neutral-400 focus:border-transparent':
+                        'bg-transparent border-gray-400 focus:border-transparent':
                           !filter[key],
                       },
                     )}
@@ -237,7 +235,7 @@ export const BestAssets: React.FC = () => {
   return (
     <section className="mx-auto max-w-6xl px-4 py-8">
       <h2 className="mb-4 flex items-center gap-2 text-2xl font-bold">
-        <TrophyIcon className="h-8 w-8 text-green-500" />
+        <Trophy className="h-8 w-8 text-green-500" />
         <p>As Melhores Ações</p>
       </h2>
 

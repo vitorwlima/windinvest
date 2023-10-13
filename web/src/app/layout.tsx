@@ -19,7 +19,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <ClerkProvider localization={ptBR}>
       <QueryProvider>
-        <html lang="pt" className="bg-neutral-900 text-neutral-50">
+        <html lang="pt" className="bg-[#00101A] text-gray-50">
           <body
             className={clsx(
               'flex min-h-screen flex-col justify-between overflow-x-hidden',

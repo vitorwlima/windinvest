@@ -1,5 +1,5 @@
-import { ArrowRightIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
+import { MoveRight } from 'lucide-react'
 import { AssetResponse } from 'src/queries/useGetAsset'
 import { getBRLFormattedValue } from 'src/utils/formatAsset'
 import { AssetDataContainer } from './AssetDataContainer'
@@ -21,7 +21,7 @@ const grahamContent: Record<GrahamResults, GrahamContent> = {
         Preço justo de Graham <strong>não definido</strong>
       </>
     ),
-    className: 'text-neutral-500',
+    className: 'text-gray-500',
   },
   fair: {
     result: (
@@ -29,7 +29,7 @@ const grahamContent: Record<GrahamResults, GrahamContent> = {
         Ação está no preço <strong>justo</strong> de Graham
       </>
     ),
-    className: 'text-neutral-500',
+    className: 'text-gray-500',
   },
   lessThan: {
     result: (
@@ -82,7 +82,7 @@ export const GrahamPrice: React.FC<Props> = ({ asset }: Props) => {
               {getBRLFormattedValue(grahamPrice)}
             </strong>
           </div>
-          <ArrowRightIcon className={clsx('h-8 w-8', content.className)} />
+          <MoveRight className={clsx('h-8 w-8', content.className)} />
           <div className="flex flex-col gap-1">
             <span>Preço atual</span>
             <strong className="text-xl">{getBRLFormattedValue(price)}</strong>

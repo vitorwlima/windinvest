@@ -1,8 +1,8 @@
 'use client'
 
 import { Combobox, Transition } from '@headlessui/react'
-import { CheckIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
+import { Check } from 'lucide-react'
 import { Fragment, useRef, useState } from 'react'
 
 type Props = {
@@ -47,7 +47,7 @@ export const SectorSelect: React.FC<Props> = ({
       <div className="relative mt-1 w-full">
         <Combobox.Button as="div">
           <Combobox.Input
-            className="flex h-9 w-full rounded-md border border-neutral-500 bg-neutral-900 px-3 py-1 text-sm transition-colors focus-visible:border-neutral-50 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex h-9 w-full rounded-md border border-gray-700 bg-gray-900/60 px-3 py-1 text-sm transition-colors focus-visible:border-gray-300 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
             onChange={(event) => setInputValue(event.target.value)}
             ref={ref}
             placeholder={name === 'setor' ? 'Setor' : 'Subsetor'}
@@ -60,7 +60,7 @@ export const SectorSelect: React.FC<Props> = ({
           leaveTo="opacity-0"
           afterLeave={() => setInputValue('')}
         >
-          <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-neutral-900 py-1 focus:outline-none">
+          <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-gray-900 py-1 focus:outline-none">
             {filteredSectors.length === 0 && inputValue !== '' ? (
               <div className="relative cursor-default select-none px-4 py-2 text-gray-700">
                 Nenhum {name} encontrado.
@@ -94,7 +94,7 @@ export const SectorSelect: React.FC<Props> = ({
                             },
                           )}
                         >
-                          <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                          <Check className="h-5 w-5" aria-hidden="true" />
                         </span>
                       ) : null}
                     </div>

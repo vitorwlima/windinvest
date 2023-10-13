@@ -46,7 +46,7 @@ export const SettingsTab = () => {
                 clsx(
                   'w-full rounded-lg py-2 text-sm font-medium transition-colors focus:outline-none',
                   {
-                    'bg-neutral-50 text-green-500': selected,
+                    'bg-gray-50 text-green-500': selected,
                     'hover:bg-white/20': !selected,
                   },
                 )
@@ -62,12 +62,12 @@ export const SettingsTab = () => {
           </Tab.Panel>
 
           <Tab.Panel className="pt-4">
-            <p className="mb-2 text-sm text-neutral-400">
+            <p className="mb-2 text-sm text-gray-400">
               {getSubscriptionStatusText()}
             </p>
 
             <button
-              className="rounded-md border border-transparent bg-sky-500 px-4 py-2 font-bold text-neutral-50 transition-colors hover:bg-sky-400 focus:outline-none"
+              className="rounded-md border border-transparent bg-sky-500 px-4 py-2 font-bold text-gray-50 transition-colors hover:bg-sky-400 focus:outline-none"
               onClick={handleClick}
             >
               {getSubscriptionButtonText()}

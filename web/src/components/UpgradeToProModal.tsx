@@ -41,15 +41,15 @@ export const UpgradeToProModal: React.FC = () => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md overflow-hidden rounded-2xl bg-neutral-900 p-6 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-md overflow-hidden rounded-2xl bg-gray-900 p-6 text-left align-middle shadow-xl transition-all">
                 <Dialog.Title
                   as="h3"
-                  className="text-lg font-medium leading-6 text-neutral-50"
+                  className="text-lg font-medium leading-6 text-gray-50"
                 >
                   Wind Invest <strong className="text-sky-500">PRO</strong>
                 </Dialog.Title>
                 <div className="mt-2">
-                  <p className="text-sm text-neutral-400">
+                  <p className="text-sm text-gray-400">
                     Com a assinatura Wind Invest PRO, você tem acesso ao Ranking
                     Wind de todos os ativos e à seção de Melhores Ações.
                   </p>
@@ -61,7 +61,7 @@ export const UpgradeToProModal: React.FC = () => {
                     <span>/mês</span>
                   </div>
 
-                  <p className="mt-1 text-xs text-neutral-400">
+                  <p className="mt-1 text-xs text-gray-400">
                     Cancele a qualquer momento com alguns cliques.
                   </p>
                 </div>
@@ -69,7 +69,7 @@ export const UpgradeToProModal: React.FC = () => {
                 <div className="mt-4">
                   <button
                     type="button"
-                    className="rounded-md border border-transparent bg-sky-500 px-4 py-2 text-sm font-bold text-neutral-50 transition-colors hover:bg-sky-400 focus:outline-none"
+                    className="rounded-md border border-transparent bg-sky-500 px-4 py-2 text-sm font-bold text-gray-50 transition-colors hover:bg-sky-400 focus:outline-none"
                     onClick={goToPaymentScreen}
                     disabled={!data}
                   >
