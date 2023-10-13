@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client'
 import { FastifyInstance } from 'fastify'
 import { getAuth } from 'src/auth/getAuth'
 import { getIsUserPro } from 'src/auth/getIsUserPro'
@@ -31,75 +32,81 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
     const { sector, subsector, page, debt, liquidity, profit, roe } =
       querySchema.parse(request.query)
 
-    try {
-      const [assets, count] = await prisma.$transaction([
-        prisma.asset.findMany({
-          select: {
-            ticker: true,
-            company: {
-              select: {
-                fantasyName: true,
-                sector: {
-                  select: {
-                    name: true,
-                  },
-                },
-                subsector: {
-                  select: {
-                    name: true,
-                  },
-                },
-              },
-            },
-            windScore: {
-              select: {
-                windFinalScore: true,
-              },
-            },
+    const where: Prisma.CompanyWhereInput = {
+      highestWindFinalScore: {
+        not: null,
+      },
+      sector: {
+        name: sector || undefined,
+      },
+      subsector: {
+        name: subsector || undefined,
+      },
+      assets: {
+        some: {
+          windScore: {
+            checklistDebt: debt === 'true' ? true : undefined,
+            checklistLiquidity: liquidity === 'true' ? true : undefined,
+            checklistProfit: profit === 'true' ? true : undefined,
+            checklistRoe: roe === 'true' ? true : undefined,
           },
-          where: {
-            company: {
-              sector: {
-                name: sector || undefined,
+          liquidity: {
+            not: null,
+          },
+        },
+      },
+    }
+
+    try {
+      const [companies, count] = await prisma.$transaction([
+        prisma.company.findMany({
+          where,
+          select: {
+            fantasyName: true,
+            assets: {
+              where: {
+                windScore: {
+                  checklistDebt: debt === 'true' ? true : undefined,
+                  checklistLiquidity: liquidity === 'true' ? true : undefined,
+                  checklistProfit: profit === 'true' ? true : undefined,
+                  checklistRoe: roe === 'true' ? true : undefined,
+                },
+                liquidity: {
+                  not: null,
+                },
               },
-              subsector: {
-                name: subsector || undefined,
+              select: {
+                ticker: true,
+                windScore: {
+                  select: {
+                    windFinalScore: true,
+                  },
+                },
               },
-            },
-            windScore: {
-              checklistDebt: debt === 'true' ? true : undefined,
-              checklistLiquidity: liquidity === 'true' ? true : undefined,
-              checklistProfit: profit === 'true' ? true : undefined,
-              checklistRoe: roe === 'true' ? true : undefined,
+              orderBy: {
+                liquidity: 'desc',
+              },
+              take: 1,
             },
           },
           orderBy: {
-            windScore: {
-              windFinalScore: 'desc',
-            },
+            highestWindFinalScore: 'desc',
           },
-          skip: 10 * (Number(page) - 1),
           take: 10,
+          skip: 10 * (Number(page) - 1),
         }),
-        prisma.asset.count({
-          where: {
-            company: {
-              sector: {
-                name: sector || undefined,
-              },
-              subsector: {
-                name: subsector || undefined,
-              },
-            },
-            windScore: {
-              checklistDebt: debt === 'true' ? true : undefined,
-              checklistLiquidity: liquidity === 'true' ? true : undefined,
-              checklistProfit: profit === 'true' ? true : undefined,
-              checklistRoe: roe === 'true' ? true : undefined,
-            },
-          },
+        prisma.company.count({
+          where,
         }),
       ])
+
+      const assets = companies.map((company) => ({
+        ticker: company.assets[0].ticker,
+        windFinalScore: company.assets[0].windScore?.windFinalScore ?? 0,
+        company: {
+          fantasyName: company.fantasyName,
+        },
+      }))
 
       return reply.code(200).send({ assets, count })
     } catch (error) {

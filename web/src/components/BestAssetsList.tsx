@@ -104,13 +104,13 @@ export const BestAssetsList: React.FC<Props> = ({
               </section>
               <section>
                 <data
-                  value={asset.windScore.windFinalScore}
+                  value={asset.windFinalScore}
                   className={clsx('font-bold text-green-500', {
                     'group-hover:text-neutral-50 group-focus:text-neutral-50':
                       !hideContent,
                   })}
                 >
-                  {formatToRatio(asset.windScore.windFinalScore)}
+                  {formatToRatio(asset.windFinalScore)}
                 </data>
               </section>
             </Link>

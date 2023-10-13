@@ -14,17 +14,9 @@ type GetBestAssetsArgs = {
 
 export type BestAssets = {
   ticker: string
-  windScore: {
-    windFinalScore: number
-  }
+  windFinalScore: number
   company: {
     fantasyName: string
-    sector: {
-      name: string
-    } | null
-    subsector: {
-      name: string
-    } | null
   }
 }[]
 

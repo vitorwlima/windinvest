@@ -20,17 +20,9 @@ import { SectorSelect } from './SectorSelect'
 
 const premiumExampleAsset: BestAssetsType[number] = {
   ticker: 'TICK3',
+  windFinalScore: 0,
   company: {
     fantasyName: 'Nome da empresa',
-    sector: {
-      name: 'Setor',
-    },
-    subsector: {
-      name: 'Subsetor',
-    },
-  },
-  windScore: {
-    windFinalScore: 0,
   },
 }
 
