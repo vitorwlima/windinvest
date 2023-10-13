@@ -161,7 +161,11 @@ export const getStock = async (ticker: string): Promise<Stock | null> => {
     )?.textContent
 
     const info = {
-      type: (type ? type.toUpperCase() : 'OTHER') as AssetType,
+      type: (type
+        ? type.toUpperCase()
+        : ticker.slice(-1) === '1'
+        ? 'UNIT'
+        : 'OTHER') as AssetType,
       ticker: ticker?.toUpperCase(),
       liquidity: liquidity
         ? Number(liquidity.replaceAll('.', '').replaceAll(',', '.').trim())
