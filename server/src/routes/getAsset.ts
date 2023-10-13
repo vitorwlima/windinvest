@@ -2,6 +2,7 @@ import { FastifyInstance } from 'fastify'
 import { getAuth } from 'src/auth/getAuth'
 import { getIsUserPro } from 'src/auth/getIsUserPro'
 import { getGrahamPrice } from 'src/lib/getGrahamPrice'
+import { getQuote } from 'src/lib/getQuote'
 import { prisma } from 'src/lib/prisma'
 import { z } from 'zod'
 
@@ -22,26 +23,49 @@ export const getAsset = async (fastify: FastifyInstance) => {
     const { ticker } = paramsSchema.parse(request.params)
 
     try {
-      const asset = await prisma.asset.findFirst({
-        where: {
-          ticker,
-        },
-        include: {
-          company: true,
-          fundamentals: true,
-          windScore: isUserPro,
-        },
-      })
+      const [asset, quote] = await Promise.all([
+        prisma.asset.findFirst({
+          where: {
+            ticker,
+          },
+          include: {
+            company: {
+              select: {
+                cnpj: true,
+                companyName: true,
+                fantasyName: true,
+                sector: {
+                  select: {
+                    name: true,
+                  },
+                },
+                subsector: {
+                  select: {
+                    name: true,
+                  },
+                },
+              },
+            },
+            fundamentals: true,
+            windScore: isUserPro,
+          },
+        }),
+        getQuote(ticker),
+      ])
 
       if (!asset) {
         reply.code(404)
         return { ok: false, error: 'Asset not found' }
       }
 
+      const grahamPrice = getGrahamPrice(asset.fundamentals)
+      const windScore = isUserPro ? asset.windScore : ('Forbidden' as const)
+
       const finalAsset = {
         ...asset,
-        grahamPrice: getGrahamPrice(asset.fundamentals),
-        windScore: isUserPro ? asset.windScore : 'Forbidden',
+        quote,
+        grahamPrice,
+        windScore,
       }
 
       return reply.code(200).send(finalAsset)

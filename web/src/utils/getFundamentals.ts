@@ -5,7 +5,10 @@ type Data = {
   description: string
 }
 
-const valuationTitles: Record<keyof FormattedAsset['valuation'], Data> = {
+const valuationTitles: Record<
+  keyof FormattedAsset['fundamentals']['valuation'],
+  Data
+> = {
   bookValuePerShare: {
     title: 'VPA',
     description: 'Representa o valor patrimonial por ação.',
@@ -52,7 +55,7 @@ const valuationTitles: Record<keyof FormattedAsset['valuation'], Data> = {
   },
 }
 
-const debtTitles: Record<keyof FormattedAsset['debt'], Data> = {
+const debtTitles: Record<keyof FormattedAsset['fundamentals']['debt'], Data> = {
   currentLiquidity: {
     title: 'Liq. Corrente',
     description:
@@ -75,7 +78,10 @@ const debtTitles: Record<keyof FormattedAsset['debt'], Data> = {
   },
 }
 
-const efficiencyTitles: Record<keyof FormattedAsset['efficiency'], Data> = {
+const efficiencyTitles: Record<
+  keyof FormattedAsset['fundamentals']['efficiency'],
+  Data
+> = {
   ebitMargin: {
     title: 'Margem EBIT',
     description: 'Representa a eficiência operacional da empresa.',
@@ -90,24 +96,26 @@ const efficiencyTitles: Record<keyof FormattedAsset['efficiency'], Data> = {
   },
 }
 
-const profitabilityTitles: Record<keyof FormattedAsset['profitability'], Data> =
-  {
-    returnOnEquity: {
-      title: 'ROE',
-      description:
-        'Representa a rentabilidade da empresa a partir de seus próprios recursos.',
-    },
-    returnOnInvestedCapital: {
-      title: 'ROIC',
-      description:
-        'Representa a rentabilidade da empresa a partir de seus investimentos.',
-    },
-    assetTurnover: {
-      title: 'Giro Ativos',
-      description:
-        'Representa a taxa de produção de dinheiro de uma empresa através de suas operações.',
-    },
-  }
+const profitabilityTitles: Record<
+  keyof FormattedAsset['fundamentals']['profitability'],
+  Data
+> = {
+  returnOnEquity: {
+    title: 'ROE',
+    description:
+      'Representa a rentabilidade da empresa a partir de seus próprios recursos.',
+  },
+  returnOnInvestedCapital: {
+    title: 'ROIC',
+    description:
+      'Representa a rentabilidade da empresa a partir de seus investimentos.',
+  },
+  assetTurnover: {
+    title: 'Giro Ativos',
+    description:
+      'Representa a taxa de produção de dinheiro de uma empresa através de suas operações.',
+  },
+}
 
 const getValuationData = ({ key, value }: { key: string; value: string }) => {
   const { title, description } =
@@ -162,26 +170,26 @@ export const getFundamentals = (asset: FormattedAsset) => {
   const fundamentals = [
     {
       title: 'Valuation',
-      data: Object.entries(asset.valuation).map(([key, value]) =>
+      data: Object.entries(asset.fundamentals.valuation).map(([key, value]) =>
         getValuationData({ key, value }),
       ),
     },
     {
       title: 'Endividamento',
-      data: Object.entries(asset.debt).map(([key, value]) =>
+      data: Object.entries(asset.fundamentals.debt).map(([key, value]) =>
         getDebtData({ key, value }),
       ),
     },
     {
       title: 'Eficiência',
-      data: Object.entries(asset.efficiency).map(([key, value]) =>
+      data: Object.entries(asset.fundamentals.efficiency).map(([key, value]) =>
         getEfficiencyData({ key, value }),
       ),
     },
     {
       title: 'Lucratividade',
-      data: Object.entries(asset.profitability).map(([key, value]) =>
-        getProfitabilityData({ key, value }),
+      data: Object.entries(asset.fundamentals.profitability).map(
+        ([key, value]) => getProfitabilityData({ key, value }),
       ),
     },
   ]

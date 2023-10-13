@@ -13,19 +13,19 @@ export const AssetIntroductionData: React.FC<Props> = ({ asset }) => {
     },
     {
       title: 'Mínima (52Sem)',
-      data: asset.quote.minPriceIn52Weeks,
+      data: asset.quote.fiftyTwoWeekLow,
     },
     {
       title: 'Máxima (52Sem)',
-      data: asset.quote.maxPriceIn52Weeks,
+      data: asset.quote.fiftyTwoWeekHigh,
     },
     {
-      title: 'Valorização (12M)',
-      data: asset.quote.oscilationIn12Months,
+      title: 'Variação (3M)',
+      data: asset.quote.threeMonthChangePercent,
     },
     {
       title: 'Liquidez',
-      data: asset.about.averageLiquidity,
+      data: asset.liquidity,
     },
   ]
 

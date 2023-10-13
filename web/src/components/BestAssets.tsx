@@ -120,8 +120,6 @@ export const BestAssets: React.FC = () => {
       )
     }
 
-    // TODO: update to diff cases -> isError and not pro, isError and pro
-    // check failureReason
     if (data.error === 'Forbidden') {
       return (
         <div className="group relative cursor-pointer" onClick={openModal}>
