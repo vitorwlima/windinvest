@@ -5,7 +5,7 @@
   "main": "main.ts",
   "scripts": {
     "dev": "tsx watch src/main.ts",
-    "start": "tsx src/main.ts",
+    "start": "prisma migrate deploy && tsx src/main.ts",
     "update-assets": "tsx src/scripts/update-assets/index.ts"
   },
   "keywords": [],
