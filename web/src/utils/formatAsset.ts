@@ -1,67 +1,52 @@
-import { Asset } from 'src/queries/useGetAsset'
+import { AssetResponse } from 'src/queries/useGetAsset'
 import { Unit, formatToBRL } from './formatToBRL'
 import { formatToPercentage } from './formatToPercentage'
 import { formatToRatio } from './formatToRatio'
 
 export type FormattedAsset = {
-  about: {
-    ticker: string
-    name: string
-    averageLiquidity: string
-    sector: string
-    subSector: string
-    numberOfShares: string
-  }
+  ticker: string
+  type: AssetResponse['type']
+  liquidity: string
+  windScore: AssetResponse['windScore']
+  grahamPrice: string
+  company: AssetResponse['company']
   quote: {
     price: string
-    oscilationIn30Days: string
-    oscilationIn12Months: string
-    minPriceIn52Weeks: string
-    maxPriceIn52Weeks: string
-    lastQuoteDate: string
+    threeMonthChangePercent: string
+    fiftyTwoWeekLow: string
+    fiftyTwoWeekHigh: string
+    logoUrl: string
   }
-  balance: {
-    marketValue: string
-    enterpriseValue: string
-    netIncome: string
-    ebit: string
-    netProfit: string
-    assets: string
-    currentAssets: string
-    grossDebt: string
-    netDebt: string
-    netWorth: string
+  fundamentals: {
+    valuation: {
+      dividendYield: string
+      priceToProfitRatio: string
+      priceToBookRatio: string
+      evToEbitRatio: string
+      priceToEbitRatio: string
+      bookValuePerShare: string
+      priceToAssets: string
+      profitByShare: string
+      priceToCapitalRatio: string
+      priceToLiquidAsset: string
+    }
+    debt: {
+      netDebtToEquityRatio: string
+      netDebtToEbitRatio: string
+      equityToAssetsRatio: string
+      currentLiquidity: string
+    }
+    efficiency: {
+      grossMargin: string
+      ebitMargin: string
+      netMargin: string
+    }
+    profitability: {
+      returnOnEquity: string
+      returnOnInvestedCapital: string
+      assetTurnover: string
+    }
   }
-  valuation: {
-    dividendYield: string
-    priceToProfitRatio: string
-    priceToBookRatio: string
-    evToEbitRatio: string
-    priceToEbitRatio: string
-    bookValuePerShare: string
-    priceToAssets: string
-    profitByShare: string
-    priceToCapitalRatio: string
-    priceToLiquidAsset: string
-  }
-  debt: {
-    netDebtToEquityRatio: string
-    netDebtToEbitRatio: string
-    equityToAssetsRatio: string
-    currentLiquidity: string
-  }
-  efficiency: {
-    grossMargin: string
-    ebitMargin: string
-    netMargin: string
-  }
-  profitability: {
-    returnOnEquity: string
-    returnOnInvestedCapital: string
-    assetTurnover: string
-  }
-  windScore: Asset['windScore']
-  grahamPrice: string
 }
 
 export const getBRLFormattedValue = (
@@ -79,87 +64,78 @@ const getRatioFormattedValue = (value: number | null): string => {
   return value ? formatToRatio(value) : 'N/A'
 }
 
-export const formatAsset = (asset: Asset): FormattedAsset => {
+export const formatAsset = (asset: AssetResponse): FormattedAsset => {
   return {
-    about: {
-      name: asset.about.name || 'N/A',
-      ticker: asset.about.ticker?.toUpperCase() || 'N/A',
-      sector: asset.about.sector || 'N/A',
-      subSector: asset.about.subSector || 'N/A',
-      averageLiquidity: getBRLFormattedValue(asset.about.averageLiquidity, 'M'),
-      numberOfShares: getRatioFormattedValue(asset.about.numberOfShares),
-    },
+    ticker: asset.ticker,
+    type: asset.type,
+    liquidity: getBRLFormattedValue(asset.liquidity, 'M'),
+    company: asset.company,
     quote: {
       price: getBRLFormattedValue(asset.quote.price),
-      minPriceIn52Weeks: getBRLFormattedValue(asset.quote.minPriceIn52Weeks),
-      maxPriceIn52Weeks: getBRLFormattedValue(asset.quote.maxPriceIn52Weeks),
-      oscilationIn12Months: getPercentageFormattedValue(
-        asset.quote.oscilationIn12Months,
+      fiftyTwoWeekLow: getBRLFormattedValue(asset.quote.fiftyTwoWeekLow),
+      fiftyTwoWeekHigh: getBRLFormattedValue(asset.quote.fiftyTwoWeekHigh),
+      threeMonthChangePercent: getPercentageFormattedValue(
+        asset.quote.threeMonthChangePercent,
       ),
-      oscilationIn30Days: getPercentageFormattedValue(
-        asset.quote.oscilationIn30Days,
-      ),
-      lastQuoteDate: asset.quote.lastQuoteDate || 'N/A',
+      logoUrl: asset.quote.logoUrl,
     },
-    balance: {
-      assets: getBRLFormattedValue(asset.balance.assets),
-      currentAssets: getBRLFormattedValue(asset.balance.currentAssets),
-      enterpriseValue: getBRLFormattedValue(asset.balance.enterpriseValue),
-      ebit: getBRLFormattedValue(asset.balance.ebit),
-      grossDebt: getBRLFormattedValue(asset.balance.grossDebt),
-      marketValue: getBRLFormattedValue(asset.balance.marketValue),
-      netDebt: getBRLFormattedValue(asset.balance.netDebt),
-      netIncome: getBRLFormattedValue(asset.balance.netIncome),
-      netProfit: getBRLFormattedValue(asset.balance.netProfit),
-      netWorth: getBRLFormattedValue(asset.balance.netWorth),
-    },
-    valuation: {
-      dividendYield: getPercentageFormattedValue(asset.valuation.dividendYield),
-      priceToProfitRatio: getRatioFormattedValue(
-        asset.valuation.priceToProfitRatio,
-      ),
-      priceToBookRatio: getRatioFormattedValue(
-        asset.valuation.priceToBookRatio,
-      ),
-      evToEbitRatio: getRatioFormattedValue(asset.valuation.evToEbitRatio),
-      priceToEbitRatio: getRatioFormattedValue(
-        asset.valuation.priceToEbitRatio,
-      ),
-      bookValuePerShare: getRatioFormattedValue(
-        asset.valuation.bookValuePerShare,
-      ),
-      priceToAssets: getRatioFormattedValue(asset.valuation.priceToAssets),
-      profitByShare: getRatioFormattedValue(asset.valuation.profitByShare),
-      priceToCapitalRatio: getRatioFormattedValue(
-        asset.valuation.priceToCapitalRatio,
-      ),
-      priceToLiquidAsset: getRatioFormattedValue(
-        asset.valuation.priceToLiquidAsset,
-      ),
-    },
-    debt: {
-      netDebtToEquityRatio: getRatioFormattedValue(
-        asset.debt.netDebtToEquityRatio,
-      ),
-      netDebtToEbitRatio: getRatioFormattedValue(asset.debt.netDebtToEbitRatio),
-      equityToAssetsRatio: getRatioFormattedValue(
-        asset.debt.equityToAssetsRatio,
-      ),
-      currentLiquidity: getRatioFormattedValue(asset.debt.currentLiquidity),
-    },
-    efficiency: {
-      grossMargin: getPercentageFormattedValue(asset.efficiency.grossMargin),
-      ebitMargin: getPercentageFormattedValue(asset.efficiency.ebitMargin),
-      netMargin: getPercentageFormattedValue(asset.efficiency.netMargin),
-    },
-    profitability: {
-      returnOnEquity: getPercentageFormattedValue(
-        asset.profitability.returnOnEquity,
-      ),
-      returnOnInvestedCapital: getPercentageFormattedValue(
-        asset.profitability.returnOnInvestedCapital,
-      ),
-      assetTurnover: getRatioFormattedValue(asset.profitability.assetTurnover),
+    fundamentals: {
+      valuation: {
+        dividendYield: getPercentageFormattedValue(
+          asset.fundamentals.dividendYield,
+        ),
+        priceToProfitRatio: getRatioFormattedValue(
+          asset.fundamentals.priceToProfitRatio,
+        ),
+        priceToBookRatio: getRatioFormattedValue(
+          asset.fundamentals.priceToBookRatio,
+        ),
+        evToEbitRatio: getRatioFormattedValue(asset.fundamentals.evToEbitRatio),
+        priceToEbitRatio: getRatioFormattedValue(
+          asset.fundamentals.priceToEbitRatio,
+        ),
+        bookValuePerShare: getRatioFormattedValue(
+          asset.fundamentals.bookValuePerShare,
+        ),
+        priceToAssets: getRatioFormattedValue(asset.fundamentals.priceToAssets),
+        profitByShare: getRatioFormattedValue(asset.fundamentals.profitByShare),
+        priceToCapitalRatio: getRatioFormattedValue(
+          asset.fundamentals.priceToCapitalRatio,
+        ),
+        priceToLiquidAsset: getRatioFormattedValue(
+          asset.fundamentals.priceToLiquidAsset,
+        ),
+      },
+      debt: {
+        netDebtToEquityRatio: getRatioFormattedValue(
+          asset.fundamentals.netDebtToEquityRatio,
+        ),
+        netDebtToEbitRatio: getRatioFormattedValue(
+          asset.fundamentals.netDebtToEbitRatio,
+        ),
+        equityToAssetsRatio: getRatioFormattedValue(
+          asset.fundamentals.equityToAssetsRatio,
+        ),
+        currentLiquidity: getRatioFormattedValue(
+          asset.fundamentals.currentLiquidity,
+        ),
+      },
+      efficiency: {
+        grossMargin: getPercentageFormattedValue(
+          asset.fundamentals.grossMargin,
+        ),
+        ebitMargin: getPercentageFormattedValue(asset.fundamentals.ebitMargin),
+        netMargin: getPercentageFormattedValue(asset.fundamentals.netMargin),
+      },
+      profitability: {
+        returnOnEquity: getPercentageFormattedValue(
+          asset.fundamentals.returnOnEquity,
+        ),
+        returnOnInvestedCapital: getPercentageFormattedValue(
+          asset.fundamentals.returnOnInvestedCapital,
+        ),
+        assetTurnover: getRatioFormattedValue(asset.fundamentals.assetTurnover),
+      },
     },
     windScore: asset.windScore,
     grahamPrice: getBRLFormattedValue(asset.grahamPrice),

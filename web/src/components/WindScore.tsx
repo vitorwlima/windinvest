@@ -5,12 +5,12 @@ import {
   LockOpenIcon,
 } from '@heroicons/react/24/outline'
 import { useUpgradeToProModal } from 'src/hooks/useUpgradeToProModal'
-import { Asset } from 'src/queries/useGetAsset'
+import { AssetResponse } from 'src/queries/useGetAsset'
 import { formatToRatio } from 'src/utils/formatToRatio'
 import { AssetDataContainer } from './AssetDataContainer'
 
 type Props = {
-  windScore: Asset['windScore']
+  windScore: AssetResponse['windScore']
 }
 
 const windScoreDescription = {
@@ -112,19 +112,19 @@ export const WindScore: React.FC<Props> = ({ windScore }) => {
   const checkList = [
     {
       title: 'Empresa com liquidez diária acima de R$ 1M',
-      check: windScore.holderChecklist.liquidity,
+      check: windScore.checklistLiquidity,
     },
     {
       title: 'Empresa com ROE acima de 10%',
-      check: windScore.holderChecklist.roe,
+      check: windScore.checklistRoe,
     },
     {
       title: 'Empresa com dívida menor que patrimônio',
-      check: windScore.holderChecklist.debt,
+      check: windScore.checklistDebt,
     },
     {
       title: 'Empresa com lucro no último ano',
-      check: windScore.holderChecklist.profit,
+      check: windScore.checklistProfit,
     },
   ]
 

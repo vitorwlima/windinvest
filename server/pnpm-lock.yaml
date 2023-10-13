@@ -14,9 +14,6 @@ dependencies:
   '@prisma/client':
     specifier: ^5.3.0
     version: 5.3.0(prisma@5.3.0)
-  b3-scraper:
-    specifier: ^2.0.1
-    version: 2.0.1
   date-fns:
     specifier: ^2.30.0
     version: 2.30.0
@@ -948,17 +945,6 @@ packages:
     dependencies:
       dequal: 2.0.3
     dev: true
-
-  /b3-scraper@2.0.1:
-    resolution: {integrity: sha512-O8+WOa3jtkfK2DXCqHZTQkEAy1lotUwSsebQN6suQkDCNP9Z/SkMce/ecEH2zkO8Kk9VWoPjCqvg4vEivNEkXA==}
-    dependencies:
-      puppeteer: 21.1.1
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - supports-color
-      - utf-8-validate
-    dev: false
 
   /b4a@1.6.4:
     resolution: {integrity: sha512-fpWrvyVHEKyeEvbKZTVOeZF3VSKKWtJxFIxX/jaVPf+cLbGUSitjb49pHLqPV2BUNNZ0LcoeEGfE/YCpyDYHIw==}

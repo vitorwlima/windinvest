@@ -2,18 +2,10 @@ import { useQuery } from '@tanstack/react-query'
 import { env } from 'src/utils/env'
 import { useFetch } from './useFetch'
 
-type StripeSubscriptionURLResponse =
-  | {
-      ok: false
-      error: unknown
-    }
-  | {
-      ok: true
-      data: {
-        url: string
-        isUserPremium: boolean
-      }
-    }
+type StripeSubscriptionURLResponse = {
+  url: string
+  isUserPro: boolean
+}
 
 export const useGetSubscriptionData = () => {
   const fetch = useFetch()

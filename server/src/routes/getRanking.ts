@@ -1,5 +1,5 @@
-import { getAuth } from '@clerk/fastify'
 import { FastifyInstance } from 'fastify'
+import { getAuth } from 'src/auth/getAuth'
 import { prisma } from 'src/lib/prisma'
 
 export const getRanking = async (fastify: FastifyInstance) => {
@@ -7,46 +7,55 @@ export const getRanking = async (fastify: FastifyInstance) => {
     const { userId } = getAuth(request)
 
     if (!userId) {
-      reply.code(401)
-      return { ok: false, error: 'Unauthorized' }
+      return reply.code(401).send({ error: 'Unauthorized' })
     }
 
     try {
       const greatestMarketValue = await prisma.asset.findMany({
         select: {
           ticker: true,
-          fantasyName: true,
-          marketValue: true,
+          company: {
+            select: {
+              fantasyName: true,
+              marketValue: true,
+            },
+          },
         },
         orderBy: {
-          marketValue: 'desc',
+          company: {
+            marketValue: 'desc',
+          },
         },
         where: {
-          marketValue: {
-            not: null,
-          },
-          ticker: {
-            notIn: ['PETR3', 'ITUB3'],
+          company: {
+            marketValue: {
+              not: null,
+            },
           },
         },
         take: 5,
       })
 
-      const greatestIncome = await prisma.asset.findMany({
+      const greatestEnterpriseValue = await prisma.asset.findMany({
         select: {
           ticker: true,
-          fantasyName: true,
-          netIncome: true,
+          company: {
+            select: {
+              fantasyName: true,
+              enterpriseValue: true,
+            },
+          },
         },
         orderBy: {
-          netIncome: 'desc',
+          company: {
+            enterpriseValue: 'desc',
+          },
         },
         where: {
-          netIncome: {
-            not: null,
-          },
-          ticker: {
-            notIn: ['PETR3'],
+          company: {
+            enterpriseValue: {
+              not: null,
+            },
           },
         },
         take: 5,
@@ -54,14 +63,12 @@ export const getRanking = async (fastify: FastifyInstance) => {
 
       const rankings = {
         greatestMarketValue,
-        greatestIncome,
+        greatestEnterpriseValue,
       }
 
-      reply.code(200)
-      return { ok: true, data: rankings }
+      return reply.code(200).send(rankings)
     } catch (error) {
-      reply.code(500)
-      return { ok: false, error }
+      return reply.code(500).send({ error })
     }
   })
 }

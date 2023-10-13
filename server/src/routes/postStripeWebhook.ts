@@ -61,10 +61,9 @@ export const postStripeWebhook = async (fastify: FastifyInstance) => {
           })
         }
 
-        return { ok: true, data: null }
+        return reply.code(200)
       } catch (error) {
-        reply.code(500)
-        return { ok: false, error }
+        return reply.code(500).send({ error })
       }
     },
   )

@@ -14,9 +14,9 @@ type Props = {
 }
 
 export const Asset: React.FC<Props> = ({ ticker }) => {
-  const { data, isLoading } = useGetAsset({ ticker })
+  const { data: asset, isLoading, isError } = useGetAsset({ ticker })
 
-  if (isLoading || data === undefined) {
+  if (isLoading || !asset) {
     return (
       <div className="mt-32">
         <Spinner />
@@ -24,7 +24,7 @@ export const Asset: React.FC<Props> = ({ ticker }) => {
     )
   }
 
-  if (!data.ok) {
+  if (isError) {
     return (
       <p className="mt-32 text-center text-3xl font-bold text-white">
         Ativo não encontrado.
@@ -32,12 +32,11 @@ export const Asset: React.FC<Props> = ({ ticker }) => {
     )
   }
 
-  const { data: asset } = data
   const formattedAsset = formatAsset(asset)
 
   return (
     <main>
-      <AssetHeader about={formattedAsset.about} />
+      <AssetHeader asset={formattedAsset} />
       <AssetIntroductionData asset={formattedAsset} />
       <WindScore windScore={formattedAsset.windScore} />
       <GrahamPrice asset={asset} />

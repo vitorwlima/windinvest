@@ -11,6 +11,7 @@ const envSchema = z.object({
   CLERK_SECRET_KEY: z.string(),
   STRIPE_SECRET_KEY: z.string(),
   STRIPE_WEBHOOK_SECRET: z.string(),
+  BRAPI_TOKEN: z.string(),
 })
 
 export const env = envSchema.parse(process.env)

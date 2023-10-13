@@ -1,9 +1,9 @@
-import { getAuth } from '@clerk/fastify'
-import { B3Scraper } from 'b3-scraper'
 import { FastifyInstance } from 'fastify'
+import { getAuth } from 'src/auth/getAuth'
+import { getIsUserPro } from 'src/auth/getIsUserPro'
 import { getGrahamPrice } from 'src/lib/getGrahamPrice'
-import { getIsUserPremium } from 'src/lib/getIsUserPremium'
-import { getWindScore } from 'src/lib/getWindScore'
+import { getQuote } from 'src/lib/getQuote'
+import { prisma } from 'src/lib/prisma'
 import { z } from 'zod'
 
 export const getAsset = async (fastify: FastifyInstance) => {
@@ -11,11 +11,10 @@ export const getAsset = async (fastify: FastifyInstance) => {
     const { userId } = getAuth(request)
 
     if (!userId) {
-      reply.code(401)
-      return { ok: false, error: 'Unauthorized' }
+      return reply.code(401).send({ error: 'Unauthorized' })
     }
 
-    const isUserPremium = await getIsUserPremium(userId)
+    const isUserPro = await getIsUserPro(userId)
 
     const paramsSchema = z.object({
       ticker: z.string(),
@@ -24,21 +23,54 @@ export const getAsset = async (fastify: FastifyInstance) => {
     const { ticker } = paramsSchema.parse(request.params)
 
     try {
-      const stock = await B3Scraper.getStock({ ticker, showLogs: true })
+      const [asset, quote] = await Promise.all([
+        prisma.asset.findFirst({
+          where: {
+            ticker,
+          },
+          include: {
+            company: {
+              select: {
+                cnpj: true,
+                companyName: true,
+                fantasyName: true,
+                sector: {
+                  select: {
+                    name: true,
+                  },
+                },
+                subsector: {
+                  select: {
+                    name: true,
+                  },
+                },
+              },
+            },
+            fundamentals: true,
+            windScore: isUserPro,
+          },
+        }),
+        getQuote(ticker),
+      ])
 
-      if (!stock) {
+      if (!asset) {
         reply.code(404)
-        return { ok: false, error: 'Stock not found' }
+        return { ok: false, error: 'Asset not found' }
       }
 
-      const grahamPrice = getGrahamPrice(stock)
-      const windScore = isUserPremium ? getWindScore(stock) : 'Forbidden'
+      const grahamPrice = getGrahamPrice(asset.fundamentals)
+      const windScore = isUserPro ? asset.windScore : ('Forbidden' as const)
 
-      reply.code(200)
-      return { ok: true, data: { ...stock, windScore, grahamPrice } }
+      const finalAsset = {
+        ...asset,
+        quote,
+        grahamPrice,
+        windScore,
+      }
+
+      return reply.code(200).send(finalAsset)
     } catch (error) {
-      reply.code(500)
-      return { ok: false, error }
+      return reply.code(500).send({ error })
     }
   })
 }

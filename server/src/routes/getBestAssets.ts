@@ -1,6 +1,6 @@
-import { getAuth } from '@clerk/fastify'
 import { FastifyInstance } from 'fastify'
-import { getIsUserPremium } from 'src/lib/getIsUserPremium'
+import { getAuth } from 'src/auth/getAuth'
+import { getIsUserPro } from 'src/auth/getIsUserPro'
 import { prisma } from 'src/lib/prisma'
 import { z } from 'zod'
 
@@ -9,20 +9,18 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
     const { userId } = getAuth(request)
 
     if (!userId) {
-      reply.code(401)
-      return { ok: false, error: 'Unauthorized' }
+      return reply.code(401).send({ error: 'Unauthorized' })
     }
 
-    const isUserPremium = await getIsUserPremium(userId)
+    const isUserPro = await getIsUserPro(userId)
 
-    if (!isUserPremium) {
-      reply.code(403)
-      return { ok: false, error: 'Forbidden' }
+    if (!isUserPro) {
+      return reply.code(403).send({ error: 'Forbidden' })
     }
 
     const querySchema = z.object({
-      sector: z.string(),
-      subSector: z.string(),
+      sector: z.string().optional(),
+      subsector: z.string().optional(),
       page: z.string(),
       debt: z.enum(['true', 'false']),
       liquidity: z.enum(['true', 'false']),
@@ -30,7 +28,7 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
       roe: z.enum(['true', 'false']),
     })
 
-    const { sector, subSector, page, debt, liquidity, profit, roe } =
+    const { sector, subsector, page, debt, liquidity, profit, roe } =
       querySchema.parse(request.query)
 
     try {
@@ -38,9 +36,21 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
         prisma.asset.findMany({
           select: {
             ticker: true,
-            fantasyName: true,
-            sector: true,
-            subSector: true,
+            company: {
+              select: {
+                fantasyName: true,
+                sector: {
+                  select: {
+                    name: true,
+                  },
+                },
+                subsector: {
+                  select: {
+                    name: true,
+                  },
+                },
+              },
+            },
             windScore: {
               select: {
                 windFinalScore: true,
@@ -48,8 +58,14 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
             },
           },
           where: {
-            sector: sector || undefined,
-            subSector: subSector || undefined,
+            company: {
+              sector: {
+                name: sector || undefined,
+              },
+              subsector: {
+                name: subsector || undefined,
+              },
+            },
             windScore: {
               checklistDebt: debt === 'true' ? true : undefined,
               checklistLiquidity: liquidity === 'true' ? true : undefined,
@@ -67,8 +83,14 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
         }),
         prisma.asset.count({
           where: {
-            sector: sector || undefined,
-            subSector: subSector || undefined,
+            company: {
+              sector: {
+                name: sector || undefined,
+              },
+              subsector: {
+                name: subsector || undefined,
+              },
+            },
             windScore: {
               checklistDebt: debt === 'true' ? true : undefined,
               checklistLiquidity: liquidity === 'true' ? true : undefined,
@@ -79,11 +101,9 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
         }),
       ])
 
-      reply.code(200)
-      return { ok: true, data: { assets, count } }
+      return reply.code(200).send({ assets, count })
     } catch (error) {
-      reply.code(500)
-      return { ok: false, error }
+      return reply.code(500).send({ error })
     }
   })
 }

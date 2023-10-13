@@ -1,11 +1,11 @@
 import { ArrowRightIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
-import { Asset } from 'src/queries/useGetAsset'
+import { AssetResponse } from 'src/queries/useGetAsset'
 import { getBRLFormattedValue } from 'src/utils/formatAsset'
 import { AssetDataContainer } from './AssetDataContainer'
 
 type Props = {
-  asset: Asset
+  asset: AssetResponse
 }
 
 type GrahamResults = 'undefined' | 'fair' | 'lessThan' | 'greaterThan'

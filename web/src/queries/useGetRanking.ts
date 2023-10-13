@@ -2,28 +2,22 @@ import { useQuery } from '@tanstack/react-query'
 import { env } from 'src/utils/env'
 import { useFetch } from './useFetch'
 
-export type Ranking = {
+type AssetResponse = {
   greatestMarketValue: {
     ticker: string
-    fantasyName: string
-    marketValue: number
+    company: {
+      fantasyName: string
+      marketValue: number | null
+    }
   }[]
-  greatestIncome: {
+  greatestEnterpriseValue: {
     ticker: string
-    fantasyName: string
-    netIncome: number
+    company: {
+      fantasyName: string
+      enterpriseValue: number | null
+    }
   }[]
 }
-
-type AssetResponse =
-  | {
-      ok: false
-      error: unknown
-    }
-  | {
-      ok: true
-      data: Ranking
-    }
 
 export const useGetRanking = () => {
   const fetch = useFetch()

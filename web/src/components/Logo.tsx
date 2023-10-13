@@ -13,7 +13,7 @@ type Props = {
 export const Logo: React.FC<Props> = ({ size, showPro }) => {
   const { data } = useGetSubscriptionData()
 
-  const userIsPRO = !!data?.ok && data.data.isUserPremium
+  const userIsPRO = !!data?.isUserPro
 
   return (
     <Link

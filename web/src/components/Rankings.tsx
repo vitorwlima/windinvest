@@ -8,7 +8,7 @@ import { formatToBRL } from 'src/utils/formatToBRL'
 export const Rankings: React.FC = () => {
   const { data, isLoading } = useGetRanking()
 
-  if (!data || !data.ok || isLoading) {
+  if (!data || isLoading) {
     const rankings = [
       {
         title: 'Maiores Valor de Mercado',
@@ -58,21 +58,27 @@ export const Rankings: React.FC = () => {
     )
   }
 
-  const { data: ranking } = data
-
   const rankings = [
     {
       title: 'Maiores Valor de Mercado',
-      data: ranking.greatestMarketValue,
+      data: data.greatestMarketValue,
     },
     {
-      title: 'Maiores Receitas Líquidas',
-      data: ranking.greatestIncome,
+      title: 'Maiores Valor de Empresa',
+      data: data.greatestEnterpriseValue,
     },
   ]
 
-  const getValue = (asset: { marketValue?: number; netIncome?: number }) => {
-    const valueInBi = ((asset?.marketValue || asset?.netIncome) as number) / 1e9
+  const getValue = (company: {
+    marketValue?: number | null
+    enterpriseValue?: number | null
+  }) => {
+    if (!company?.marketValue && !company?.enterpriseValue) {
+      return 'N/A'
+    }
+
+    const valueInBi =
+      ((company?.marketValue || company?.enterpriseValue) as number) / 1e9
 
     return formatToBRL(valueInBi)
   }
@@ -105,9 +111,9 @@ export const Rankings: React.FC = () => {
                     <p className="text-lg font-bold">
                       {asset.ticker.toUpperCase()}
                     </p>
-                    <p className="text-sm">{asset.fantasyName}</p>
+                    <p className="text-sm">{asset.company.fantasyName}</p>
                   </div>
-                  <strong>{getValue(asset)} B</strong>
+                  <strong>{getValue(asset.company)} B</strong>
                 </Link>
               ))}
             </div>

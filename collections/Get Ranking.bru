@@ -1,0 +1,15 @@
+meta {
+  name: Get Ranking
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{SERVER_URL}}/ranking
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{BEARER_TOKEN}}
+}

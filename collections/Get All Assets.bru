@@ -1,0 +1,19 @@
+meta {
+  name: Get All Assets
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{SERVER_URL}}/assets?search=petro
+  body: none
+  auth: bearer
+}
+
+query {
+  search: petro
+}
+
+auth:bearer {
+  token: {{BEARER_TOKEN}}
+}

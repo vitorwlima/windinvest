@@ -48,7 +48,7 @@ export const SearchAsset: React.FC = () => {
                   {({ selected, active }) => (
                     <div>
                       <strong>{asset.ticker.toUpperCase()}</strong>
-                      <p className="text-sm">{asset.fantasyName}</p>
+                      <p className="text-sm">{asset.company.fantasyName}</p>
                       {selected ? (
                         <span
                           className={clsx(

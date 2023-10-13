@@ -1,21 +1,21 @@
-import { clerkClient, getAuth } from '@clerk/fastify'
+import { clerkClient } from '@clerk/fastify'
 import { FastifyInstance } from 'fastify'
+import { getAuth } from 'src/auth/getAuth'
+import { getIsUserPro } from 'src/auth/getIsUserPro'
 import { env } from 'src/env'
-import { getIsUserPremium } from 'src/lib/getIsUserPremium'
 import { prisma } from 'src/lib/prisma'
 import { stripe } from 'src/lib/stripe'
 
 export const getSubscriptionData = async (fastify: FastifyInstance) => {
   fastify.get('/get-subscription-data', async (request, reply) => {
     const { userId } = getAuth(request)
-    const user = userId ? await clerkClient.users.getUser(userId) : null
 
-    if (!userId || !user) {
-      reply.code(401)
-      return { ok: false, error: 'Unauthorized' }
+    if (!userId) {
+      return reply.code(401).send({ error: 'Unauthorized' })
     }
 
-    const isUserPremium = await getIsUserPremium(userId)
+    const user = await clerkClient.users.getUser(userId)
+    const isUserPro = await getIsUserPro(userId)
 
     const redirectURL = `${env.ORIGIN}/configuracoes/assinatura`
 
@@ -59,7 +59,7 @@ export const getSubscriptionData = async (fastify: FastifyInstance) => {
           },
         })
 
-        return { ok: true, data: { url: stripeSession.url, isUserPremium } }
+        return reply.code(200).send({ url: stripeSession.url, isUserPro })
       }
 
       const stripeSession = await stripe.billingPortal.sessions.create({
@@ -68,10 +68,9 @@ export const getSubscriptionData = async (fastify: FastifyInstance) => {
         return_url: redirectURL,
       })
 
-      return { ok: true, data: { url: stripeSession.url, isUserPremium } }
+      return reply.code(200).send({ url: stripeSession.url, isUserPro })
     } catch (error) {
-      reply.code(500)
-      return { ok: false, error }
+      return reply.code(500).send({ error })
     }
   })
 }

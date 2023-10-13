@@ -1,8 +1,17 @@
-import { prisma } from './prisma'
+import { env } from 'src/env'
+import { prisma } from 'src/lib/prisma'
+import { TestToken, testTokens } from './testTokens'
 
 const DAY_IN_MS = 1000 * 60 * 60 * 24
 
-export const getIsUserPremium = async (userId: string): Promise<boolean> => {
+export const getIsUserPro = async (userId: string): Promise<boolean> => {
+  if (
+    ['test', 'development'].includes(env.NODE_ENV) &&
+    Object.values(testTokens).includes(userId as TestToken)
+  ) {
+    return userId === testTokens.PRO
+  }
+
   try {
     const userSubscription = await prisma.userSubscription.findUnique({
       where: {
@@ -14,12 +23,12 @@ export const getIsUserPremium = async (userId: string): Promise<boolean> => {
       return false
     }
 
-    const isPremium =
+    const isPro =
       !!userSubscription.stripePriceId &&
       !!userSubscription.stripeCurrentPeriodEnd &&
       userSubscription.stripeCurrentPeriodEnd.getTime() + DAY_IN_MS > Date.now()
 
-    return isPremium
+    return isPro
   } catch (e) {
     return false
   }
