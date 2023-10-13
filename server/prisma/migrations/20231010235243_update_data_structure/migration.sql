@@ -33,7 +33,7 @@ ADD COLUMN     "type" "AssetType" NOT NULL;
 
 -- AlterTable
 ALTER TABLE "userSubscriptions" ADD COLUMN     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-ADD COLUMN     "updatedAt" TIMESTAMP(3) NOT NULL;
+ADD COLUMN     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;
 
 -- AlterTable
 ALTER TABLE "windScores" ALTER COLUMN "checklistDebt" SET NOT NULL,
