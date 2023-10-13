@@ -27,6 +27,7 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
+        working-directory: ./server
 
       - name: Check types
         run: pnpm run typecheck
