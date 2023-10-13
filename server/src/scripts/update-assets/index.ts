@@ -25,7 +25,13 @@ const updateAssets = async () => {
         new Date().getTime() - new Date(stock.lastUpdatedDate).getTime() >
           1 * 1000 * 60 * 60 * 24 * 30 * 2 // 2 months
 
-      if (!stock || assetIsOutdated || stock.info.type === 'BDR') {
+      if (
+        !stock ||
+        assetIsOutdated ||
+        stock.info.type === 'BDR' ||
+        ticker.includes('13') ||
+        ticker === 'LAME4'
+      ) {
         await handleSkipOrDeleteAsset(asset)
         continue
       }

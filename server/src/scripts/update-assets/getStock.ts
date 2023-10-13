@@ -163,7 +163,7 @@ export const getStock = async (ticker: string): Promise<Stock | null> => {
     const info = {
       type: (type
         ? type.toUpperCase()
-        : ticker.slice(-1) === '1'
+        : ticker?.slice(-1) === '1'
         ? 'UNIT'
         : 'OTHER') as AssetType,
       ticker: ticker?.toUpperCase(),
