@@ -6,29 +6,30 @@
   "scripts": {
     "dev": "tsx watch src/main.ts",
     "start": "prisma generate && prisma migrate deploy && tsx src/main.ts",
-    "update-assets": "tsx src/scripts/update-assets/index.ts"
+    "update-assets": "tsx src/scripts/update-assets/index.ts",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.1.0",
-    "@types/node": "^20.5.0",
-    "eslint": "^8.47.0",
-    "tsx": "^3.12.7",
-    "typescript": "^5.1.6"
+    "@types/node": "^20.8.5",
+    "eslint": "^8.51.0",
+    "tsx": "^3.13.0",
+    "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@clerk/fastify": "^0.6.6",
-    "@fastify/cors": "^8.3.0",
-    "@prisma/client": "^5.3.0",
+    "@clerk/fastify": "^0.6.14",
+    "@fastify/cors": "^8.4.0",
+    "@prisma/client": "^5.4.2",
     "date-fns": "^2.30.0",
     "dotenv": "^16.3.1",
-    "fastify": "^4.21.0",
+    "fastify": "^4.24.0",
     "fastify-raw-body": "^4.2.2",
-    "prisma": "^5.3.0",
-    "puppeteer": "^21.1.1",
-    "stripe": "^13.6.0",
-    "zod": "^3.22.2"
+    "prisma": "^5.4.2",
+    "puppeteer": "^21.3.8",
+    "stripe": "^13.10.0",
+    "zod": "^3.22.4"
   }
 }
