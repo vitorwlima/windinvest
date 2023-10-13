@@ -1,0 +1,34 @@
+name: CI - Server
+
+on:
+  push:
+    paths:
+      - 'server/**'
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'server/**'
+    branches:
+      - '**'
+
+jobs:
+  types:
+    name: Type Checking
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
+      - name: Install dependencies
+        run: pnpm install
+        working-directory: ./server
+
+      - name: Check types
+        run: pnpm run typecheck
+        working-directory: ./server
