@@ -1,6 +1,6 @@
 import { Asset, AssetType } from '@prisma/client'
-import { getWindScore } from 'src/lib/getWindScore'
 import { prisma } from 'src/lib/prisma'
+import { getWindScore } from 'src/windscore/getWindScore'
 import { Stock } from './getStock'
 import { log } from './log'
 
