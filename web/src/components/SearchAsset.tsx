@@ -14,7 +14,7 @@ export const SearchAsset: React.FC = () => {
     <Combobox value={selected} onChange={onSelect}>
       <div className="relative mt-1 flex w-full justify-end">
         <Combobox.Input
-          className="flex h-9 w-[150px] rounded-md border border-neutral-500 bg-neutral-900 px-3 py-1 text-sm transition-all focus:w-full focus-visible:border-neutral-50 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+          className="flex h-9 w-full rounded-md border border-neutral-500 bg-neutral-900 px-3 py-1 text-sm transition-all focus:w-full focus-visible:border-neutral-50 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 sm:w-44"
           onChange={(event) => onInputChange(event.target.value)}
           ref={ref}
           placeholder="Pesquisar ativo..."

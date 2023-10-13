@@ -1,7 +1,7 @@
 'use client'
 
-import { ChartBarSquareIcon } from '@heroicons/react/24/outline'
 import cslx from 'clsx'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useGetSubscriptionData } from 'src/queries/useGetSubscriptionData'
 
@@ -18,22 +18,16 @@ export const Logo: React.FC<Props> = ({ size, showPro }) => {
   return (
     <Link
       className={cslx(
-        'flex items-end gap-1 outline-none hover:brightness-150 focus:brightness-150 -ml-1',
+        'flex items-end outline-none hover:brightness-150 focus:brightness-150 -ml-1',
         {
           'scale-75': size === 'md',
         },
       )}
       href="/"
     >
-      <div className="flex items-center gap-2">
-        <ChartBarSquareIcon className="h-6 w-6 text-green-500 sm:h-8 sm:w-8" />
-        <h1 className="flex flex-col items-center overflow-hidden">
-          <p className="text-xl font-bold sm:text-2xl">WIND</p>
-          <p className="-mt-2 text-lg tracking-widest sm:text-xl">invest</p>
-        </h1>
-      </div>
+      <Image alt="Logo Wind Invest" src="/logo.svg" width={103} height={42} />
       {!!showPro && userIsPRO && (
-        <p className="mb-[2px] text-sm font-bold text-sky-500">PRO</p>
+        <p className="mb-[2px] text-xs font-bold text-sky-500">PRO</p>
       )}
     </Link>
   )
