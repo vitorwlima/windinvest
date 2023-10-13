@@ -1,0 +1,36 @@
+name: CI - Server
+
+on:
+  push:
+    paths:
+      - 'server/**'
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'server/**'
+    branches:
+      - '**'
+
+jobs:
+  types:
+    name: Type Checking
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      - name: Install PNPM
+        run: npm add -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Check types
+        run: pnpm run typecheck
+        working-directory: ./server
