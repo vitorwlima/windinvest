@@ -19,8 +19,8 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
     }
 
     const querySchema = z.object({
-      sectorId: z.string().optional(),
-      subsectorId: z.string().optional(),
+      sector: z.string().optional(),
+      subsector: z.string().optional(),
       page: z.string(),
       debt: z.enum(['true', 'false']),
       liquidity: z.enum(['true', 'false']),
@@ -28,7 +28,7 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
       roe: z.enum(['true', 'false']),
     })
 
-    const { sectorId, subsectorId, page, debt, liquidity, profit, roe } =
+    const { sector, subsector, page, debt, liquidity, profit, roe } =
       querySchema.parse(request.query)
 
     try {
@@ -60,10 +60,10 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
           where: {
             company: {
               sector: {
-                name: sectorId || undefined,
+                name: sector || undefined,
               },
               subsector: {
-                name: subsectorId || undefined,
+                name: subsector || undefined,
               },
             },
             windScore: {
@@ -85,10 +85,10 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
           where: {
             company: {
               sector: {
-                name: sectorId || undefined,
+                name: sector || undefined,
               },
               subsector: {
-                name: subsectorId || undefined,
+                name: subsector || undefined,
               },
             },
             windScore: {

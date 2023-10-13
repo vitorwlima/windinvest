@@ -32,8 +32,8 @@ export const SectorSelect: React.FC<Props> = ({
 
   const filteredSectors =
     inputValue === ''
-      ? sectors
-      : sectors.filter((sector) =>
+      ? ['', ...sectors]
+      : ['', ...sectors].filter((sector) =>
           getCleanString(sector).includes(getCleanString(inputValue)),
         )
 
@@ -45,12 +45,14 @@ export const SectorSelect: React.FC<Props> = ({
   return (
     <Combobox value={value} onChange={onSelect} disabled={disabled}>
       <div className="relative mt-1 w-full">
-        <Combobox.Input
-          className="flex h-9 w-full rounded-md border border-neutral-500 bg-neutral-900 px-3 py-1 text-sm transition-colors focus-visible:border-neutral-50 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-          onChange={(event) => setInputValue(event.target.value)}
-          ref={ref}
-          placeholder={name === 'setor' ? 'Setor' : 'Subsetor'}
-        />
+        <Combobox.Button as="div">
+          <Combobox.Input
+            className="flex h-9 w-full rounded-md border border-neutral-500 bg-neutral-900 px-3 py-1 text-sm transition-colors focus-visible:border-neutral-50 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+            onChange={(event) => setInputValue(event.target.value)}
+            ref={ref}
+            placeholder={name === 'setor' ? 'Setor' : 'Subsetor'}
+          />
+        </Combobox.Button>
         <Transition
           as={Fragment}
           leave="transition ease-in duration-100"
@@ -79,7 +81,9 @@ export const SectorSelect: React.FC<Props> = ({
                 >
                   {({ selected, active }) => (
                     <div>
-                      <strong>{sector}</strong>
+                      <strong className="font-medium">
+                        {sector || 'Sem filtro'}
+                      </strong>
                       {selected ? (
                         <span
                           className={clsx(

@@ -4,8 +4,8 @@ import { useFetch } from './useFetch'
 
 type GetBestAssetsArgs = {
   page: number
-  sectorId: string
-  subsectorId: string
+  sector: string
+  subsector: string
   liquidity: boolean
   roe: boolean
   debt: boolean
@@ -36,8 +36,8 @@ type BestAssetsResponse = {
 
 export const useGetBestAssets = ({
   page,
-  sectorId,
-  subsectorId,
+  sector,
+  subsector,
   debt,
   liquidity,
   profit,
@@ -47,8 +47,8 @@ export const useGetBestAssets = ({
 
   const params = new URLSearchParams({
     page: String(page),
-    sectorId,
-    subsectorId,
+    sector,
+    subsector,
     debt: String(debt),
     liquidity: String(liquidity),
     profit: String(profit),
@@ -59,8 +59,8 @@ export const useGetBestAssets = ({
     queryKey: [
       'best-assets',
       page,
-      sectorId,
-      subsectorId,
+      sector,
+      subsector,
       debt,
       liquidity,
       profit,

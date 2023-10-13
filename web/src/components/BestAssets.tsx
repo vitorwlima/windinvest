@@ -60,23 +60,25 @@ export const BestAssets: React.FC = () => {
   const { openModal } = useUpgradeToProModal()
   const [filter, setFilter] = useState({
     page: 1,
-    sectorId: '',
-    subsectorId: '',
+    sector: '',
+    subsector: '',
     liquidity: true,
     roe: false,
     debt: true,
     profit: true,
   })
   const { data, isLoading, isError } = useGetBestAssets(filter)
-  const sectors = sectorsAndSubSectors
-  const subSectors = sectorsAndSubSectors
+  const sectors = sectorsAndSubSectors.map((s) => s.sector)
+  const subsectors =
+    sectorsAndSubSectors.find((s) => s.sector === filter.sector)?.subsectors ||
+    []
 
   const handleChangeSector = (sector: string) => {
-    setFilter((fil) => ({ ...fil, sector, subSector: '', page: 1 }))
+    setFilter((fil) => ({ ...fil, sector, subsector: '', page: 1 }))
   }
 
-  const handleChangeSubSector = (subSector: string) => {
-    setFilter((fil) => ({ ...fil, subSector, page: 1 }))
+  const handleChangeSubSector = (subsector: string) => {
+    setFilter((fil) => ({ ...fil, subsector, page: 1 }))
   }
 
   const handleChangePage = (page: number) => {
@@ -90,15 +92,15 @@ export const BestAssets: React.FC = () => {
           <div className="mb-4 flex flex-col gap-4 lg:flex-row">
             <SectorSelect
               name="setor"
-              value={filter.sectorId}
+              value={filter.sector}
               sectors={sectors}
               onChange={handleChangeSector}
               disabled={true}
             />
             <SectorSelect
               name="subsetor"
-              value={filter.subsectorId}
-              sectors={subSectors}
+              value={filter.subsector}
+              sectors={subsectors}
               onChange={handleChangeSubSector}
               disabled={true}
             />
@@ -132,15 +134,15 @@ export const BestAssets: React.FC = () => {
             <div className="mb-4 flex flex-col gap-4 lg:flex-row">
               <SectorSelect
                 name="setor"
-                value={filter.sectorId}
+                value={filter.sector}
                 sectors={sectors}
                 onChange={handleChangeSector}
                 disabled={isLoading || isError || !data}
               />
               <SectorSelect
                 name="subsetor"
-                value={filter.subsectorId}
-                sectors={subSectors}
+                value={filter.subsector}
+                sectors={subsectors}
                 onChange={handleChangeSubSector}
                 disabled={isLoading || isError || !data}
               />
@@ -176,17 +178,17 @@ export const BestAssets: React.FC = () => {
         <div className="mb-4 flex flex-col gap-4 lg:flex-row">
           <SectorSelect
             name="setor"
-            value={filter.sectorId}
+            value={filter.sector}
             sectors={sectors}
             onChange={handleChangeSector}
             disabled={isLoading || isError || !data}
           />
           <SectorSelect
             name="subsetor"
-            value={filter.subsectorId}
-            sectors={subSectors}
+            value={filter.subsector}
+            sectors={subsectors}
             onChange={handleChangeSubSector}
-            disabled={isLoading || isError || !data || !filter.sectorId}
+            disabled={isLoading || isError || !data || !filter.sector}
           />
         </div>
 
