@@ -7,9 +7,7 @@ type GetBestAssetsArgs = {
   sector: string
   subsector: string
   liquidity: boolean
-  roe: boolean
   debt: boolean
-  profit: boolean
 }
 
 export type BestAssets = {
@@ -32,8 +30,6 @@ export const useGetBestAssets = ({
   subsector,
   debt,
   liquidity,
-  profit,
-  roe,
 }: GetBestAssetsArgs) => {
   const fetch = useFetch()
 
@@ -43,21 +39,10 @@ export const useGetBestAssets = ({
     subsector,
     debt: String(debt),
     liquidity: String(liquidity),
-    profit: String(profit),
-    roe: String(roe),
   })
 
   return useQuery<BestAssetsResponse>({
-    queryKey: [
-      'best-assets',
-      page,
-      sector,
-      subsector,
-      debt,
-      liquidity,
-      profit,
-      roe,
-    ],
+    queryKey: ['best-assets', page, sector, subsector, debt, liquidity],
     queryFn: async () => {
       const res = await fetch(
         `${env.NEXT_PUBLIC_SERVER_URL}/assets/best?${params.toString()}`,

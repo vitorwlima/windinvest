@@ -15,7 +15,6 @@ type Props = {
 
 const windScoreDescription = {
   text: 'Pontuação baseada no algoritmo da Wind Invest. Combina dados de todos os indicadores fundamentalistas para retornar um número comparável para o ativo. Sua melhor utilização é comparando ações na seção Melhores Ações da página inicial.',
-  moreInfoURL: 'https://windinvest.com.br/ranking-wind',
 }
 
 export const WindScore: React.FC<Props> = ({ windScore }) => {
@@ -35,15 +34,7 @@ export const WindScore: React.FC<Props> = ({ windScore }) => {
         check: true,
       },
       {
-        title: 'Empresa com ROE acima de 10%',
-        check: true,
-      },
-      {
         title: 'Empresa com dívida menor que patrimônio',
-        check: true,
-      },
-      {
-        title: 'Empresa com lucro no último ano',
         check: true,
       },
     ]
@@ -115,16 +106,8 @@ export const WindScore: React.FC<Props> = ({ windScore }) => {
       check: windScore.checklistLiquidity,
     },
     {
-      title: 'Empresa com ROE acima de 10%',
-      check: windScore.checklistRoe,
-    },
-    {
       title: 'Empresa com dívida menor que patrimônio',
       check: windScore.checklistDebt,
-    },
-    {
-      title: 'Empresa com lucro no último ano',
-      check: windScore.checklistProfit,
     },
   ]
 

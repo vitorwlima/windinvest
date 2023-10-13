@@ -25,14 +25,13 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
       page: z.string(),
       debt: z.enum(['true', 'false']),
       liquidity: z.enum(['true', 'false']),
-      profit: z.enum(['true', 'false']),
-      roe: z.enum(['true', 'false']),
     })
 
-    const { sector, subsector, page, debt, liquidity, profit, roe } =
-      querySchema.parse(request.query)
+    const { sector, subsector, page, debt, liquidity } = querySchema.parse(
+      request.query,
+    )
 
-    const where: Prisma.CompanyWhereInput = {
+    const where = {
       highestWindFinalScore: {
         not: null,
       },
@@ -47,15 +46,13 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
           windScore: {
             checklistDebt: debt === 'true' ? true : undefined,
             checklistLiquidity: liquidity === 'true' ? true : undefined,
-            checklistProfit: profit === 'true' ? true : undefined,
-            checklistRoe: roe === 'true' ? true : undefined,
           },
           liquidity: {
             not: null,
           },
         },
       },
-    }
+    } satisfies Prisma.CompanyWhereInput
 
     try {
       const [companies, count] = await prisma.$transaction([
@@ -64,17 +61,7 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
           select: {
             fantasyName: true,
             assets: {
-              where: {
-                windScore: {
-                  checklistDebt: debt === 'true' ? true : undefined,
-                  checklistLiquidity: liquidity === 'true' ? true : undefined,
-                  checklistProfit: profit === 'true' ? true : undefined,
-                  checklistRoe: roe === 'true' ? true : undefined,
-                },
-                liquidity: {
-                  not: null,
-                },
-              },
+              where: where.assets.some,
               select: {
                 ticker: true,
                 windScore: {

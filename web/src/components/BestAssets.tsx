@@ -28,23 +28,15 @@ const premiumExampleAsset: BestAssetsType[number] = {
 
 const checklistFilters: {
   title: string
-  key: 'liquidity' | 'roe' | 'debt' | 'profit'
+  key: 'liquidity' | 'debt'
 }[] = [
   {
     title: 'Empresa com liquidez diária acima de R$ 1M',
     key: 'liquidity',
   },
   {
-    title: 'Empresa com ROE acima de 10%',
-    key: 'roe',
-  },
-  {
     title: 'Empresa com dívida menor que patrimônio',
     key: 'debt',
-  },
-  {
-    title: 'Empresa com lucro no último ano',
-    key: 'profit',
   },
 ]
 
@@ -55,9 +47,7 @@ export const BestAssets: React.FC = () => {
     sector: '',
     subsector: '',
     liquidity: true,
-    roe: false,
     debt: true,
-    profit: true,
   })
   const { data, isLoading, isError } = useGetBestAssets(filter)
   const sectors = sectorsAndSubSectors.map((s) => s.sector)
