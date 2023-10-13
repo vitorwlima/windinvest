@@ -84,5 +84,19 @@ export const handleUpdateAsset = async (assetToUpdate: Asset, stock: Stock) => {
     },
   })
 
+  const highestWindFinalScore = Math.max(
+    company.highestWindFinalScore ?? windScore.windFinalScore,
+    windScore.windFinalScore,
+  )
+
+  await prisma.company.update({
+    where: {
+      id: company.id,
+    },
+    data: {
+      highestWindFinalScore,
+    },
+  })
+
   log('Asset successfully updated.')
 }

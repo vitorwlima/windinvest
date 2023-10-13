@@ -44,15 +44,16 @@ model Subsector {
 }
 
 model Company {
-  id              String   @id @default(uuid())
-  fantasyName     String
-  companyName     String
-  cnpj            String   @unique
-  marketValue     Float?
-  enterpriseValue Float?
-  netWorth        Float?
-  grossDebt       Float?
-  profitable      Boolean?
+  id                    String   @id @default(uuid())
+  fantasyName           String
+  companyName           String
+  cnpj                  String   @unique
+  marketValue           Float?
+  enterpriseValue       Float?
+  netWorth              Float?
+  grossDebt             Float?
+  profitable            Boolean?
+  highestWindFinalScore Float?
 
   assets      Asset[]
   sector      Sector?    @relation(fields: [sectorId], references: [id])
@@ -149,7 +150,7 @@ model UserSubscription {
   stripeCurrentPeriodEnd DateTime?
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
+  updatedAt DateTime @updatedAt
 
   @@map("userSubscriptions")
 }

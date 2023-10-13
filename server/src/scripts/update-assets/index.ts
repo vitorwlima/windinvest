@@ -29,8 +29,7 @@ const updateAssets = async () => {
         !stock ||
         assetIsOutdated ||
         stock.info.type === 'BDR' ||
-        ticker.includes('13') ||
-        ticker === 'LAME4'
+        ticker.includes('13')
       ) {
         await handleSkipOrDeleteAsset(asset)
         continue
