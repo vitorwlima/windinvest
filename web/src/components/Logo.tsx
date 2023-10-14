@@ -20,7 +20,7 @@ export const Logo: React.FC<Props> = ({ size, showPro }) => {
       className={cslx(
         'flex items-end outline-none hover:brightness-150 focus:brightness-150 -ml-1',
         {
-          'scale-75': size === 'md',
+          'scale-90': size === 'md',
         },
       )}
       href="/"
