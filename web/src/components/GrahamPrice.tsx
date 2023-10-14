@@ -77,15 +77,17 @@ export const GrahamPrice: React.FC<Props> = ({ asset }: Props) => {
       <section className="mx-auto flex flex-col items-center gap-4 p-4">
         <div className="flex items-center justify-between gap-6">
           <div className="flex flex-col gap-1">
-            <span>Preço justo</span>
-            <strong className="text-xl">
-              {getBRLFormattedValue(grahamPrice)}
+            <span className="text-sm sm:text-base">Preço atual</span>
+            <strong className="text-xl sm:text-2xl">
+              {getBRLFormattedValue(price)}
             </strong>
           </div>
-          <MoveRight className={clsx('h-8 w-8', content.className)} />
+          <MoveRight className={clsx('h-10 w-10', content.className)} />
           <div className="flex flex-col gap-1">
-            <span>Preço atual</span>
-            <strong className="text-xl">{getBRLFormattedValue(price)}</strong>
+            <span className="text-sm sm:text-base">Preço justo</span>
+            <strong className="text-xl sm:text-2xl">
+              {getBRLFormattedValue(grahamPrice)}
+            </strong>
           </div>
         </div>
 
