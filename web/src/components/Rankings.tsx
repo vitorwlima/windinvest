@@ -41,7 +41,7 @@ export const Rankings: React.FC = () => {
                 {data.data.map((_asset, i) => (
                   <div
                     key={i}
-                    className="flex animate-pulse items-center justify-between bg-gray-800 px-8 py-2 transition-colors"
+                    className="flex animate-pulse items-center justify-between bg-gray-900/50 px-8 py-2 transition-colors"
                   >
                     <div className="flex flex-col">
                       <p className="text-lg font-bold">&#12644;</p>

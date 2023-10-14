@@ -39,7 +39,7 @@ export const BestAssetsList: React.FC<Props> = ({
             <li key={i}>
               <div
                 className={clsx(
-                  'flex animate-pulse items-center justify-between rounded-md bg-gray-800 p-4 transition-colors',
+                  'flex animate-pulse items-center justify-between rounded-md bg-gray-900/50 p-4 transition-colors',
                   {
                     group: !hideContent,
                   },
