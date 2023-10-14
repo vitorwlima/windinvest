@@ -5,6 +5,7 @@ import { useFetch } from './useFetch'
 type StripeSubscriptionURLResponse = {
   url: string
   isUserPro: boolean
+  domain: string | null
 }
 
 export const useGetSubscriptionData = () => {

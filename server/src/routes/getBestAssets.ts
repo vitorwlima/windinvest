@@ -13,7 +13,7 @@ export const getBestAssets = async (fastify: FastifyInstance) => {
       return reply.code(401).send({ error: 'Unauthorized' })
     }
 
-    const isUserPro = await getIsUserPro(userId)
+    const { isUserPro } = await getIsUserPro(userId)
 
     if (!isUserPro) {
       return reply.code(403).send({ error: 'Forbidden' })

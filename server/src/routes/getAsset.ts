@@ -14,7 +14,7 @@ export const getAsset = async (fastify: FastifyInstance) => {
       return reply.code(401).send({ error: 'Unauthorized' })
     }
 
-    const isUserPro = await getIsUserPro(userId)
+    const { isUserPro } = await getIsUserPro(userId)
 
     const paramsSchema = z.object({
       ticker: z.string(),

@@ -20,6 +20,8 @@ export const SettingsTab = () => {
 
   const getSubscriptionStatusText = () => {
     if (!data || isLoading) return ''
+    if (data.isUserPro && data.domain)
+      return `Sua assinatura está ativa no plano PRO indefinidamente por fazer parte do grupo ${data.domain}.`
     if (data.isUserPro) return 'Sua assinatura está ativa no plano PRO.'
     return 'Você ainda não assinou o plano PRO.'
   }
@@ -66,12 +68,14 @@ export const SettingsTab = () => {
               {getSubscriptionStatusText()}
             </p>
 
-            <button
-              className="rounded-md border border-transparent bg-sky-500 px-4 py-2 font-bold text-gray-50 transition-colors hover:bg-sky-400 focus:outline-none"
-              onClick={handleClick}
-            >
-              {getSubscriptionButtonText()}
-            </button>
+            {!data?.domain && (
+              <button
+                className="rounded-md border border-transparent bg-sky-500 px-4 py-2 font-bold text-gray-50 transition-colors hover:bg-sky-400 focus:outline-none"
+                onClick={handleClick}
+              >
+                {getSubscriptionButtonText()}
+              </button>
+            )}
           </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>
