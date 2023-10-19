@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: 'Wind Invest',
   applicationName: 'Wind Invest',
   description: 'Análise automatizada do mercado acionário brasileiro.',
-  viewport: 'width=device-width, initial-scale=1',
+  viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
 }
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
