@@ -14,6 +14,14 @@ const allowedDomains = [
     name: 'Clevertech',
     domain: 'clevertech.biz',
   },
+  {
+    name: 'Família',
+    domain: 'mix.embalagens@hotmail.com',
+  },
+  {
+    name: 'GDE',
+    domain: 'eduardozarpe11@gmail.com',
+  },
 ]
 
 type UserStatus = {
