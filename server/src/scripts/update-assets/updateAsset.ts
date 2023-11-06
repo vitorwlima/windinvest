@@ -1,4 +1,5 @@
 import { Asset, AssetType } from '@prisma/client'
+import { differenceInDays } from 'date-fns'
 import { prisma } from 'src/lib/prisma'
 import { getWindScore } from 'src/windscore/getWindScore'
 import { Stock } from './getStock'
@@ -17,6 +18,16 @@ export const handleUpdateAsset = async (assetToUpdate: Asset, stock: Stock) => {
       type: stock.info.type as AssetType,
     },
   })
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const companyUpdatedAt = (await prisma.company.findFirst({
+    where: {
+      cnpj: stock.company.cnpj,
+    },
+    select: {
+      updatedAt: true,
+    },
+  }))!
 
   const company = await prisma.company.update({
     where: {
@@ -84,8 +95,15 @@ export const handleUpdateAsset = async (assetToUpdate: Asset, stock: Stock) => {
     },
   })
 
+  const companyWasUpdatedRecently =
+    differenceInDays(new Date(), companyUpdatedAt.updatedAt) < 2
+
+  const companyHighScore = companyWasUpdatedRecently
+    ? company.highestWindFinalScore ?? 0
+    : 0
+
   const highestWindFinalScore = Math.max(
-    company.highestWindFinalScore ?? windScore.windFinalScore,
+    companyHighScore,
     windScore.windFinalScore,
   )
 

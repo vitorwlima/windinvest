@@ -1,4 +1,5 @@
 import { AssetType } from '@prisma/client'
+import { differenceInDays } from 'date-fns'
 import { prisma } from 'src/lib/prisma'
 import { getWindScore } from 'src/windscore/getWindScore'
 import { Stock } from './getStock'
@@ -112,8 +113,15 @@ export const handleCreateAsset = async (stock: Stock) => {
     },
   })
 
+  const companyWasUpdatedRecently =
+    differenceInDays(new Date(), company.updatedAt) < 2
+
+  const companyHighScore = companyWasUpdatedRecently
+    ? company.highestWindFinalScore ?? 0
+    : 0
+
   const highestWindFinalScore = Math.max(
-    company.highestWindFinalScore ?? windScore.windFinalScore,
+    companyHighScore,
     windScore.windFinalScore,
   )
 
