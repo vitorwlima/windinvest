@@ -22,6 +22,10 @@ const allowedDomains = [
     name: 'GDE',
     domain: 'eduardozarpe11@gmail.com',
   },
+  {
+    name: 'Família',
+    domain: 'gigiwl04@gmail.com',
+  },
 ]
 
 type UserStatus = {
