@@ -5,6 +5,12 @@ export const Footer: React.FC = () => {
     <footer className="mt-20 w-full border-t border-gray-700 px-4 py-8">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-8">
         <Logo size="md" />
+        <address className="flex flex-col text-sm not-italic sm:text-base">
+          <p className="font-bold">Contato</p>
+          <a href="mailto:contato@windinvest.com.br">
+            contato@windinvest.com.br
+          </a>
+        </address>
       </div>
     </footer>
   )
