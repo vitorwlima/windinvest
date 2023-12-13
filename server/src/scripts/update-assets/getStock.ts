@@ -52,6 +52,7 @@ export const getStock = async (ticker: string): Promise<Stock | null> => {
 
   await page.goto(`https://statusinvest.com.br/acoes/${ticker}`, {
     waitUntil: 'domcontentloaded',
+    timeout: 0,
   })
 
   const stock = await page.evaluate(async () => {
