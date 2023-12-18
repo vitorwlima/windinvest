@@ -17,9 +17,7 @@ export const Footer: React.FC = () => {
           </p>
           <address className="flex flex-col not-italic">
             <p className="font-bold">Contato</p>
-            <a href="mailto:contato@windinvest.com.br">
-              contato@windinvest.com.br
-            </a>
+            <a href="mailto:vitorwlima13@gmail.com">vitorwlima13@gmail.com</a>
           </address>
         </section>
 
