@@ -35,14 +35,18 @@ type UserStatus = {
 }
 
 export const getIsUserPro = async (userId: string): Promise<UserStatus> => {
-  const user = await clerkClient.users.getUser(userId)
-
   if (
     ['test', 'development'].includes(env.NODE_ENV) &&
     Object.values(testTokens).includes(userId as TestToken)
   ) {
-    return { isUserPro: userId === testTokens.PRO, user, domain: null }
+    return {
+      isUserPro: userId === testTokens.PRO,
+      user: {} as Awaited<ReturnType<typeof clerkClient.users.getUser>>,
+      domain: null,
+    }
   }
+
+  const user = await clerkClient.users.getUser(userId)
 
   const userAllowedDomain = allowedDomains.find(
     (allowedDomain) =>

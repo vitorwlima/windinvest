@@ -5,17 +5,17 @@ meta {
 }
 
 get {
-  url: {{SERVER_URL}}/assets/best?sector=Petróleo. Gás e Biocombustíveis&page=1&debt=true&liquidity=true
+  url: {{SERVER_URL}}/assets/best?page=1&debt=true&liquidity=true
   body: none
   auth: bearer
 }
 
 query {
-  sector: Petróleo. Gás e Biocombustíveis
   subsector: 
   page: 1
   debt: true
   liquidity: true
+  ~sector: Petróleo. Gás e Biocombustíveis
 }
 
 auth:bearer {
