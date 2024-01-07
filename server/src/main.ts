@@ -10,6 +10,8 @@ import { getAsset } from './routes/getAsset'
 import { getBestAssets } from './routes/getBestAssets'
 import { getRanking } from './routes/getRanking'
 import { getSubscriptionData } from './routes/getSubscriptionData'
+import { getWallet } from './routes/getWallet'
+import { getWallets } from './routes/getWallets'
 import { postStripeWebhook } from './routes/postStripeWebhook'
 
 const fastify = Fastify({
@@ -34,6 +36,8 @@ fastify.register(getAsset)
 fastify.register(getAllAssets)
 fastify.register(getRanking)
 fastify.register(getBestAssets)
+fastify.register(getWallets)
+fastify.register(getWallet)
 
 fastify.register(getSubscriptionData)
 fastify.register(postStripeWebhook)

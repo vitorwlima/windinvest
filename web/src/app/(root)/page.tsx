@@ -1,10 +1,10 @@
 import { BestAssets } from 'src/components/BestAssets'
-import { Rankings } from 'src/components/Rankings'
+import { Wallets } from 'src/components/Wallets'
 
 const Home = () => {
   return (
     <main>
-      <Rankings />
+      <Wallets />
       <BestAssets />
     </main>
   )
