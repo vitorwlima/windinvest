@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import Link from 'next/link'
 import { WalletsResponse } from 'src/queries/useGetWallets'
 
@@ -20,7 +21,13 @@ export const WalletList: React.FC<Props> = ({ wallets, isLoading = false }) => {
         <Link
           key={wallet.id}
           href={`/carteiras/${wallet.id}`}
-          className="group flex flex-col justify-between rounded-lg bg-gray-950/40 p-4 transition-colors hover:bg-green-500 focus:bg-green-500 focus:outline-none"
+          className={clsx(
+            'group flex flex-col justify-between rounded-lg  p-4 transition-colors hover:bg-green-500 focus:bg-green-500 focus:outline-none',
+            {
+              'bg-gray-900/50': isLoading,
+              'bg-gray-950/40': !isLoading,
+            },
+          )}
         >
           <header className="mb-4 flex flex-col gap-2">
             <h3 className="text-xl font-bold">{wallet.title}</h3>

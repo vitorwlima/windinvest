@@ -1,0 +1,15 @@
+meta {
+  name: Get Wallet
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{SERVER_URL}}/wallets/wind
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{BEARER_TOKEN}}
+}
