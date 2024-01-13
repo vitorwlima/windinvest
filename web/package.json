@@ -9,8 +9,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@clerk/localizations": "^1.26.4",
-    "@clerk/nextjs": "^4.25.4",
+    "@clerk/localizations": "^1.26.13",
+    "@clerk/nextjs": "^4.29.3",
     "@headlessui/react": "^1.7.17",
     "@tanstack/react-query": "^4.36.1",
     "@types/node": "20.8.6",
