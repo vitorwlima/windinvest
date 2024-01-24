@@ -2,6 +2,7 @@ import { FastifyInstance } from 'fastify'
 import { getAuth } from 'src/auth/getAuth'
 import { getIsUserPro } from 'src/auth/getIsUserPro'
 import { getDYWallet } from 'src/wallets/dy'
+import { getSmallCapsWallet } from 'src/wallets/smallCaps'
 import { getWindWallet } from 'src/wallets/wind'
 import { z } from 'zod'
 
@@ -33,6 +34,11 @@ export const getWallet = async (fastify: FastifyInstance) => {
 
       if (id === 'dy') {
         const wallet = await getDYWallet()
+        return reply.code(200).send(wallet)
+      }
+
+      if (id === 'small-caps') {
+        const wallet = await getSmallCapsWallet()
         return reply.code(200).send(wallet)
       }
 

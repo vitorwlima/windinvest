@@ -28,6 +28,12 @@ export const Wallets: React.FC = () => {
           description: <>&#12644;</>,
           assetsCount: 0,
         },
+        {
+          id: '3',
+          title: <>&#12644;</>,
+          description: <>&#12644;</>,
+          assetsCount: 0,
+        },
       ]
 
       return <WalletList wallets={wallets} isLoading />
